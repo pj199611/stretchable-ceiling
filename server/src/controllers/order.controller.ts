@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Order from '../models/orders.model';
 import IOrder from '../interfaces/IOrder';
+import { IRequest } from '../interfaces/IReq';
 
 // Get all orders
 export const getAllOrders = async (req: Request, res: Response): Promise<void> => {
@@ -27,11 +28,11 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
 };
 
 // Create a new order
-export const createOrder = async (req: Request, res: Response): Promise<void> => {
+export const createOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const { user, products, totalAmount, shippingAddress } = req.body;
+    const { products, totalAmount, shippingAddress } = req.body;
     const newOrder = new Order({
-      user,
+      user:req.user?._id,
       products,
       totalAmount,
       shippingAddress,
@@ -45,9 +46,10 @@ export const createOrder = async (req: Request, res: Response): Promise<void> =>
 };
 
 // Update an order by ID
-export const updateOrder = async (req: Request, res: Response): Promise<void> => {
+export const updateOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, {
+    const {  products, totalAmount, shippingAddress } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {user:req.user?._id, products, totalAmount, shippingAddress}, {
       new: true,
     }).populate('user').populate('products.product');
 

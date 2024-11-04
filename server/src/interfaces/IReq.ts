@@ -1,6 +1,6 @@
 import { Request } from 'express';
-import jwt from 'jsonwebtoken';
+import IUser from '../interfaces/Iuser';
 
 export interface IRequest extends Request {
-  user?: { role: string | jwt.JwtPayload };
+  user?: IUser | null;
 }

@@ -33,7 +33,6 @@ app.use('/api/architect', ArchitectRoutes);
 app.use('/api/users', UserRoutes);
 
 
-
 app.get('/health', (req: Request, res: Response) => {
   res.send('server is running fine!');
 });
