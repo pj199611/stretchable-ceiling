@@ -2,7 +2,8 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import AuthRoutes from './routes/auth/auth.routes';
-import AdminRouter from "./routes/admins/admins.route";
+import UserRoutes from './routes/users/users.route';
+
 
 import setupDB from './utils/db';
 import morgan from 'morgan';
@@ -22,11 +23,12 @@ setupSwagger(app);
 
 const port = parseInt(process.env.PORT as unknown as string) || 3000;
 
+
 // auth routes
 app.use('/auth', AuthRoutes);
+// also have routes for admin
+app.use("/users",UserRoutes);
 
-//routes for admin and super admin
-app.use("/users",AdminRouter);
 
 app.get('/health', (req: Request, res: Response) => {
   res.send('server is running fine!');

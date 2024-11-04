@@ -1,14 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { IRequest } from '../interfaces/IReq';
-const SECRET_KEY = process.env.JWT_SECRET!;
+import User from '../models/user.model';
 
 export const authenticateToken = async (
   req: IRequest,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const token = req.header('Authorization')?.split(' ')[1];
+  const token = req.header('authorization')?.split(' ')[1];
+  const SECRET_KEY = process.env.JWT_SECRET!;
 
   if (!token) {
     res.status(401).json({ message: 'Access denied. No token provided.' });
@@ -16,8 +17,9 @@ export const authenticateToken = async (
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded as { role: string }; // Attach user data to req
+    const decoded = jwt.verify(token, SECRET_KEY) as unknown as any;
+    const user = await User.findById(decoded.userId);
+    req.user = { role: user!.role };
     next();
   } catch (error) {
     res.status(403).json({ message: 'Invalid or expired token.' });

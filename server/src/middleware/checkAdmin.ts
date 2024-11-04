@@ -7,8 +7,7 @@ export const checkAdminRole = async (
   next: NextFunction
 ): Promise<void> => {
   const user = req.user;
-
-  if (!user || (user.role === 'admin' && user.role)) {
+  if (user?.role !== 'admin') {
     res.status(403).json({ message: 'Access denied.' });
     return;
   }
