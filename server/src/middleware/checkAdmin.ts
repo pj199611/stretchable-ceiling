@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { IRequest } from '../interfaces/IReq';
 
 export const checkAdminRole = async (
@@ -8,7 +8,7 @@ export const checkAdminRole = async (
 ): Promise<void> => {
   const user = req.user;
 
-  if (!user || (user.role !== 'admin' && user.role !== 'super admin')) {
+  if (!user || (user.role === 'admin' && user.role)) {
     res.status(403).json({ message: 'Access denied.' });
     return;
   }
