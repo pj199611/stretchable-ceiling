@@ -1,9 +1,10 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import AuthRoutes from './routes/auth/auth.routes';
-import UserRoutes from './routes/users/users.route';
-
+import AuthRoutes from './routes/auth.routes';
+import AdminRoutes from './routes/admin.routes';
+import ArchitecRoutes from "./routes/architect.routes";
+import UserRoutes from "./routes/users.routes";
 
 import setupDB from './utils/db';
 import morgan from 'morgan';
@@ -24,10 +25,12 @@ setupSwagger(app);
 const port = parseInt(process.env.PORT as unknown as string) || 3000;
 
 
-// auth routes
+// routes
 app.use('/auth', AuthRoutes);
-// also have routes for admin
-app.use("/users",UserRoutes);
+app.use('/admin', AdminRoutes);
+app.use('/architect', ArchitecRoutes);
+app.use('/users', UserRoutes);
+
 
 
 app.get('/health', (req: Request, res: Response) => {
