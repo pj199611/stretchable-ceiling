@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import AuthRoutes from './routes/auth.routes';
 import AdminRoutes from './routes/admin.routes';
-import ArchitecRoutes from "./routes/architect.routes";
+import ArchitectRoutes from "./routes/architect.routes";
 import UserRoutes from "./routes/users.routes";
+
 
 import setupDB from './utils/db';
 import morgan from 'morgan';
@@ -26,10 +27,10 @@ const port = parseInt(process.env.PORT as unknown as string) || 3000;
 
 
 // routes
-app.use('/auth', AuthRoutes);
-app.use('/admin', AdminRoutes);
-app.use('/architect', ArchitecRoutes);
-app.use('/users', UserRoutes);
+app.use('/api/auth', AuthRoutes);
+app.use('/api/admin', AdminRoutes);
+app.use('/api/architect', ArchitectRoutes);
+app.use('/api/users', UserRoutes);
 
 
 

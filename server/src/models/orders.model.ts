@@ -50,4 +50,5 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model<IOrder>('Order', orderSchema);
+const Order=mongoose.model<IOrder>('Order', orderSchema);
+export default Order;

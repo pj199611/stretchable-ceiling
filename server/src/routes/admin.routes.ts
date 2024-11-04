@@ -8,7 +8,24 @@ import {
   getUser,
 } from '../controllers/admin.controller';
 
+import {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from '../controllers/products.controller';
+
 const router = express.Router();
+
+
+// products management routes
+router.get('/products',authenticateToken, checkAdminRole, getAllProducts);
+router.get('/products/:id',authenticateToken, checkAdminRole, getProductById);
+router.post('/products/', authenticateToken, checkAdminRole,createProduct);
+router.put('/products/:id',authenticateToken, checkAdminRole, updateProduct);
+router.delete('/products/:id',authenticateToken, checkAdminRole, deleteProduct);
+
 
 // user management routes
 router.get('/users', authenticateToken, checkAdminRole, getAllUsers);
