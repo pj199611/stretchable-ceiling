@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import helmet from 'helmet';
 import AuthRoutes from './routes/auth.routes';
 import AdminRoutes from './routes/admin.routes';
 import ArchitectRoutes from "./routes/architect.routes";
@@ -15,7 +16,7 @@ dotenv.config();
 
 const app = express();
 setupDB();
-
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
