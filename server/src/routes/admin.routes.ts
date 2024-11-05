@@ -17,7 +17,7 @@ import {
   deleteProduct,
 } from '../controllers/products.controller';
 
-import { getAllOrders,getOrderById,updateOrder } from '../controllers/order.controller';
+import { getAllOrdersForAdmins,getOrderById,updateOrder } from '../controllers/order.controller';
 
 const router = express.Router();
 
@@ -30,9 +30,9 @@ router.put('/products/:id',authenticateToken, checkAdminRole, updateProduct);
 router.delete('/products/:id',authenticateToken, checkAdminRole, deleteProduct);
 
 // Order Routes
-router.get('/orders',authenticateToken, checkAdminRole, getAllOrders);
+router.get('/orders',authenticateToken, checkAdminRole, getAllOrdersForAdmins);
 router.get('/orders/:id',authenticateToken, checkAdminRole, getOrderById);
-router.put('/orders/:id', authenticateToken,updateOrder);
+router.put('/orders/:id', authenticateToken,checkAdminRole,updateOrder);
 
 // user management routes
 router.get('/users', authenticateToken, checkAdminRole, getAllUsers);

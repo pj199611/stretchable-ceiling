@@ -7,7 +7,7 @@ import {
 
 import { authenticateToken } from '../middlewares/auth'; 
 import {
-  getAllOrders,
+  getAllOrdersForUsers,
   getOrderById,
   createOrder,
   updateOrder,
@@ -25,7 +25,7 @@ router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
 
 // Order Routes
-router.get('/orders',authenticateToken, getAllOrders);
+router.get('/orders',authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id',authenticateToken, getOrderById);
 router.post('/orders', authenticateToken,createOrder);
 router.put('/orders/:id', authenticateToken,updateOrder);
