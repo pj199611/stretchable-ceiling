@@ -96,3 +96,22 @@ export const deleteOrder = async (req: Request, res: Response): Promise<void> =>
     res.status(500).json({ error: 'Failed to delete order' });
   }
 };
+
+
+//  admin order routes
+export const changeOrderStatus = async (req: IRequest, res: Response): Promise<void> => {
+  try {
+    const { status,remarks } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { status,remarks }, {
+      new: true,
+    }).populate('user').populate('products.product');
+
+    if (!updatedOrder) {
+      res.status(404).json({ error: 'Order not found' });
+      return;
+    }
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update order' });
+  }
+};

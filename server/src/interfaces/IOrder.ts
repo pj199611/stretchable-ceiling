@@ -18,6 +18,7 @@ export default interface IOrder extends Document {
   products: IOrderProduct[];
   totalAmount: number;
   status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled';
+  remarks?:string;
   shippingAddress: IShippingAddress;
   createdAt?: Date;
   updatedAt?: Date;
