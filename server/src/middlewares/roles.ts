@@ -14,3 +14,18 @@ export const checkAdminRole = async (
 
   next();
 };
+
+
+export const checkArchitectRole = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const user = req.user;
+  if (user?.role !== 'architect') {
+    res.status(403).json({ message: 'Access denied.' });
+    return;
+  }
+
+  next();
+};

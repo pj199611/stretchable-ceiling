@@ -29,8 +29,8 @@ router.get('/orders',authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id',authenticateToken, getOrderById);
 router.post('/orders', authenticateToken,createOrder);
 router.put('/orders/:id', authenticateToken,updateOrder);
+router.delete('/orders/:id', deleteOrder);
 // ----------- //
 
-router.delete('/orders/:id', deleteOrder);
 
 export default router;

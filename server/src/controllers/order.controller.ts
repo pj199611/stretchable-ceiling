@@ -14,18 +14,6 @@ export const getAllOrdersForUsers = async (req: IRequest, res: Response): Promis
   }
 };
 
-// Get all orders for admins
-export const getAllOrdersForAdmins = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const orders: IOrder[] = await Order.find().populate('user').populate('products.product');
-    res.status(200).json(orders);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch orders' });
-  }
-};
-
-
-
 
 // Get a single order by ID for a specific user
 export const getOrderById = async (req: IRequest, res: Response): Promise<void> => {
@@ -97,21 +85,3 @@ export const deleteOrder = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
-
-//  admin order routes
-export const changeOrderStatus = async (req: IRequest, res: Response): Promise<void> => {
-  try {
-    const { status,remarks } = req.body;
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { status,remarks }, {
-      new: true,
-    }).populate('user').populate('products.product');
-
-    if (!updatedOrder) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
-    }
-    res.status(200).json(updatedOrder);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update order' });
-  }
-};

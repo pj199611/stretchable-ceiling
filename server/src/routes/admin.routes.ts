@@ -1,13 +1,14 @@
 import express from 'express';
 import { authenticateToken } from '../middlewares/auth';
-import { checkAdminRole } from '../middlewares/checkAdmin';
+import { checkAdminRole } from '../middlewares/roles';
 import {
   getAllUsers,
   deleteUser,
   updateUser,
-  getUser
+  getUser,
+  getAllOrders,
+  changeOrderStatus
 } from '../controllers/admin.controller';
-
 
 import {
   getAllProducts,
@@ -17,20 +18,18 @@ import {
   deleteProduct,
 } from '../controllers/products.controller';
 
-import {  getAllOrdersForAdmins,changeOrderStatus} from '../controllers/order.controller';
 
 const router = express.Router();
 
-
 // products management routes
-router.get('/products',authenticateToken, checkAdminRole, getAllProducts);
-router.get('/products/:id',authenticateToken, checkAdminRole, getProductById);
-router.post('/products/', authenticateToken, checkAdminRole,createProduct);
+router.get('/products', getAllProducts);
+router.get('/products/:id', getProductById);
+router.post('/products', authenticateToken, checkAdminRole,createProduct);
 router.put('/products/:id',authenticateToken, checkAdminRole, updateProduct);
 router.delete('/products/:id',authenticateToken, checkAdminRole, deleteProduct);
 
 // Order Routes
-router.get('/orders',authenticateToken, checkAdminRole, getAllOrdersForAdmins);
+router.get('/orders',authenticateToken, getAllOrders);
 router.put('/orders/:id', authenticateToken,checkAdminRole,changeOrderStatus);
 
 // user management routes
