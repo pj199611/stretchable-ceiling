@@ -3,29 +3,36 @@ import Order from '../models/orders.model';
 import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 
-// Get all orders
-export const getAllOrders = async (req: Request, res: Response): Promise<void> => {
+// Get all orders for a specific user
+export const getAllOrders = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const orders: IOrder[] = await Order.find().populate('user').populate('products.product');
+    const userId = req.user?._id;
+    const orders: IOrder[] = await Order.find({ user: userId }).populate('user').populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
-// Get a single order by ID
-export const getOrderById = async (req: Request, res: Response): Promise<void> => {
+// Get a single order by ID for a specific user
+export const getOrderById = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const order: IOrder | null = await Order.findById(req.params.id).populate('user').populate('products.product');
+    const userId = req.user?._id;
+    const order: IOrder | null = await Order.findOne({ _id: req.params.id, user: userId })
+      .populate('user')
+      .populate('products.product');
+    
     if (!order) {
       res.status(404).json({ error: 'Order not found' });
       return;
     }
+    
     res.status(200).json(order);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch order' });
   }
 };
+
 
 // Create a new order
 export const createOrder = async (req: IRequest, res: Response): Promise<void> => {

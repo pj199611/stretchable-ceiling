@@ -25,10 +25,8 @@ router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
 
 // Order Routes
-router.get('/orders', getAllOrders);
-router.get('/orders/:id', getOrderById);
-
-// ----------- because only for creating and updating orders user id is required ------ //
+router.get('/orders',authenticateToken, getAllOrders);
+router.get('/orders/:id',authenticateToken, getOrderById);
 router.post('/orders', authenticateToken,createOrder);
 router.put('/orders/:id', authenticateToken,updateOrder);
 // ----------- //
