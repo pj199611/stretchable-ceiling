@@ -9,6 +9,8 @@ export default interface IProduct extends Document {
   height: number;
   width: number;
   area: number;
+  shape: 'Rectangle' | 'Square' | string;
+  customShape: string;
   imageUrl?: string;
   createdAt?: Date;
   updatedAt?: Date;

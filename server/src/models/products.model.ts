@@ -13,15 +13,24 @@ const productSchema = new mongoose.Schema({
   },
   width: {
     type: Number,
-    required: true,
+    required:false
   },
   height: {
     type: Number,
-    required: true,
+    required:false
   },
   area: {
     type: Number,
-    required: true,
+    required:false
+  },
+  shape: {
+    type: String,
+    enum: ['Rectangle','Square'],
+    default: 'Rectangle',
+  },
+  customShape:{
+    type:String,
+    required:false
   },
   price: {
     type: Number,
