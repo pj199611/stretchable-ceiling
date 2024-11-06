@@ -17,10 +17,19 @@ export const getAllUsers = async (
 };
 
 export const deleteUser = async (
-  req: Request,
+  req: IRequest,
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
+
+  const reqId = req.user?._id as unknown as any;
+  const idToCompare = id.toString();
+
+  if(reqId.toString()===idToCompare){
+    res.status(400).json({message:"can't delete own"})
+    return;
+  }
+
   try {
     const user = await User.findByIdAndDelete(id);
     if (!user) {

@@ -176,13 +176,92 @@
 				{
 					"name": "orders",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiMGUxNDk1MDM4NWZmNTE3Y2ZiNGYiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMDg3NDkwMywiZXhwIjoxNzMxNDc5NzAzfQ.qyEFwNZ6gOUuJmpSKY6RfMUREZ1WKTVWJsvKogKfbTs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/admin/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/order_id",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"request": {
 						"method": "GET",
 						"header": []
 					},
 					"response": []
 				},
 				{
-					"name": "orders/order_id",
+					"name": "users/user_id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "users/user_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiMGUxNDk1MDM4NWZmNTE3Y2ZiNGYiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMDg3NDkwMywiZXhwIjoxNzMxNDc5NzAzfQ.qyEFwNZ6gOUuJmpSKY6RfMUREZ1WKTVWJsvKogKfbTs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/admin/users/6728a0da2180a513a31bd78c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"6728a0da2180a513a31bd78c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/user_id",
 					"request": {
 						"method": "PUT",
 						"header": []
