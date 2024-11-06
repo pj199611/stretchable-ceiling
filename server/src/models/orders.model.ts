@@ -19,6 +19,27 @@ const orderSchema = new mongoose.Schema({
         required: true,
         min: 1,
       },
+      width: {
+        type: Number,
+        required:false
+      },
+      height: {
+        type: Number,
+        required:false
+      },
+      area: {
+        type: Number,
+        required:false
+      },
+      shape: {
+        type: String,
+        enum: ['Rectangle','Square'],
+        default: 'Rectangle',
+      },
+      customShape:{
+        type:String,
+        required:false
+      },
     },
   ],
   totalAmount: {

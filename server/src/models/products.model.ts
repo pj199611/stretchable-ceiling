@@ -11,27 +11,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: false,
   },
-  width: {
-    type: Number,
-    required:false
-  },
-  height: {
-    type: Number,
-    required:false
-  },
-  area: {
-    type: Number,
-    required:false
-  },
-  shape: {
-    type: String,
-    enum: ['Rectangle','Square'],
-    default: 'Rectangle',
-  },
-  customShape:{
-    type:String,
-    required:false
-  },
   price: {
     type: Number,
     required: true,
@@ -40,11 +19,6 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: false,
-  },
-  stock: {
-    type: Number,
-    required: false,
-    min: 0,
   },
   imageUrl: {
     type: String,

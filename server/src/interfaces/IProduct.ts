@@ -5,7 +5,6 @@ export default interface IProduct extends Document {
   description?: string;
   price: number;
   category: string;
-  stock: number;
   height: number;
   width: number;
   area: number;
