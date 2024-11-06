@@ -7,7 +7,8 @@ import {
   updateUser,
   getUser,
   getAllOrders,
-  changeOrderStatus
+  changeOrderStatusAndRemarks,
+  getOrderById
 } from '../controllers/admin.controller';
 
 import {
@@ -30,7 +31,8 @@ router.delete('/products/:id',authenticateToken, checkAdminRole, deleteProduct);
 
 // Order Routes
 router.get('/orders',authenticateToken, getAllOrders);
-router.put('/orders/:id', authenticateToken,checkAdminRole,changeOrderStatus);
+router.get('/orders/:id',authenticateToken, getOrderById);
+router.put('/orders/:id', authenticateToken,checkAdminRole,changeOrderStatusAndRemarks);
 
 // user management routes
 router.get('/users', authenticateToken, checkAdminRole, getAllUsers);
