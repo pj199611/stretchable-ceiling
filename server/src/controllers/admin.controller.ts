@@ -17,10 +17,19 @@ export const getAllUsers = async (
 };
 
 export const deleteUser = async (
-  req: Request,
+  req: IRequest,
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
+
+  const reqId = req.user?._id as unknown as any;
+  const idToCompare = id.toString();
+
+  if(reqId.toString()===idToCompare){
+    res.status(400).json({message:"can't delete own"})
+    return;
+  }
+
   try {
     const user = await User.findByIdAndDelete(id);
     if (!user) {
@@ -72,15 +81,36 @@ export const updateUser = async (
 // Get all orders for admins
 export const getAllOrders = async (req: Request, res: Response): Promise<void> => {
   try {
-    const orders: IOrder[] = await Order.find().populate('user').populate('products.product');
+    const orders: IOrder[] = await Order.find().populate({  path: 'user',select: '-password'  }).populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
-//  admin order routes
-export const changeOrderStatus = async (req: IRequest, res: Response): Promise<void> => {
+
+//get order by id 
+
+// Get a single order by ID for a specific user
+export const getOrderById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const order: IOrder | null = await Order.findOne({ _id: req.params.id})
+      .populate('user')
+      .populate('products.product');
+
+    if (!order) {
+      res.status(404).json({ error: 'Order not found' });
+      return;
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch order' });
+  }
+};
+
+//change orderStatus and remarks
+export const changeOrderStatusAndRemarks = async (req: IRequest, res: Response): Promise<void> => {
   try {
     const { status,remarks } = req.body;
     const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { status,remarks }, {
@@ -93,6 +123,7 @@ export const changeOrderStatus = async (req: IRequest, res: Response): Promise<v
     }
     res.status(200).json(updatedOrder);
   } catch (error) {
+    console.log("error",error)
     res.status(500).json({ error: 'Failed to update order' });
   }
 };
