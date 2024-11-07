@@ -17,8 +17,8 @@ interface IShippingAddress {
   country: string;
 }
 
-export default interface IOrder extends Document {
-  user: Types.ObjectId;
+export default interface IClientOrder extends Document {
+  client: Types.ObjectId;
   products: IOrderProduct[];
   totalAmount: number;
   status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled';

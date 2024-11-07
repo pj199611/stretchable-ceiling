@@ -14,7 +14,6 @@ export const getAllOrdersForUsers = async (req: IRequest, res: Response): Promis
   }
 };
 
-
 // Get a single order by ID for a specific user
 export const getOrderById = async (req: IRequest, res: Response): Promise<void> => {
   try {
@@ -34,16 +33,16 @@ export const getOrderById = async (req: IRequest, res: Response): Promise<void> 
   }
 };
 
-
 // Create a new order
 export const createOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const { products, totalAmount, shippingAddress } = req.body;
+    const { products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
     const newOrder = new Order({
       user: req.user?._id,
       products,
       totalAmount,
       shippingAddress,
+      width,height,area,shape,customShape
     });
 
     const savedOrder = await newOrder.save();
@@ -56,8 +55,8 @@ export const createOrder = async (req: IRequest, res: Response): Promise<void> =
 // Update an order by ID
 export const updateOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const { products, totalAmount, shippingAddress } = req.body;
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { user: req.user?._id, products, totalAmount, shippingAddress }, {
+    const { products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { user: req.user?._id, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
       new: true,
     }).populate('user').populate('products.product');
 

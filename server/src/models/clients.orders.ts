@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import IOrder from '../interfaces/IOrder';
+import IClientOrder from '../interfaces/IClientOrder';
 
-const orderSchema = new mongoose.Schema<IOrder>({
-  user: {
+const clientOrderSchema = new mongoose.Schema<IClientOrder>({
+  client: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Client',
     required: true,
   },
   products: [
@@ -63,5 +63,5 @@ const orderSchema = new mongoose.Schema<IOrder>({
   }
 },{timestamps:true});
 
-const Order=mongoose.model<IOrder>('Order', orderSchema);
-export default Order;
+const clientOrder=mongoose.model<IClientOrder>('ClientOrder', clientOrderSchema);
+export default clientOrder;

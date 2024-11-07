@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import IProduct from '../interfaces/IProduct';
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema<IProduct>({
   name: {
     type: String,
     required: true,
@@ -22,16 +22,8 @@ const productSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  }
+},{timestamps:true});
 
 const Product= mongoose.model<IProduct>('Product', productSchema);
 export default Product;

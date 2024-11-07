@@ -2,7 +2,7 @@ import mongoose, { CallbackError, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import IUser from '../interfaces/Iuser';
 
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema = new Schema<IUser>({
   email: {
     type: String,
     required: true,
@@ -18,12 +18,8 @@ const UserSchema: Schema = new Schema({
     type: String,
     enum: ['user', 'admin', 'architect'],
     default: 'user',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  }
+},{timestamps:true});
 
 UserSchema.pre('save', async function (next) {
   const user = this as unknown as IUser;

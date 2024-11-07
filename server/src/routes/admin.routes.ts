@@ -8,7 +8,8 @@ import {
   getUser,
   getAllOrders,
   changeOrderStatusAndRemarks,
-  getOrderById
+  getOrderById,
+  getClients,getClientById
 } from '../controllers/admin.controller';
 
 import {
@@ -39,5 +40,10 @@ router.get('/users', authenticateToken, checkAdminRole, getAllUsers);
 router.get('/users/:id', authenticateToken, checkAdminRole, getUser);
 router.delete('/users/:id', authenticateToken, checkAdminRole, deleteUser);
 router.put('/users/:id', authenticateToken, checkAdminRole, updateUser);
+
+
+// clients routes
+router.get('/clients', authenticateToken, getClients);
+router.get('/clients/:id', authenticateToken, getClientById);
 
 export default router;
