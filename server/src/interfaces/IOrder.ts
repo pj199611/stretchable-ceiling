@@ -3,6 +3,11 @@ import { Document, Types } from 'mongoose';
 interface IOrderProduct {
   product: Types.ObjectId;
   quantity: number;
+  width?:number;
+  height?:number;
+  area?:number;
+  shape?:string[];
+  custom?:string
 }
 
 interface IShippingAddress {

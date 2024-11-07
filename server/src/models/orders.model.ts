@@ -34,7 +34,7 @@ const orderSchema = new mongoose.Schema({
       shape: {
         type: String,
         enum: ['Rectangle','Square'],
-        default: 'Rectangle',
+        required:false
       },
       customShape:{
         type:String,
