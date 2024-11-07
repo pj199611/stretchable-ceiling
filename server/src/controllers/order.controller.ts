@@ -55,8 +55,8 @@ export const createOrder = async (req: IRequest, res: Response): Promise<void> =
 // Update an order by ID
 export const updateOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const { products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { user: req.user?._id, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
+    const { clientId,products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { client: clientId, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
       new: true,
     }).populate('user').populate('products.product');
 

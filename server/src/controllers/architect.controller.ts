@@ -60,7 +60,7 @@ export const deleteClient = async (req: Request, res: Response): Promise<void> =
 // Get all orders for a specific architect
 export const getAllOrdersForUsers = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const clientId = req.params.id
+    const clientId = req.params.clientId
     const orders: IClientOrder[] = await ClientOrder.find({ client: clientId }).populate('client').populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
@@ -108,8 +108,8 @@ export const createOrder = async (req: IRequest, res: Response): Promise<void> =
 // Update an order by ID
 export const updateOrder = async (req: IRequest, res: Response): Promise<void> => {
   try {
-    const { userId,products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
-    const updatedOrder = await ClientOrder.findByIdAndUpdate(req.params.id, { client: userId, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
+    const { clientId,products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
+    const updatedOrder = await ClientOrder.findByIdAndUpdate(req.params.id, { client: clientId, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
       new: true,
     }).populate('client').populate('products.product');
 

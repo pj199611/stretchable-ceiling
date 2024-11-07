@@ -36,7 +36,7 @@ router.get('/products/:id', getProductById);
 
 
 //orders
-router.get('/orders',authenticateToken,checkArchitectRole, getAllOrdersForUsers);
+router.get('/orders/:clientId',authenticateToken,checkArchitectRole, getAllOrdersForUsers);
 router.get('/orders/:id',authenticateToken,checkArchitectRole, getOrderById);
 router.post('/orders', authenticateToken,checkArchitectRole,createOrder);
 router.put('/orders/:id', authenticateToken,checkArchitectRole,updateOrder);
