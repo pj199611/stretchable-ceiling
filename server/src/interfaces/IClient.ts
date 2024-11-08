@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 export interface IClient extends Document {
     name: string;
@@ -9,4 +9,5 @@ export interface IClient extends Document {
     state?: string;
     createdAt: Date;
     updatedAt: Date;
+    architectId: Types.ObjectId;
 }

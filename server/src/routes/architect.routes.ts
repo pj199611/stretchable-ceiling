@@ -24,6 +24,8 @@ import { authenticateToken } from '../middlewares/auth';
 
 const router = express.Router();
 
+
+//clients
 router.get('/clients', authenticateToken,checkArchitectRole, getClients);
 router.get('/clients/:id',authenticateToken, checkArchitectRole, getClientById);
 router.post('/clients',authenticateToken, checkArchitectRole, createClient);

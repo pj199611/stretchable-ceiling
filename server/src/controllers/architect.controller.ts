@@ -5,9 +5,10 @@ import IClientOrder from '../interfaces/IClientOrder';
 import { IRequest } from '../interfaces/IReq';
 
 
-export const getClients = async (req: Request, res: Response): Promise<void> => {
+export const getClients = async (req: IRequest, res: Response): Promise<void> => {
     try {
-        const clients = await Client.find();
+        const architectId=req.user?._id;
+        const clients = await Client.find({architectId});
         res.status(200).json(clients);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving clients', error });
