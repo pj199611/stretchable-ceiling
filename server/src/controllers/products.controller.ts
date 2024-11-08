@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../models/products.model';
 import IProduct from '../interfaces/IProduct';
+import Order from '../models/orders.model';
 
 export const getAllProducts = async (
   req: Request,
@@ -71,12 +72,21 @@ export const deleteProduct = async (
 ): Promise<void> => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
     if (!deletedProduct) {
       res.status(404).json({ error: 'Product not found' });
       return;
     }
-    res.status(200).json({ message: 'Product deleted successfully' });
+
+    // Remove the deleted product from all orders
+    await Order.updateMany(
+      { 'products.product': req.params.id },
+      { $pull: { products: { product: req.params.id } } }
+    );
+
+    res.status(200).json({ message: 'Product deleted successfully and removed from all orders' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete product' });
   }
 };
+

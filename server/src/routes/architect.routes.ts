@@ -18,8 +18,6 @@ import {
   getProductById,
 } from '../controllers/products.controller';
 
-
-
 import { authenticateToken } from '../middlewares/auth';
 
 const router = express.Router();
