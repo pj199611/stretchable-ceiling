@@ -10,7 +10,7 @@ import UserRoutes from "./routes/users.routes";
 
 import setupDB from './utils/db';
 import morgan from 'morgan';
-import { setupSwagger } from './config/swagger';
+import  {setupSwagger}  from './config/swagger';
 
 dotenv.config();
 

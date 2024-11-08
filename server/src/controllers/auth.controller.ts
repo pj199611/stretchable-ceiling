@@ -2,32 +2,6 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 
-/**
- * @swagger
- * /signup:
- *   post:
- *     summary: Sign up a new user
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       201:
- *         description: User registered successfully
- *       400:
- *         description: User already exists
- */
 
 export const signup = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -44,33 +18,6 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
     return res.status(500).json({ message: 'Error registering user', error });
   }
 };
-
-/**
- * @swagger
- * /login:
- *   post:
- *     summary: Log in a user
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       200:
- *         description: Login successful
- *       400:
- *         description: Invalid email or password
- */
 
 export const login = async (req: Request, res: Response): Promise<any> => {
   try {
