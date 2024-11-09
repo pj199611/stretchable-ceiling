@@ -28,15 +28,15 @@ router.get('/users/:id', getUser);
 router.put('/user/:id', updateUser);
 
 // Product Routes
-router.get('/products', getAllProducts);
-router.get('/products/:id', getProductById);
+router.get('/products',authenticateToken, getAllProducts);
+router.get('/products/:id',authenticateToken, getProductById);
 
 // Order Routes
 router.get('/orders', authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
-router.delete('/orders/:id', deleteOrder);
+router.delete('/orders/:id', authenticateToken,deleteOrder);
 // ----------- //
 
 // category management routes

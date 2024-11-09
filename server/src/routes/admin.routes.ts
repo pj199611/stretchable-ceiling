@@ -59,7 +59,7 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/products', getAllProducts);
+router.get('/products', authenticateToken,getAllProducts);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/products', getAllProducts);
  *       404:
  *         description: Product not found
  */
-router.get('/products/:id', getProductById);
+router.get('/products/:id',authenticateToken, getProductById);
 
 /**
  * @swagger
