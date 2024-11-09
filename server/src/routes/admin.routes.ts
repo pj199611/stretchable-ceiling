@@ -29,6 +29,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductsByCategoryAndSubCategory,
 } from '../controllers/products.controller';
 
 const router = express.Router();
@@ -157,6 +158,8 @@ router.delete(
   checkAdminRole,
   deleteProduct
 );
+
+router.get("/productsOfSubCategory",authenticateToken,checkAdminRole,getProductsByCategoryAndSubCategory)
 
 // Order Routes
 
