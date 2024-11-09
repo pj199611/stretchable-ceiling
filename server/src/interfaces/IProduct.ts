@@ -1,15 +1,10 @@
-import { Document } from 'mongoose';
+import { Document,Types } from 'mongoose';
 
 export default interface IProduct extends Document {
   name: string;
   description?: string;
-  price: number;
-  category: string;
-  height: number;
-  width: number;
-  area: number;
-  shape: 'Rectangle' | 'Square' | string;
-  customShape: string;
+  subCategoryId:Types.ObjectId;
+  categoryId:Types.ObjectId;
   imageUrl?: string;
   createdAt?: Date;
   updatedAt?: Date;

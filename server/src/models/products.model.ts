@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import IProduct from '../interfaces/IProduct';
 
+
 const productSchema = new mongoose.Schema<IProduct>({
   name: {
     type: String,
@@ -11,14 +12,15 @@ const productSchema = new mongoose.Schema<IProduct>({
     type: String,
     trim: false,
   },
-  price: {
-    type: Number,
+  subCategoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SubCategory',
     required: true,
-    min: 0,
   },
-  category: {
-    type: String,
-    required: false,
+  categoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
   },
   imageUrl: {
     type: String,
