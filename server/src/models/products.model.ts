@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema<IProduct>(
       ref: 'Category',
       required: true,
     },
+    stockPhotoId:{
+      type:Number,
+      required:true
+    },
     imageUrl: {
       type: String,
     },
