@@ -4,8 +4,10 @@ import Order from '../models/orders.model';
 import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 import Client from '../models/clients.model';
+import Category from '../models/category.model';
+import SubCategory from '../models/subCategory.model';
 
-// user management controllers
+// User management controllers
 export const getAllUsers = async (
   req: Request,
   res: Response
@@ -23,12 +25,10 @@ export const deleteUser = async (
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
-
   const reqId = req.user?._id as unknown as any;
-  const idToCompare = id.toString();
 
-  if(reqId.toString()===idToCompare){
-    res.status(400).json({message:"can't delete own"})
+  if (reqId.toString() === id) {
+    res.status(400).json({ message: "Can't delete own user" });
     return;
   }
 
@@ -36,6 +36,7 @@ export const deleteUser = async (
     const user = await User.findByIdAndDelete(id);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
+      return;
     }
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
@@ -43,19 +44,17 @@ export const deleteUser = async (
   }
 };
 
-export const getUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getUser = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
+      return;
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting user', error });
+    res.status(500).json({ message: 'Error retrieving user', error });
   }
 };
 
@@ -69,6 +68,7 @@ export const updateUser = async (
     const user = await User.findByIdAndUpdate(id, updateData, { new: true });
     if (!user) {
       res.status(404).json({ message: 'User not found' });
+      return;
     }
     res.status(200).json(user);
   } catch (error) {
@@ -76,23 +76,27 @@ export const updateUser = async (
   }
 };
 
-
-//  orders management controllers
-// Get all orders for admins
-export const getAllOrders = async (req: Request, res: Response): Promise<void> => {
+// Orders management controllers
+export const getAllOrders = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    const orders: IOrder[] = await Order.find().populate({  path: 'user',select: '-password'  }).populate('products.product');
+    const orders: IOrder[] = await Order.find()
+      .populate({ path: 'user', select: '-password' })
+      .populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
-//get order by id 
 
-// Get a single order by ID for a specific user
-export const getOrderById = async (req: Request, res: Response): Promise<void> => {
+export const getOrderById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    const order: IOrder | null = await Order.findOne({ _id: req.params.id})
+    const order: IOrder | null = await Order.findOne({ _id: req.params.id })
       .populate('user')
       .populate('products.product');
 
@@ -106,13 +110,20 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ error: 'Failed to fetch order' });
   }
 };
-//change orderStatus and remarks
-export const changeOrderStatusAndRemarks = async (req: IRequest, res: Response): Promise<void> => {
+
+export const changeOrderStatusAndRemarks = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
-    const { status,remarks } = req.body;
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { status,remarks }, {
-      new: true,
-    }).populate('user').populate('products.product');
+    const { status, remarks } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status, remarks },
+      { new: true }
+    )
+      .populate('user')
+      .populate('products.product');
 
     if (!updatedOrder) {
       res.status(404).json({ error: 'Order not found' });
@@ -120,28 +131,204 @@ export const changeOrderStatusAndRemarks = async (req: IRequest, res: Response):
     }
     res.status(200).json(updatedOrder);
   } catch (error) {
-    console.log("error",error)
     res.status(500).json({ error: 'Failed to update order' });
   }
 };
 
-
-//clients management controllers
-export const getClients = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const clients = await Client.find();
-        res.status(200).json(clients);
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving clients', error });
-    }
+// Clients management controllers
+export const getClients = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const clients = await Client.find();
+    res.status(200).json(clients);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving clients', error });
+  }
 };
 
-export const getClientById = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const client = await Client.findById(req.params.id);
-        if (client) res.status(200).json(client);
-        else res.status(404).json({ message: 'Client not found' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving client', error });
+export const getClientById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const client = await Client.findById(req.params.id);
+    if (client) res.status(200).json(client);
+    else res.status(404).json({ message: 'Client not found' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving client', error });
+  }
+};
+
+// Category management controllers
+export const createCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, description, price } = req.body;
+    const category = new Category({ name, description, price });
+    await category.save();
+    res
+      .status(201)
+      .json({ message: 'Category created successfully', category });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to create category', error });
+  }
+};
+
+export const getCategories = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const categories = await Category.find();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch categories', error });
+  }
+};
+
+export const getCategoryById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const category = await Category.findById(req.params.id);
+    if (!category) res.status(404).json({ message: 'Category not found' });
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch category', error });
+  }
+};
+
+export const updateCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, description, price } = req.body;
+    const category = await Category.findByIdAndUpdate(
+      req.params.id,
+      { name, description, price },
+      { new: true }
+    );
+    if (!category) res.status(404).json({ message: 'Category not found' });
+    res
+      .status(200)
+      .json({ message: 'Category updated successfully', category });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update category', error });
+  }
+};
+
+export const deleteCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const category = await Category.findByIdAndDelete(req.params.id);
+    if (!category) res.status(404).json({ message: 'Category not found' });
+    res.status(200).json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete category', error });
+  }
+};
+
+// Subcategory management controllers
+export const createSubCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, description, categoryId } = req.body;
+
+    const categoryExists = await Category.findById(categoryId);
+    if (!categoryExists) {
+      res.status(404).json({ message: 'Category not found' });
+      return;
     }
+
+    const subCategory = new SubCategory({ name, description, categoryId });
+    await subCategory.save();
+    res
+      .status(201)
+      .json({ message: 'SubCategory created successfully', subCategory });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to create subcategory', error });
+  }
+};
+
+export const getSubCategories = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const subCategories = await SubCategory.find().populate('categoryId');
+    res.status(200).json(subCategories);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch subcategories', error });
+  }
+};
+
+export const getSubCategoryById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const subCategory = await SubCategory.findById(req.params.id).populate(
+      'categoryId'
+    );
+    if (!subCategory)
+      res.status(404).json({ message: 'SubCategory not found' });
+    res.status(200).json(subCategory);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch subcategory', error });
+  }
+};
+
+export const updateSubCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, description, categoryId } = req.body;
+
+    if (categoryId) {
+      const categoryExists = await Category.findById(categoryId);
+      if (!categoryExists) {
+        res.status(404).json({ message: 'Category not found' });
+        return;
+      }
+    }
+
+    const subCategory = await SubCategory.findByIdAndUpdate(
+      req.params.id,
+      { name, description, categoryId },
+      { new: true }
+    ).populate('categoryId');
+
+    if (!subCategory)
+      res.status(404).json({ message: 'SubCategory not found' });
+    res
+      .status(200)
+      .json({ message: 'SubCategory updated successfully', subCategory });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update subcategory', error });
+  }
+};
+
+export const deleteSubCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+    if (!subCategory)
+      res.status(404).json({ message: 'SubCategory not found' });
+    res.status(200).json({ message: 'SubCategory deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete subcategory', error });
+  }
 };

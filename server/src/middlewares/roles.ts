@@ -15,7 +15,6 @@ export const checkAdminRole = async (
   next();
 };
 
-
 export const checkArchitectRole = async (
   req: IRequest,
   res: Response,

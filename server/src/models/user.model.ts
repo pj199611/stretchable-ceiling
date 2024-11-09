@@ -2,24 +2,27 @@ import mongoose, { CallbackError, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import IUser from '../interfaces/Iuser';
 
-const UserSchema: Schema = new Schema<IUser>({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-    trim: true,
+const UserSchema: Schema = new Schema<IUser>(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin', 'architect'],
+      default: 'user',
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin', 'architect'],
-    default: 'user',
-  }
-},{timestamps:true});
+  { timestamps: true }
+);
 
 UserSchema.pre('save', async function (next) {
   const user = this as unknown as IUser;

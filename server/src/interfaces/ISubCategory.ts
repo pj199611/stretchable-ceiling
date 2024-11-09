@@ -1,7 +1,7 @@
-import { Document,Types } from "mongoose";
+import { Document, Types } from 'mongoose';
 
 export default interface ISubCategory extends Document {
-    name: string;
-    description:string;
-    categoryId: Types.ObjectId;
+  name: string;
+  description: string;
+  categoryId: Types.ObjectId;
 }

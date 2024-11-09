@@ -84,9 +84,10 @@ export const deleteProduct = async (
       { $pull: { products: { product: req.params.id } } }
     );
 
-    res.status(200).json({ message: 'Product deleted successfully and removed from all orders' });
+    res.status(200).json({
+      message: 'Product deleted successfully and removed from all orders',
+    });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete product' });
   }
 };
-

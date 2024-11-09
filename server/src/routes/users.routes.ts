@@ -1,11 +1,18 @@
 import express from 'express';
-import { getUser, updateUser } from '../controllers/admin.controller';
+import {
+  getUser,
+  updateUser,
+  getSubCategories,
+  getSubCategoryById,
+  getCategories,
+  getCategoryById,
+} from '../controllers/admin.controller';
 import {
   getAllProducts,
   getProductById,
 } from '../controllers/products.controller';
 
-import { authenticateToken } from '../middlewares/auth'; 
+import { authenticateToken } from '../middlewares/auth';
 import {
   getAllOrdersForUsers,
   getOrderById,
@@ -25,12 +32,21 @@ router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
 
 // Order Routes
-router.get('/orders',authenticateToken, getAllOrdersForUsers);
-router.get('/orders/:id',authenticateToken, getOrderById);
-router.post('/orders', authenticateToken,createOrder);
-router.put('/orders/:id', authenticateToken,updateOrder);
+router.get('/orders', authenticateToken, getAllOrdersForUsers);
+router.get('/orders/:id', authenticateToken, getOrderById);
+router.post('/orders', authenticateToken, createOrder);
+router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', deleteOrder);
 // ----------- //
 
+// category management routes
+router.get('/subcategories', authenticateToken, getSubCategories);
+// Route to get a single subcategory by ID
+router.get('/subcategories/:id', authenticateToken, getSubCategoryById);
+
+// sub category management routes
+router.get('/categories', authenticateToken, getCategories);
+// Route to get a single category by ID
+router.get('/categories/:id', authenticateToken, getCategoryById);
 
 export default router;

@@ -4,13 +4,12 @@ import cors from 'cors';
 import helmet from 'helmet';
 import AuthRoutes from './routes/auth.routes';
 import AdminRoutes from './routes/admin.routes';
-import ArchitectRoutes from "./routes/architect.routes";
-import UserRoutes from "./routes/users.routes";
-
+import ArchitectRoutes from './routes/architect.routes';
+import UserRoutes from './routes/users.routes';
 
 import setupDB from './utils/db';
 import morgan from 'morgan';
-import  {setupSwagger}  from './config/swagger';
+import { setupSwagger } from './config/swagger';
 
 dotenv.config();
 
@@ -26,13 +25,11 @@ setupSwagger(app);
 
 const port = parseInt(process.env.PORT as unknown as string) || 3000;
 
-
 // routes
 app.use('/api/auth', AuthRoutes);
 app.use('/api/admin', AdminRoutes);
 app.use('/api/architect', ArchitectRoutes);
 app.use('/api/users', UserRoutes);
-
 
 app.get('/health', (req: Request, res: Response) => {
   res.send('server is running fine!');

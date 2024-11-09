@@ -10,7 +10,17 @@ import {
   changeOrderStatusAndRemarks,
   getOrderById,
   getClients,
-  getClientById
+  getClientById,
+  createSubCategory,
+  updateSubCategory,
+  deleteSubCategory,
+  getSubCategories,
+  getSubCategoryById,
+  createCategory,
+  updateCategory,
+  getCategories,
+  getCategoryById,
+  deleteCategory,
 } from '../controllers/admin.controller';
 
 import {
@@ -141,7 +151,12 @@ router.put('/products/:id', authenticateToken, checkAdminRole, updateProduct);
  *       200:
  *         description: Product deleted successfully
  */
-router.delete('/products/:id', authenticateToken, checkAdminRole, deleteProduct);
+router.delete(
+  '/products/:id',
+  authenticateToken,
+  checkAdminRole,
+  deleteProduct
+);
 
 // Order Routes
 
@@ -229,7 +244,12 @@ router.get('/orders/:id', authenticateToken, getOrderById);
  *       200:
  *         description: Order updated successfully
  */
-router.put('/orders/:id', authenticateToken, checkAdminRole, changeOrderStatusAndRemarks);
+router.put(
+  '/orders/:id',
+  authenticateToken,
+  checkAdminRole,
+  changeOrderStatusAndRemarks
+);
 
 // User Management Routes
 
@@ -390,5 +410,70 @@ router.get('/clients', authenticateToken, getClients);
  *         description: Client not found
  */
 router.get('/clients/:id', authenticateToken, getClientById);
+
+//  sub category management
+// Route to create a new subcategory
+router.post(
+  '/subcategories',
+  authenticateToken,
+  checkAdminRole,
+  createSubCategory
+);
+// Route to get all subcategories
+router.get(
+  '/subcategories',
+  authenticateToken,
+  checkAdminRole,
+  getSubCategories
+);
+// Route to get a single subcategory by ID
+router.get(
+  '/subcategories/:id',
+  authenticateToken,
+  checkAdminRole,
+  getSubCategoryById
+);
+// Route to update a subcategory by ID
+router.put(
+  '/subcategories/:id',
+  authenticateToken,
+  checkAdminRole,
+  updateSubCategory
+);
+// Route to delete a subcategory by ID
+router.delete(
+  '/subcategories/:id',
+  authenticateToken,
+  checkAdminRole,
+  deleteSubCategory
+);
+
+//category management
+
+// Route to create a new category
+router.post('/categories', authenticateToken, checkAdminRole, createCategory);
+// Route to get all categories
+router.get('/categories', authenticateToken, checkAdminRole, getCategories);
+// Route to get a single category by ID
+router.get(
+  '/categories/:id',
+  authenticateToken,
+  checkAdminRole,
+  getCategoryById
+);
+// Route to update a category by ID
+router.put(
+  '/categories/:id',
+  authenticateToken,
+  checkAdminRole,
+  updateCategory
+);
+// Route to delete a category by ID
+router.delete(
+  '/categories/:id',
+  authenticateToken,
+  checkAdminRole,
+  deleteCategory
+);
 
 export default router;

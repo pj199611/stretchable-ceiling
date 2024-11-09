@@ -4,10 +4,15 @@ import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 
 // Get all orders for a specific user
-export const getAllOrdersForUsers = async (req: IRequest, res: Response): Promise<void> => {
+export const getAllOrdersForUsers = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const userId = req.user?._id;
-    const orders: IOrder[] = await Order.find({ user: userId }).populate('user').populate('products.product');
+    const orders: IOrder[] = await Order.find({ user: userId })
+      .populate('user')
+      .populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch orders' });
@@ -15,10 +20,16 @@ export const getAllOrdersForUsers = async (req: IRequest, res: Response): Promis
 };
 
 // Get a single order by ID for a specific user
-export const getOrderById = async (req: IRequest, res: Response): Promise<void> => {
+export const getOrderById = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const userId = req.user?._id;
-    const order: IOrder | null = await Order.findOne({ _id: req.params.id, user: userId })
+    const order: IOrder | null = await Order.findOne({
+      _id: req.params.id,
+      user: userId,
+    })
       .populate('user')
       .populate('products.product');
 
@@ -34,15 +45,31 @@ export const getOrderById = async (req: IRequest, res: Response): Promise<void> 
 };
 
 // Create a new order
-export const createOrder = async (req: IRequest, res: Response): Promise<void> => {
+export const createOrder = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
-    const { products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
+    const {
+      products,
+      totalAmount,
+      shippingAddress,
+      width,
+      height,
+      area,
+      shape,
+      customShape,
+    } = req.body;
     const newOrder = new Order({
       user: req.user?._id,
       products,
       totalAmount,
       shippingAddress,
-      width,height,area,shape,customShape
+      width,
+      height,
+      area,
+      shape,
+      customShape,
     });
 
     const savedOrder = await newOrder.save();
@@ -53,12 +80,41 @@ export const createOrder = async (req: IRequest, res: Response): Promise<void> =
 };
 
 // Update an order by ID
-export const updateOrder = async (req: IRequest, res: Response): Promise<void> => {
+export const updateOrder = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
-    const { clientId,products, totalAmount, shippingAddress,width,height,area,shape,customShape } = req.body;
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, { client: clientId, products, totalAmount, shippingAddress,width,height,area,shape,customShape  }, {
-      new: true,
-    }).populate('user').populate('products.product');
+    const {
+      clientId,
+      products,
+      totalAmount,
+      shippingAddress,
+      width,
+      height,
+      area,
+      shape,
+      customShape,
+    } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        client: clientId,
+        products,
+        totalAmount,
+        shippingAddress,
+        width,
+        height,
+        area,
+        shape,
+        customShape,
+      },
+      {
+        new: true,
+      }
+    )
+      .populate('user')
+      .populate('products.product');
 
     if (!updatedOrder) {
       res.status(404).json({ error: 'Order not found' });
@@ -71,7 +127,10 @@ export const updateOrder = async (req: IRequest, res: Response): Promise<void> =
 };
 
 // Delete an order by ID
-export const deleteOrder = async (req: Request, res: Response): Promise<void> => {
+export const deleteOrder = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);
     if (!deletedOrder) {
@@ -83,4 +142,3 @@ export const deleteOrder = async (req: Request, res: Response): Promise<void> =>
     res.status(500).json({ error: 'Failed to delete order' });
   }
 };
-
