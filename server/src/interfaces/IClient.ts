@@ -9,5 +9,5 @@ export interface IClient extends Document {
   state?: string;
   createdAt: Date;
   updatedAt: Date;
-  architectId: Types.ObjectId;
+  architect: Types.ObjectId;
 }

@@ -12,12 +12,12 @@ const productSchema = new mongoose.Schema<IProduct>(
       type: String,
       trim: false,
     },
-    subCategoryId: {
+    subCategory: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'SubCategory',
       required: true,
     },
-    categoryId: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
       required: true,

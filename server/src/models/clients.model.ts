@@ -9,7 +9,7 @@ const clientSchema = new Schema<IClient>(
     address: { type: String, required: false },
     city: { type: String, required: false },
     state: { type: String, required: false },
-    architectId: {
+    architect: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
