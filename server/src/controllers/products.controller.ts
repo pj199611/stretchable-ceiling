@@ -118,8 +118,8 @@ export const getProductsByCategoryAndSubCategory = async (
     }
 
     const products = await Product.find({
-      categoryId: categoryId,
-      subCategoryId: subCategoryId,
+      category: categoryId,
+      subCategory: subCategoryId,
     });
 
     if (products.length === 0) {
