@@ -5,7 +5,7 @@ const SubCategorySchema = new Schema<ISubCategory>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    categoryId: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
       required: true,
