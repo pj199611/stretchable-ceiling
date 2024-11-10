@@ -232,7 +232,7 @@ export const deleteCategory = async (
     if (!category) res.status(404).json({ message: 'Category not found' });
     res.status(200).json({ message: 'Category deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete category', error });
+    res.status(500).json({ message: 'Failed to delete ca¥tegory', error });
   }
 };
 
@@ -242,20 +242,20 @@ export const createSubCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, description, categoryId } = req.body;
+    const { name, description, categoryIds } = req.body;
 
-    // Validate that category exists
-    const categoryExists = await Category.findById(categoryId);
-    if (!categoryExists) {
-      res.status(404).json({ message: 'Category not found' });
+    // Ensure all categoryIds exist
+    const categories = await Category.find({ _id: { $in: categoryIds } });
+    if (categories.length !== categoryIds.length) {
+      res.status(404).json({ message: 'One or more categories not found' });
       return;
     }
 
-    // Create subcategory with category as an array
+    // Create subcategory with multiple category IDs
     const subCategory = new SubCategory({
       name,
       description,
-      category: [categoryId], // Set as an array
+      category: categoryIds, // Set as array of category IDs
     });
 
     await subCategory.save();
@@ -264,6 +264,41 @@ export const createSubCategory = async (
       .json({ message: 'SubCategory created successfully', subCategory });
   } catch (error) {
     res.status(500).json({ message: 'Failed to create subcategory', error });
+  }
+};
+
+export const updateSubCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, description, categoryIds } = req.body;
+
+    // If new category IDs are provided, verify that all exist
+    if (categoryIds) {
+      const categories = await Category.find({ _id: { $in: categoryIds } });
+      if (categories.length !== categoryIds.length) {
+        res.status(404).json({ message: 'One or more categories not found' });
+        return;
+      }
+    }
+
+    // Update subcategory, setting category as an array of IDs
+    const subCategory = await SubCategory.findByIdAndUpdate(
+      req.params.id,
+      { name, description, category: categoryIds },
+      { new: true }
+    ).populate('category');
+
+    if (!subCategory) {
+      res.status(404).json({ message: 'SubCategory not found' });
+      return;
+    }
+    res
+      .status(200)
+      .json({ message: 'SubCategory updated successfully', subCategory });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update subcategory', error });
   }
 };
 
@@ -297,40 +332,6 @@ export const getSubCategoryById = async (
   }
 };
 
-export const updateSubCategory = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const { name, description, categoryId } = req.body;
-
-    // If a new category ID is provided, validate that the category exists
-    if (categoryId) {
-      const categoryExists = await Category.findById(categoryId);
-      if (!categoryExists) {
-        res.status(404).json({ message: 'Category not found' });
-        return;
-      }
-    }
-
-    // Update subcategory, setting category as an array
-    const subCategory = await SubCategory.findByIdAndUpdate(
-      req.params.id,
-      { name, description, category: categoryId ? [categoryId] : undefined }, // Keep category array structure
-      { new: true }
-    ).populate('category');
-
-    if (!subCategory) {
-      res.status(404).json({ message: 'SubCategory not found' });
-      return;
-    }
-    res
-      .status(200)
-      .json({ message: 'SubCategory updated successfully', subCategory });
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to update subcategory', error });
-  }
-};
 
 export const deleteSubCategory = async (
   req: Request,
