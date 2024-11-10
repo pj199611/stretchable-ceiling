@@ -265,7 +265,7 @@ export const getSubCategories = async (
   res: Response
 ): Promise<void> => {
   try {
-    const subCategories = await SubCategory.find().populate('categoryId');
+    const subCategories = await SubCategory.find().populate('category');
     res.status(200).json(subCategories);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch subcategories', error });
@@ -278,7 +278,7 @@ export const getSubCategoryById = async (
 ): Promise<void> => {
   try {
     const subCategory = await SubCategory.findById(req.params.id).populate(
-      'categoryId'
+      'category'
     );
     if (!subCategory)
       res.status(404).json({ message: 'SubCategory not found' });
@@ -307,7 +307,7 @@ export const updateSubCategory = async (
       req.params.id,
       { name, description, categoryId },
       { new: true }
-    ).populate('categoryId');
+    ).populate('category');
 
     if (!subCategory)
       res.status(404).json({ message: 'SubCategory not found' });
