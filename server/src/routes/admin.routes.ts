@@ -1,6 +1,7 @@
 import express from 'express';
 import { authenticateToken } from '../middlewares/auth';
 import { checkAdminRole } from '../middlewares/roles';
+import upload from '../utils/image-upload';
 import {
   getAllUsers,
   deleteUser,
@@ -104,7 +105,7 @@ router.get('/products/:id',authenticateToken, getProductById);
  *       201:
  *         description: Product created successfully
  */
-router.post('/products', authenticateToken, checkAdminRole, createProduct);
+router.post('/products', authenticateToken, checkAdminRole,upload.single('image'), createProduct);
 
 /**
  * @swagger

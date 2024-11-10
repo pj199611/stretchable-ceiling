@@ -3,6 +3,7 @@ import Product from '../models/products.model';
 import IProduct from '../interfaces/IProduct';
 import Order from '../models/orders.model';
 
+
 export const getAllProducts = async (
   req: Request,
   res: Response
@@ -36,7 +37,18 @@ export const createProduct = async (
   res: Response
 ): Promise<void> => {
   try {
-    const newProduct: IProduct = new Product(req.body);
+    // Check if an image was uploaded
+    if (!req.file) {
+      res.status(400).json({ error: 'Image is required' });
+      return;
+    }
+
+    // Create new product with image URL from Cloudinary
+    const newProduct: IProduct = new Product({
+      ...req.body,
+      imageUrl: req.file.path, //cloudinary image path and saving in db
+    });
+
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (error) {
