@@ -34,14 +34,13 @@ export default function Login() {
     }
 
     const res = await login_me_axios(formData);
-    const AccessToken= res?.token;
+    const AccessToken = res?.token;
     if (AccessToken) {
       localStorage.setItem("access_token", AccessToken);
 
       const decoded = jwtDecode(AccessToken);
-      setRole(decoded["role"])
+      setRole(decoded["role"]);
       setLoding(false);
-      
     } else {
       setLoding(false);
       // toast.error(res.message);

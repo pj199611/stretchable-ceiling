@@ -36,7 +36,6 @@ export const login_me = async (formData: any) => {
   }
 };
 
-
 export const register_me_axios = async (formData: any) => {
   const response = await AxiosInstance.post("/auth/signup", formData);
   return response;
