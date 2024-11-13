@@ -5,7 +5,7 @@ import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 import Client from '../models/clients.model';
 import Category from '../models/category.model';
-import Location from "../models/ILocation.model";
+import Location from "../models/location.model";
 import SubCategory from '../models/subCategory.model';
 
 // User management controllers
