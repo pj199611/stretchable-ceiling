@@ -7,6 +7,7 @@ export default interface IProduct extends Document {
   category: Types.ObjectId;
   imageUrl?: string;
   stockPhotoId:Number;
+  product_price?:Number;
   createdAt?: Date;
   updatedAt?: Date;
 }

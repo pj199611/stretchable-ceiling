@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema<IProduct>(
       ref: 'Category',
       required: true,
     },
+    product_price:{
+      type:Number,
+      required:false
+    },
     stockPhotoId:{
       type:Number,
       required:true

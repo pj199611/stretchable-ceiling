@@ -4,4 +4,5 @@ export default interface ISubCategory extends Document {
   name: string;
   description: string;
   category: Types.ObjectId[];
+  price:Number;
 }
