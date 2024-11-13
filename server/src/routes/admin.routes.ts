@@ -22,6 +22,11 @@ import {
   getCategories,
   getCategoryById,
   deleteCategory,
+  createLocation,
+  deleteLocation,
+  updateLocation,
+  getLocationById,
+  getLocations
 } from '../controllers/admin.controller';
 
 import {
@@ -60,7 +65,7 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/products', authenticateToken,getAllProducts);
+router.get('/products', authenticateToken, getAllProducts);
 
 /**
  * @swagger
@@ -85,7 +90,7 @@ router.get('/products', authenticateToken,getAllProducts);
  *       404:
  *         description: Product not found
  */
-router.get('/products/:id',authenticateToken, getProductById);
+router.get('/products/:id', authenticateToken, getProductById);
 
 /**
  * @swagger
@@ -105,7 +110,13 @@ router.get('/products/:id',authenticateToken, getProductById);
  *       201:
  *         description: Product created successfully
  */
-router.post('/products', authenticateToken, checkAdminRole,upload.single('image'), createProduct);
+router.post(
+  '/products',
+  authenticateToken,
+  checkAdminRole,
+  upload.single('image'),
+  createProduct
+);
 
 /**
  * @swagger
@@ -160,7 +171,12 @@ router.delete(
   deleteProduct
 );
 
-router.get("/productsOfSubCategory",authenticateToken,checkAdminRole,getProductsByCategoryAndSubCategory)
+router.get(
+  '/productsOfSubCategory',
+  authenticateToken,
+  checkAdminRole,
+  getProductsByCategoryAndSubCategory
+);
 
 // Order Routes
 
@@ -479,5 +495,12 @@ router.delete(
   checkAdminRole,
   deleteCategory
 );
+
+//  locations management routes
+router.post('/', authenticateToken, checkAdminRole, createLocation);
+router.get('/', authenticateToken, checkAdminRole, getLocations);
+router.get('/:id', authenticateToken, checkAdminRole, getLocationById);
+router.put('/:id', authenticateToken, checkAdminRole, updateLocation);
+router.delete('/:id', authenticateToken, checkAdminRole, deleteLocation);
 
 export default router;

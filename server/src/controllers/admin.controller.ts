@@ -5,6 +5,7 @@ import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 import Client from '../models/clients.model';
 import Category from '../models/category.model';
+import Location from "../models/ILocation.model";
 import SubCategory from '../models/subCategory.model';
 
 // User management controllers
@@ -346,5 +347,82 @@ export const deleteSubCategory = async (
     res.status(200).json({ message: 'SubCategory deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete subcategory', error });
+  }
+};
+
+
+// locations management controller
+
+// Create a new location
+export const createLocation = async (req:Request, res:Response):Promise<void> => {
+  try {
+    const { name, location_price, operator } = req.body;
+
+    // Create location instance
+    const location = new Location({
+      name,
+      location_price,
+      operator,
+    });
+
+    await location.save();
+    res.status(201).json(location);
+  } catch (error) {
+    res.status(500).json({ error: 'Error creating location', details: error.message });
+  }
+};
+
+// Get all locations
+export const getLocations = async (req:Request, res:Response):Promise<void> => {
+  try {
+    const locations = await Location.find();
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(500).json({ error: 'Error retrieving locations', details: error.message });
+  }
+};
+
+export const getLocationById = async (req:Request, res:Response):Promise<void> => {
+  try {
+    const location = await Location.findById(req.params.id);
+    if (!location) {
+      res.status(404).json({ error: 'Location not found' });
+    }
+    res.status(200).json(location);
+  } catch (error) {
+    res.status(500).json({ error: 'Error retrieving location', details: error.message });
+  }
+};
+
+export const updateLocation = async (req:Request, res:Response):Promise<void> => {
+  try {
+    const { name, location_price, operator } = req.body;
+
+    const location = await Location.findById(req.params.id);
+    if (!location) {
+       res.status(404).json({ error: 'Location not found' });
+    }
+
+    // Update fields
+    if (name) location.name = name;
+    if (location_price) location.location_price = location_price;
+    if (operator) location.operator = operator;
+
+    await location.save();
+    res.status(200).json(location);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating location', details: error.message });
+  }
+};
+
+export const deleteLocation = async (req:Request, res:Response):Promise<void> => {
+  try {
+    const location = await Location.findByIdAndDelete(req.params.id);
+    if (!location) {
+      res.status(404).json({ error: 'Location not found' });
+    }
+    res.status(200).json({ message: 'Location deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting location', details: error.message });
   }
 };
