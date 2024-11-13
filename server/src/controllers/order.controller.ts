@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Order from '../models/orders.model';
 import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
+import Location from '../models/location.model';
 
 // Get all orders for a specific user
 export const getAllOrdersForUsers = async (
@@ -50,27 +51,23 @@ export const createOrder = async (
   res: Response
 ): Promise<void> => {
   try {
+    // location {operator , price}
     const {
       products,
-      totalAmount,
       shippingAddress,
-      width,
-      height,
       area,
-      shape,
-      customShape,
+      location_name
     } = req.body;
     const newOrder = new Order({
       user: req.user?._id,
       products,
-      totalAmount,
       shippingAddress,
-      width,
-      height,
       area,
-      shape,
-      customShape,
     });
+    
+    const location=await Location.find({name:location_name});
+    const total_Amount=newOrder.calculateTotalAmount(location as unknown as any);
+    newOrder.totalAmount=total_Amount;
 
     const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
