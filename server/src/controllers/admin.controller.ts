@@ -184,8 +184,25 @@ export const getCategories = async (
   res: Response
 ): Promise<void> => {
   try {
-    const categories = await Category.find();
-    res.status(200).json(categories);
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+    const skip = (page - 1) * limit;
+    const categories = await Category.find()
+      .skip(skip)
+      .limit(limit);
+
+    const totalCategories = await Category.countDocuments();
+
+    res.status(200).json({
+      categories,
+      pagination: {
+        totalCategories,
+        currentPage: page,
+        totalPages: Math.ceil(totalCategories / limit),
+        pageSize: categories.length,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch categories', error });
   }
@@ -308,13 +325,30 @@ export const getSubCategories = async (
   res: Response
 ): Promise<void> => {
   try {
-    const subCategories = await SubCategory.find().populate('category');
-    res.status(200).json(subCategories);
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+    const skip = (page - 1) * limit;
+    const subCategories = await SubCategory.find()
+      .populate('category')
+      .skip(skip)
+      .limit(limit);
+
+    const totalSubCategories = await SubCategory.countDocuments();
+
+    res.status(200).json({
+      subCategories,
+      pagination: {
+        totalSubCategories,
+        currentPage: page,
+        totalPages: Math.ceil(totalSubCategories / limit),
+        pageSize: subCategories.length,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch subcategories', error });
   }
 };
-
 export const getSubCategoryById = async (
   req: Request,
   res: Response

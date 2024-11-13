@@ -6,6 +6,8 @@ interface IOrderProduct {
   width?: number;
   height?: number;
   area?: number;
+  stockPhotoIds?:number[];
+  imageUrls?:string[];
   shape?: string[];
   customShape?: string;
 }
@@ -22,6 +24,7 @@ export default interface IOrder extends Document {
   products: IOrderProduct[];
   totalAmount: number;
   status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled';
+  isCustomized:boolean;
   remarks?: string;
   shippingAddress: IShippingAddress;
   createdAt?: Date;

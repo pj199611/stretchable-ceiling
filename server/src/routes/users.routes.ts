@@ -12,6 +12,7 @@ import {
   getProductById,
 } from '../controllers/products.controller';
 
+
 import { authenticateToken } from '../middlewares/auth';
 import {
   getAllOrdersForUsers,
@@ -19,6 +20,7 @@ import {
   createOrder,
   updateOrder,
   deleteOrder,
+  createCustomizedOrder,
 } from '../controllers/order.controller';
 
 const router = express.Router();
@@ -48,5 +50,7 @@ router.get('/subcategories/:id', authenticateToken, getSubCategoryById);
 router.get('/categories', authenticateToken, getCategories);
 // Route to get a single category by ID
 router.get('/categories/:id', authenticateToken, getCategoryById);
+
+router.post("/customize_order",authenticateToken,createCustomizedOrder);
 
 export default router;

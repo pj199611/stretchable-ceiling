@@ -142,3 +142,30 @@ export const deleteOrder = async (
     res.status(500).json({ error: 'Failed to delete order' });
   }
 };
+
+
+//create customized order
+
+export const createCustomizedOrder = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const {
+      stockPhotoIds,
+      imageUrls
+    } = req.body;
+
+    const newOrder = new Order({
+      user: req.user?._id,
+    });
+
+    newOrder.products[0].stockPhotoIds=stockPhotoIds;
+    newOrder.products[0].imageUrls=imageUrls;
+
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create order' });
+  }
+};

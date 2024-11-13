@@ -9,8 +9,25 @@ export const getAllProducts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const products: IProduct[] = await Product.find();
-    res.status(200).json(products);
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+    const skip = (page - 1) * limit;
+    const products: IProduct[] = await Product.find()
+      .skip(skip)
+      .limit(limit);
+
+    const totalProducts = await Product.countDocuments();
+
+    res.status(200).json({
+      products,
+      pagination: {
+        totalProducts,
+        currentPage: page,
+        totalPages: Math.ceil(totalProducts / limit),
+        pageSize: products.length,
+      },
+    });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch products' });
   }

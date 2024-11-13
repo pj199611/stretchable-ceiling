@@ -3,7 +3,6 @@ import IOrder from '../interfaces/IOrder';
 import SubCategory from './subCategory.model';
 import Product from './products.model';
 
-
 const orderSchema = new mongoose.Schema<IOrder>(
   {
     user: {
@@ -16,7 +15,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Product',
-          required: true,
+          required: false,
         },
         quantity: {
           type: Number,
@@ -46,8 +45,19 @@ const orderSchema = new mongoose.Schema<IOrder>(
         //   type: String,
         //   required: false,
         // },
+        stockPhotoIds: [
+          {
+            type: Number,
+            required: false,
+          },
+        ],
+        imageUrls: [{ type: String, required: false }],
       },
     ],
+    isCustomized: {
+      type: Boolean,
+      required: true,
+    },
     totalAmount: {
       type: Number,
       required: false,
@@ -71,7 +81,23 @@ const orderSchema = new mongoose.Schema<IOrder>(
   { timestamps: true }
 );
 
-orderSchema.methods.calculateTotalAmount = async function (location:{operator:string,price:number}) {
+orderSchema.pre('save', async function (next) {
+  if (
+    this.products[0].stockPhotoIds.length > 0 ||
+    this.products[0].imageUrls.length > 0
+  ) {
+    this.isCustomized = true;
+    return;
+  }
+  this.isCustomized = false;
+
+  next();
+});
+
+orderSchema.methods.calculateTotalAmount = async function (location: {
+  operator: string;
+  price: number;
+}) {
   let totalAmount = 0;
 
   for (const item of this.products) {
@@ -83,28 +109,29 @@ orderSchema.methods.calculateTotalAmount = async function (location:{operator:st
       productPrice = product.product_price;
     } else {
       // Fallback to subcategory price if product price is unavailable
-      const subCategory = await SubCategory.findById(product.subCategory).lean();
+      const subCategory = await SubCategory.findById(
+        product.subCategory
+      ).lean();
       productPrice = subCategory ? subCategory.price : 0; // Adjust `price` field as per your schema
     }
 
-    const area = item.area || (item.width && item.height ? item.width * item.height : 0);
+    const area =
+      item.area || (item.width && item.height ? item.width * item.height : 0);
 
     // Calculate amount for this item and add to total
 
-    if(location.operator ==="add"){
+    if (location.operator === 'add') {
       totalAmount += area * (productPrice + location.price);
     }
-    
-    if(location.operator==="subtract"){
-      totalAmount+=area * (productPrice - location.price);
+
+    if (location.operator === 'subtract') {
+      totalAmount += area * (productPrice - location.price);
     }
   }
 
   this.totalAmount = totalAmount;
   return this.totalAmount;
 };
-
-
 
 const Order = mongoose.model<IOrder>('Order', orderSchema);
 export default Order;
