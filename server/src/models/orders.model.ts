@@ -115,8 +115,7 @@ orderSchema.methods.calculateTotalAmount = async function (location: {
       productPrice = subCategory ? subCategory.price : 0; // Adjust `price` field as per your schema
     }
 
-    const area =
-      item.area || (item.width && item.height ? item.width * item.height : 0);
+    const area = item.area 
 
     // Calculate amount for this item and add to total
 

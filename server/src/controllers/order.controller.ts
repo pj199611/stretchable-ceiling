@@ -56,7 +56,6 @@ export const createOrder = async (
       products,
       shippingAddress,
       area,
-      location_name
     } = req.body;
     const newOrder = new Order({
       user: req.user?._id,
@@ -65,7 +64,7 @@ export const createOrder = async (
       area,
     });
     
-    const location=await Location.find({name:location_name});
+    const location=await Location.find({name:shippingAddress.city});
     const total_Amount=newOrder.calculateTotalAmount(location as unknown as any);
     newOrder.totalAmount=total_Amount;
 
