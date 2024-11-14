@@ -368,6 +368,40 @@ export const getSubCategoryById = async (
 };
 
 
+export const getSubCategoriesByCategoryId = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { categoryId } = req.params;
+    const { page = 1, pageSize = 10 } = req.query;
+
+    const pageNumber = parseInt(page as string);
+    const limit = parseInt(pageSize as string);
+    const skip = (pageNumber - 1) * limit;
+
+    const subCategories = await SubCategory.find({
+      category: categoryId,
+    })
+      .populate('category')
+      .skip(skip)
+      .limit(limit);
+
+    const totalSubCategories = await SubCategory.countDocuments({
+      category: categoryId,
+    });
+
+    const pagination = {
+      totalSubCategories,
+      currentPage: pageNumber,
+      totalPages: Math.ceil(totalSubCategories / limit),
+      pageSize: limit
+    };
+
+    res.status(200).json({ subCategories, pagination });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch subcategories' });
+  }
+};
+
+
 export const deleteSubCategory = async (
   req: Request,
   res: Response

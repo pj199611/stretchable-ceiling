@@ -6,6 +6,7 @@ import {
   getSubCategoryById,
   getCategories,
   getCategoryById,
+  getSubCategoriesByCategoryId
 } from '../controllers/admin.controller';
 import {
   getAllProducts,
@@ -43,8 +44,7 @@ router.delete('/orders/:id', authenticateToken,deleteOrder);
 
 // category management routes
 router.get('/subcategories', authenticateToken, getSubCategories);
-// Route to get a single subcategory by ID
-router.get('/subcategories/:id', authenticateToken, getSubCategoryById);
+router.get("/subcategories/:categoryId",authenticateToken,getSubCategoriesByCategoryId);
 
 // sub category management routes
 router.get('/categories', authenticateToken, getCategories);
