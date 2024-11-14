@@ -26,7 +26,7 @@ import {
 const router = express.Router();
 
 // user detail routes
-router.get('/users/:id', getUser);
+router.get('/user', authenticateToken,getUser);
 router.put('/user/:id', updateUser);
 
 // Product Routes

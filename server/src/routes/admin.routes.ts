@@ -78,10 +78,10 @@ router.put('/categories/:id', authenticateToken, checkAdminRole, updateCategory)
 router.delete('/categories/:id', authenticateToken, checkAdminRole, deleteCategory);
 
 // Locations Management Routes
-router.post('/', authenticateToken, checkAdminRole, createLocation);
-router.get('/', authenticateToken, checkAdminRole, getLocations);
-router.get('/:id', authenticateToken, checkAdminRole, getLocationById);
-router.put('/:id', authenticateToken, checkAdminRole, updateLocation);
-router.delete('/:id', authenticateToken, checkAdminRole, deleteLocation);
+router.post('/location', authenticateToken, checkAdminRole, createLocation);
+router.get('/location', authenticateToken, checkAdminRole, getLocations);
+router.get('/location/:id', authenticateToken, checkAdminRole, getLocationById);
+router.put('/location/:id', authenticateToken, checkAdminRole, updateLocation);
+router.delete('/location/:id', authenticateToken, checkAdminRole, deleteLocation);
 
 export default router;

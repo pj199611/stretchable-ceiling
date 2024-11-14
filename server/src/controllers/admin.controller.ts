@@ -45,8 +45,8 @@ export const deleteUser = async (
   }
 };
 
-export const getUser = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
+export const getUser = async (req: IRequest, res: Response): Promise<void> => {
+  const id  = req.user.id;
   try {
     const user = await User.findById(id);
     if (!user) {
@@ -64,9 +64,9 @@ export const updateUser = async (
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
-  const updateData = req.body;
+  const {email,password} = req.body;
   try {
-    const user = await User.findByIdAndUpdate(id, updateData, { new: true });
+    const user = await User.findByIdAndUpdate(id, {email,password}, { new: true });
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;

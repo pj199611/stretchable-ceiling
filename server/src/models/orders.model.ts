@@ -21,6 +21,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
           type: Number,
           required: true,
           min: 1,
+          default:1
         },
         // not required for now
         // width: {
@@ -57,6 +58,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
     isCustomized: {
       type: Boolean,
       required: true,
+      default:false
     },
     totalAmount: {
       type: Number,
@@ -94,14 +96,11 @@ orderSchema.pre('save', async function (next) {
   next();
 });
 
-orderSchema.methods.calculateTotalAmount = async function (location: {
-  operator: string;
-  price: number;
-}) {
+orderSchema.methods.calculateTotalAmount = async function (location) {
   let totalAmount = 0;
 
   for (const item of this.products) {
-    let productPrice;
+    let productPrice
 
     // Fetch product details
     const product = await Product.findById(item.product).lean();
@@ -109,28 +108,32 @@ orderSchema.methods.calculateTotalAmount = async function (location: {
       productPrice = product.product_price;
     } else {
       // Fallback to subcategory price if product price is unavailable
-      const subCategory = await SubCategory.findById(
-        product.subCategory
-      ).lean();
+      const subCategory = await SubCategory.findById(product?.subCategory).lean();
       productPrice = subCategory ? subCategory.price : 0; // Adjust `price` field as per your schema
     }
 
-    const area = item.area 
-
-    // Calculate amount for this item and add to total
+    const area = item.area;
 
     if (location.operator === 'add') {
-      totalAmount += area * (productPrice + location.price);
+      totalAmount += area * (productPrice + location.location_price);
+    } else if (location.operator === 'subtract') {
+      totalAmount += area * (productPrice - location.location_price);
     }
 
-    if (location.operator === 'subtract') {
-      totalAmount += area * (productPrice - location.price);
-    }
+    // Logging for debugging purposes
+    console.log({
+      area,
+      productPrice,
+      operator: location.operator,
+      locationPrice: location.location_price,
+      itemTotal: area * (location.operator === 'add' ? productPrice + location.location_price : productPrice - location.location_price),
+    });
   }
 
   this.totalAmount = totalAmount;
   return this.totalAmount;
 };
+
 
 const Order = mongoose.model<IOrder>('Order', orderSchema);
 export default Order;

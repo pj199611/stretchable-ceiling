@@ -4,21 +4,26 @@ import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 import Location from '../models/location.model';
 
-// Get all orders for a specific user
 export const getAllOrdersForUsers = async (
   req: IRequest,
   res: Response
 ): Promise<void> => {
   try {
     const userId = req.user?._id;
+    console.log("userId:", userId);
+
     const orders: IOrder[] = await Order.find({ user: userId })
       .populate('user')
       .populate('products.product');
+
+    console.log("Orders fetched:", orders);
     res.status(200).json(orders);
   } catch (error) {
+    console.error("Error fetching orders:", error);
     res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
+
 
 // Get a single order by ID for a specific user
 export const getOrderById = async (
@@ -65,12 +70,15 @@ export const createOrder = async (
     });
     
     const location=await Location.find({name:shippingAddress.city});
-    const total_Amount=newOrder.calculateTotalAmount(location as unknown as any);
+    console.log("lcoation",location[0])
+    const total_Amount=await newOrder.calculateTotalAmount(location[0 ]as unknown as any);
+    console.log(total_Amount)
     newOrder.totalAmount=total_Amount;
 
     const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
   } catch (error) {
+    console.log("error",error)
     res.status(500).json({ error: 'Failed to create order' });
   }
 };

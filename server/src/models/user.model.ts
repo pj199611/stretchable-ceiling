@@ -38,6 +38,21 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
+UserSchema.pre('findOneAndUpdate', async function (next) {
+  const update = this.getUpdate() as Record<string, any>;
+
+  if (update && update.password) {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      update.password = await bcrypt.hash(update.password, salt);
+      this.setUpdate(update);
+    } catch (error) {
+      return next(error as unknown as CallbackError);
+    }
+  }
+  next();
+});
+
 UserSchema.methods.isPasswordValid = async function (
   password: string
 ): Promise<boolean> {
