@@ -71,7 +71,7 @@ export const createOrder = async (
     
     const location=await Location.find({name:shippingAddress.city});
     console.log("lcoation",location[0])
-    const total_Amount=await newOrder.calculateTotalAmount(location[0 ]as unknown as any);
+    const total_Amount=await newOrder.calculateTotalAmount(location[0] as unknown as any);
     console.log(total_Amount)
     newOrder.totalAmount=total_Amount;
 
@@ -149,7 +149,6 @@ export const deleteOrder = async (
 
 
 //create customized order
-
 export const createCustomizedOrder = async (
   req: IRequest,
   res: Response

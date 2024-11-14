@@ -29,5 +29,5 @@ export default interface IOrder extends Document {
   shippingAddress: IShippingAddress;
   createdAt?: Date;
   updatedAt?: Date;
-  calculateTotalAmount:(Location:{operator:string,price:number})=>number
+  calculateTotalAmount:(Location:{operator:string,price:number})=>Promise<number>
 }
