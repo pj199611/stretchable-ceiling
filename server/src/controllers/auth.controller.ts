@@ -4,12 +4,12 @@ import User from '../models/user.model';
 
 export const signup = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { email, password } = req.body;
+    const { email, password,userName } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-    const newUser = new User({ email, password });
+    const newUser = new User({ email, password,userName });
     await newUser.save();
 
     return res.status(201).json({ message: 'User registered successfully' });
