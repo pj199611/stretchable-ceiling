@@ -21,6 +21,12 @@ export default function Login() {
   const [loading, setLoding] = useState<Boolean>(false);
   const [role, setRole] = useState<Role>("user");
 
+  const RouteUser = (role: string = "user") => {
+    if (role === "user") Router.push("/dashboard");
+    if (role === "designer") Router.push("/dashboard");
+    if (role === "admin") Router.push("/dashboard");
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoding(true);
@@ -40,6 +46,13 @@ export default function Login() {
 
       const decoded = jwtDecode(AccessToken);
       setRole(decoded["role"]);
+      RouteUser(decoded["role"]);
+      console.log(
+        "access Token-->",
+        AccessToken,
+        "-----role-->",
+        decoded["role"]
+      );
       setLoding(false);
     } else {
       setLoding(false);
