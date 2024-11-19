@@ -3,7 +3,6 @@ import {
   getUser,
   updateUser,
   getSubCategories,
-  getSubCategoryById,
   getCategories,
   getCategoryById,
   getSubCategoriesByCategoryId
