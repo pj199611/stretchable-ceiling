@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as AuthController from '../controllers/auth.controller';
-import {loginValidator} from "../validators/auth.validators";
+import {loginValidator,signUpValidator} from "../validators/auth.validators";
 
 const router = Router();
 
@@ -58,6 +58,6 @@ router.post('/login',loginValidator, AuthController.login);
  *         description: User already exists
  */
 
-router.post('/signup', AuthController.signup);
+router.post('/signup', signUpValidator,AuthController.signup);
 
 export default router;

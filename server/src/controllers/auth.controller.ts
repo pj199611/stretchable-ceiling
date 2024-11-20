@@ -4,6 +4,12 @@ import User from '../models/user.model';
 import {validationResult} from 'express-validator'
 
 export const signup = async (req: Request, res: Response): Promise<any> => {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  
   try {
     const { email, password,userName } = req.body;
     const existingUser = await User.findOne({ email });
