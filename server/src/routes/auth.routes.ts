@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import * as AuthController from '../controllers/auth.controller';
+import {loginValidator} from "../validators/auth.validators";
+
 const router = Router();
 
 /**
@@ -28,7 +30,7 @@ const router = Router();
  *       400:
  *         description: Invalid email or password
  */
-router.post('/login', AuthController.login);
+router.post('/login',loginValidator, AuthController.login);
 /**
  * @swagger
  * /api/auth/signup:
