@@ -1,0 +1,43 @@
+/* components/Tabs.module.css */
+.tabsContainer {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tabList {
+  display: flex;
+  background-color: #f9f9f9;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 15px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.tab:hover {
+  background-color: #e6e6e6; /* Slight hover effect */
+}
+
+.active {
+  background-color: #ffffff;
+  color: #0070f3; /* Active tab color */
+  border-bottom: 2px solid #0070f3; /* Active tab underline */
+}
+
+.tabContent {
+  padding: 15px;
+  border-top: 1px solid #ccc;
+}
+
+.content {
+  font-size: 14px;
+}
