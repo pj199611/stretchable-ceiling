@@ -3,6 +3,9 @@ import IconButton from "@mui/material/IconButton";
 import styled from "@mui/material/styles/styled";
 
 export const Card = styled("div")({
+  width: 300,
+  display: "inline-block",
+  margin: 4,
   ":hover": {
     img: { transform: "scale(1.1)" },
     ".product-actions": { right: 15 },
@@ -11,7 +14,7 @@ export const Card = styled("div")({
 });
 
 export const CardMedia = styled("div")(({ theme }) => ({
-  aspectRatio: "3/2",
+  aspectRatio: "1/1",
   maxHeight: 300,
   borderRadius: 4,
   cursor: "pointer",

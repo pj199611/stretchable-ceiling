@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import IndexPageView from "@/pages-sections/landing/page-view";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Bazaar - Next.js E-commerce Template",
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function IndexPage() {
-  return <IndexPageView />;
+  return (
+    <Link href="/category">
+      <h1>Category</h1>
+    </Link>
+  );
+  // return <IndexPageView />;
 }

@@ -6,7 +6,12 @@ const nextConfig: NextConfig = {
     theme: "DEFAULT",
   },
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "ui-lib.com" }],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   // images: {
   //   domains: ["www.watchmojo.com"], // Add the domain here

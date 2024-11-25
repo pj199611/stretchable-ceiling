@@ -32,6 +32,13 @@
   margin: 0 0 10px 0;
 }
 
+.cardTitleCenter {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  justify-content: center;
+  display: flex;
+}
 .cardDescription {
   font-size: 1rem;
   color: #555;
@@ -47,4 +54,11 @@
 
 .cardLink:hover {
   text-decoration: underline;
+}
+.cardPrice {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  justify-content: center;
+  display: flex;
 }

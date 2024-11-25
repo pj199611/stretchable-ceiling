@@ -12,23 +12,23 @@ import Button from "@mui/material/Button";
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
 // GLOBAL CUSTOM HOOK
-import useCart from "hooks/useCart";
+import useCart from "@/hooks/useCart";
 // GLOBAL CUSTOM COMPONENTS
-import LazyImage from "components/LazyImage";
-import { H1, H2, H3, H6 } from "components/Typography";
-import { FlexBox, FlexRowCenter } from "components/flex-box";
+import LazyImage from "@/components/LazyImage";
+import { H1, H2, H3, H6 } from "@/components/Typography";
+import { FlexBox, FlexRowCenter } from "@/components/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 // DUMMY DATA
-import productVariants from "data/product-variants";
+import productVariants from "@/data/product-variants";
 // CUSTOM DATA MODEL
-import Product from "models/Product.model";
+// import Product from "models/Product.model";
 
 // ================================================================
-type Props = { product: Product };
+// type Props = { product: Product };
 // ================================================================
 
-export default function ProductIntro({ product }: Props) {
+export default function ProductIntro({ product }: any) {
   const { id, price, title, images, slug, thumbnail } = product || {};
 
   const { state, dispatch } = useCart();

@@ -9,6 +9,10 @@ import EyeToggleButton from "../components/eye-toggle-button";
 import usePasswordVisible from "../use-password-visible";
 // GLOBAL CUSTOM COMPONENTS
 import BazaarTextField from "@/components/BazaarTextField";
+import { jwtDecode } from "jwt-decode";
+import { login_me, login_me_axios } from "@/services/authApi";
+import { useRouter } from "next/navigation";
+import useRole from "@/hooks/hooks/useRole";
 
 // ==============================================================
 interface Props {
@@ -16,8 +20,12 @@ interface Props {
 }
 // ==============================================================
 
+type Role = "user" | "designer" | "admin";
+
 const LoginPageView = ({ closeDialog }: Props) => {
+  const Router = useRouter();
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
+  const { role, updateRole } = useRole();
 
   // LOGIN FORM FIELDS INITIAL VALUES
   const initialValues = { email: "", password: "" };
@@ -25,17 +33,47 @@ const LoginPageView = ({ closeDialog }: Props) => {
   // LOGIN FORM FIELD VALIDATION SCHEMA
   const validationSchema = yup.object().shape({
     password: yup.string().required("Password is required"),
-    email: yup.string().email("invalid email").required("Email is required")
+    email: yup.string().email("invalid email").required("Email is required"),
   });
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      closeDialog?.();
+  const RouteUser = (role: string = "user") => {
+    if (role === "user") Router.push("/");
+    if (role === "designer") Router.push("/");
+    if (role === "admin") Router.push("/");
+  };
+
+  const handleLogin = async (formData: any) => {
+    const res = await login_me_axios(formData);
+    const AccessToken = res?.token;
+    if (AccessToken) {
+      localStorage.setItem("access_token", AccessToken);
+
+      const decoded = jwtDecode(AccessToken);
+      if (decoded && decoded["role"]) {
+        updateRole(decoded["role"]);
+        RouteUser(decoded["role"]);
+      }
+
+      console.log(
+        "access Token-->",
+        AccessToken,
+        jwtDecode(AccessToken),
+        "-----role-->",
+        decoded["role"]
+      );
     }
-  });
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: (values) => {
+        handleLogin(values);
+        console.log(values);
+        closeDialog?.();
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -71,11 +109,22 @@ const LoginPageView = ({ closeDialog }: Props) => {
         helperText={touched.password && errors.password}
         error={Boolean(touched.password && errors.password)}
         InputProps={{
-          endAdornment: <EyeToggleButton show={visiblePassword} click={togglePasswordVisible} />
+          endAdornment: (
+            <EyeToggleButton
+              show={visiblePassword}
+              click={togglePasswordVisible}
+            />
+          ),
         }}
       />
 
-      <Button fullWidth type="submit" color="primary" variant="contained" size="large">
+      <Button
+        fullWidth
+        type="submit"
+        color="primary"
+        variant="contained"
+        size="large"
+      >
         Login
       </Button>
     </form>

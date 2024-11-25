@@ -1,11 +1,11 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { StaticImageData } from 'next/image';
-import image1 from '@/assets_copy/1.png';
-import image2 from '@/assets_copy/2.png';
-import image3 from '@/assets_copy/3.png';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { StaticImageData } from "next/image";
+import image1 from "@/images/404.svg";
+import image2 from "@/images/404.svg";
+import image3 from "@/images/404.svg";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Interface for image data
 interface ImageData {
@@ -25,7 +25,7 @@ export default function ImageSlider(): JSX.Element {
   // Function to show the previous slide
   const prevSlide = (): void => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length,
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
   };
 
@@ -92,8 +92,8 @@ export default function ImageSlider(): JSX.Element {
             key={index}
             className={`h-1 w-10 mx-1 ${
               index === currentIndex
-                ? 'bg-[#beff46] rounded-xl'
-                : 'bg-gray-300 rounded-xl'
+                ? "bg-[#beff46] rounded-xl"
+                : "bg-gray-300 rounded-xl"
             } transition-all duration-500 ease-in-out`}
           ></div>
         ))}

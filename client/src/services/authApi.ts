@@ -62,19 +62,3 @@ export const forget_password = async (formData: any) => {
     console.log("error in forget Password (service) => ", error);
   }
 };
-
-// http://localhost:8000/api/admin/products
-export const getProducts = async (formData: any) => {
-  try {
-    const res = await fetch(`${process.env.BASE_URL}/admin/products`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = res.json();
-    return data;
-  } catch (error) {
-    console.log("error in forget Password (service) => ", error);
-  }
-};

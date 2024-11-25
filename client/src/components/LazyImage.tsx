@@ -5,5 +5,6 @@ import styled from "@mui/material/styles/styled";
 
 export default styled(NextImage)({
   width: "100%",
-  height: "auto"
+  // height: "auto",
+  height: 450,
 });
