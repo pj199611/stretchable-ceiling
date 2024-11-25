@@ -380,8 +380,8 @@ export const getSubCategoriesByCategoryId = async (req: Request, res: Response):
     const subCategories = await SubCategory.find({
       category: categoryId,
     })
-      .populate('category')
       .skip(skip)
+      .select('-category')
       .limit(limit);
 
     const totalSubCategories = await SubCategory.countDocuments({

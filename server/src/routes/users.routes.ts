@@ -42,7 +42,6 @@ router.delete('/orders/:id', authenticateToken,deleteOrder);
 // ----------- //
 
 // category management routes
-router.get('/subcategories', authenticateToken, getSubCategories);
 router.get("/subcategories/:categoryId",authenticateToken,getSubCategoriesByCategoryId);
 
 // sub category management routes
