@@ -2,18 +2,17 @@ import express from 'express';
 import {
   getUser,
   updateUser,
-  getSubCategories,
   getCategories,
-  getCategoryById,
   getSubCategoriesByCategoryId
 } from '../controllers/admin.controller';
+
 import {
   getAllProducts,
   getProductById,
 } from '../controllers/products.controller';
 
-
 import { authenticateToken } from '../middlewares/auth';
+
 import {
   getAllOrdersForUsers,
   getOrderById,
@@ -39,15 +38,13 @@ router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', authenticateToken,deleteOrder);
+router.post("/customize_order",authenticateToken,createCustomizedOrder);
 // ----------- //
 
 // category management routes
-router.get("/subcategories/:categoryId",authenticateToken,getSubCategoriesByCategoryId);
+router.get("/subcategories/:categoryId",getSubCategoriesByCategoryId);
 
 // sub category management routes
-router.get('/categories', authenticateToken, getCategories);
-// Route to get a single category by ID
-router.get('/categories/:id', authenticateToken, getCategoryById);
-router.post("/customize_order",authenticateToken,createCustomizedOrder);
+router.get('/categories', getCategories);
 
 export default router;
