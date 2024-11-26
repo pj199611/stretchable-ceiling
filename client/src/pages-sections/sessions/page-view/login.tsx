@@ -50,8 +50,10 @@ const LoginPageView = ({ closeDialog }: Props) => {
 
       const decoded = jwtDecode(AccessToken);
       if (decoded && decoded["role"]) {
-        updateRole(decoded["role"]);
-        RouteUser(decoded["role"]);
+        const newRole = decoded["role"];
+        updateRole(newRole);
+        localStorage.setItem("role", newRole);
+        RouteUser(newRole);
       }
 
       console.log(

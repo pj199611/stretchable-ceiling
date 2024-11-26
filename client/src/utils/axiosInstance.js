@@ -7,6 +7,7 @@ const AxiosInstance = axios.create({
     "Content-Type": "application/json",
     // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
   },
+  timeout: 20000, // request timeout
 });
 
 AxiosInstance.interceptors.request.use(
@@ -15,12 +16,13 @@ AxiosInstance.interceptors.request.use(
     const accessToken = JSON.parse(token);
 
     config.headers = {
+      ...config.headers,
       "Content-Type": "application/json",
     };
 
     // If token is present, add it to request's Authorization Header
     if (accessToken) {
-      if (config.headers) config.headers.token = accessToken;
+      config.headers["Authorization"] = "bearer " + accessToken;
     }
 
     return config;

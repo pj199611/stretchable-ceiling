@@ -34,7 +34,15 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {/* LEFT CONTENT - LOGO AND CATEGORY */}
       <FlexBox minWidth={100} alignItems="center">
         <Link href="/">
-          {/* <LazyImage src={require("../../../public/assets/images/logo2.svg")} alt="logo" /> */}
+          Nest and Nook Interior
+          {/* <LazyImage
+            src={
+              "https://themeisle.com/blog/wp-content/uploads/2024/06/Online-Image-Optimizer-Test-Image-PNG-Version.png"
+            }
+            alt="logo"
+            width="30"
+            height={30}
+          /> */}
         </Link>
 
         {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
@@ -45,7 +53,10 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {midSlot}
 
       {/* LOGIN AND CART BUTTON */}
-      <LoginCartButtons toggleDialog={toggleDialog} toggleSidenav={toggleSidenav} />
+      <LoginCartButtons
+        toggleDialog={toggleDialog}
+        toggleSidenav={toggleSidenav}
+      />
 
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer
@@ -59,7 +70,9 @@ export default function Header({ isFixed, className, midSlot }: Props) {
 
   return (
     <HeaderWrapper className={clsx(className)}>
-      <StyledContainer>{downMd ? <MobileHeader /> : CONTENT_FOR_LARGE_DEVICE}</StyledContainer>
+      <StyledContainer>
+        {downMd ? <MobileHeader /> : CONTENT_FOR_LARGE_DEVICE}
+      </StyledContainer>
     </HeaderWrapper>
   );
 }

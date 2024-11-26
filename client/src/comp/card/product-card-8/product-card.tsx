@@ -32,8 +32,7 @@ type Props = { product: any };
 // ==============================================================
 
 export default function ProductCard8({ product }: Props) {
-  const { slug, id, title, price, thumbnail, images, categories, reviews } =
-    product || {};
+  const { slug, id, title, price, thumbnail, imageUrl } = product || {};
 
   const {
     cartItem,
@@ -61,15 +60,13 @@ export default function ProductCard8({ product }: Props) {
     <div>
       <Card>
         <CardMedia>
-          <Link href={`/products/${slug}`}>
-            <LazyImage
-              width={300}
-              height={300}
-              alt="category"
-              className="product-img"
-              src={thumbnail}
-            />
-          </Link>
+          <LazyImage
+            width={300}
+            height={300}
+            alt="category"
+            className="product-img"
+            src={imageUrl}
+          />
 
           {/* ADD TO CART BUTTON */}
           <AddToCartButton
