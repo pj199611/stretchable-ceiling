@@ -7,8 +7,7 @@ import {
 } from '../controllers/admin.controller';
 
 import {
-  getAllProducts,
-  getProductById,
+  getProductsByCategoryAndSubCategory
 } from '../controllers/products.controller';
 
 import { authenticateToken } from '../middlewares/auth';
@@ -28,9 +27,8 @@ const router = express.Router();
 router.get('/user', authenticateToken,getUser);
 router.put('/user/:id', updateUser);
 
-// Product Routes
-router.get('/products',authenticateToken, getAllProducts);
-router.get('/products/:id',authenticateToken, getProductById);
+// products
+router.get('/productsOfSubCategory', getProductsByCategoryAndSubCategory);
 
 // Order Routes
 router.get('/orders', authenticateToken, getAllOrdersForUsers);
