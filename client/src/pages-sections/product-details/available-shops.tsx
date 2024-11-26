@@ -6,8 +6,8 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 // GLOBAL CUSTOM COMPONENTS
-import { H3, H4 } from "components/Typography";
-import FlexRowCenter from "components/flex-box/flex-row-center";
+import { H3, H4 } from "@/components/Typography";
+import FlexRowCenter from "@/components/flex-box/flex-row-center";
 
 export default function AvailableShops() {
   return (
@@ -18,8 +18,17 @@ export default function AvailableShops() {
         {shopList.map((item) => (
           <Grid item lg={2} md={3} sm={4} xs={12} key={item.name}>
             <Link href="/shops/scarlett-beauty">
-              <FlexRowCenter p={3.25} width="100%" component={Card} flexDirection="column">
-                <Avatar alt={item.name} src={item.imgUrl} sx={{ width: 48, height: 48 }} />
+              <FlexRowCenter
+                p={3.25}
+                width="100%"
+                component={Card}
+                flexDirection="column"
+              >
+                <Avatar
+                  alt={item.name}
+                  src={item.imgUrl}
+                  sx={{ width: 48, height: 48 }}
+                />
                 <H4 mt={1.5} color="grey.800">
                   {item.name}
                 </H4>
@@ -35,5 +44,5 @@ export default function AvailableShops() {
 const shopList = [
   { name: "Tech Friend", imgUrl: "/assets/images/faces/propic.png" },
   { name: "Smart Shop", imgUrl: "/assets/images/faces/propic(1).png" },
-  { name: "Gadget 360", imgUrl: "/assets/images/faces/propic(8).png" }
+  { name: "Gadget 360", imgUrl: "/assets/images/faces/propic(8).png" },
 ];

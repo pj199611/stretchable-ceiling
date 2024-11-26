@@ -1,35 +1,27 @@
-import Card from "../../comp/card/card";
+import Card from "@/comp/card/categorycard";
 import Link from "next/link";
+import data from "@/data/data/category";
+import { getCategory } from "@/services/userApi";
 
-export default function Home() {
+const CategoryPage = async () => {
+  // const res = await getCategory();
+  // console.log(res);
+  if (!data || !data.categories) return "No Data Found";
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
-      <Link href="/subcategory">
-        <Card
-          title="Stretchable Ceiling"
-          description="Discover the most beautiful ceiling designs."
-          imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s"
-          link="/login"
-        />
-      </Link>
-      <Link href="/subcategory">
-        <Card
-          title="Mountain Adventure"
-          description="Explore breathtaking mountain landscapes."
-          imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJA32WU4rBpx7maglqeEtt3ot1tPIRWptxA&s"
-          link="login"
-        />
-      </Link>
-      <Link href="/subcategory">
-        <Card
-          title="City Lights"
-          description="The best urban exploration experiences."
-          imageUrl="https://gratisography.com/wp-content/uploads/2024/03/gratisography-funflower-800x525.jpg"
-          link="/subcategory"
-        />
-      </Link>
+      {data.categories.map((val) => (
+        <Link href={`/subcategory/${val?.category_id}`}>
+          <Card
+            title={val.name}
+            description={val.description}
+            imageUrl={val.imageUrl || ""}
+          />
+        </Link>
+      ))}
     </div>
   );
-}
+};
+
+export default CategoryPage;
