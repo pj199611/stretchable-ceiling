@@ -30,8 +30,8 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
         <Header isFixed={isFixed} midSlot={<SearchInputWithCategory />} />
       </Sticky>
 
-      {/* NAVIGATION BAR */}
-      <Navbar elevation={0} border={1} />
+      {/* NAVIGATION BAR -----  Contains Dropdowns */}
+      {/* <Navbar elevation={0} border={1} /> */}
 
       {/* BODY CONTENT */}
       {children}

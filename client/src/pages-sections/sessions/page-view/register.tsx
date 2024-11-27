@@ -14,13 +14,16 @@ import usePasswordVisible from "../use-password-visible";
 import { Span } from "@/components/Typography";
 import { FlexBox } from "@/components/flex-box";
 import BazaarTextField from "@/components/BazaarTextField";
+import { register_me, register_me_axios } from "@/services/authApi";
 
 const RegisterPageView = () => {
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
 
   // COMMON INPUT PROPS FOR TEXT FIELD
   const inputProps = {
-    endAdornment: <EyeToggleButton show={visiblePassword} click={togglePasswordVisible} />
+    endAdornment: (
+      <EyeToggleButton show={visiblePassword} click={togglePasswordVisible} />
+    ),
   };
 
   // REGISTER FORM FIELDS INITIAL VALUES
@@ -29,7 +32,7 @@ const RegisterPageView = () => {
     email: "",
     password: "",
     re_password: "",
-    agreement: false
+    agreement: false,
   };
 
   // REGISTER FORM FIELD VALIDATION SCHEMA
@@ -48,16 +51,34 @@ const RegisterPageView = () => {
         "You have to agree with our Terms and Conditions!",
         (value) => value === true
       )
-      .required("You have to agree with our Terms and Conditions!")
+      .required("You have to agree with our Terms and Conditions!"),
   });
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    }
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values) => {
+        console.log(values);
+        const data = await register_me_axios({
+          userName: values.name,
+          email: values.email,
+          password: values.password,
+        });
+        console.log(data, data?.success);
+        if (data.success) {
+          console.log("in");
+          //   setLoding(false);
+          //   toast.success(data.message);
+          //   setTimeout(() => {
+          //     router.push("/login");
+          //   }, 2000);
+          // } else {
+          //   setLoding(false);
+          //   toast.error(data.message);
+        }
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -131,17 +152,36 @@ const RegisterPageView = () => {
         name="agreement"
         className="agreement"
         onChange={handleChange}
-        control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />}
+        control={
+          <Checkbox
+            size="small"
+            color="secondary"
+            checked={values.agreement || false}
+          />
+        }
         label={
-          <FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start" gap={1}>
-            <Span display={{ sm: "inline-block", xs: "none" }}>By signing up, you agree to</Span>
+          <FlexBox
+            flexWrap="wrap"
+            alignItems="center"
+            justifyContent="flex-start"
+            gap={1}
+          >
+            <Span display={{ sm: "inline-block", xs: "none" }}>
+              By signing up, you agree to
+            </Span>
             <Span display={{ sm: "none", xs: "inline-block" }}>Accept Our</Span>
             <BoxLink title="Terms & Condition" href="/" />
           </FlexBox>
         }
       />
 
-      <Button fullWidth type="submit" color="primary" variant="contained" size="large">
+      <Button
+        fullWidth
+        type="submit"
+        color="primary"
+        variant="contained"
+        size="large"
+      >
         Create Account
       </Button>
     </form>

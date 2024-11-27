@@ -1,11 +1,11 @@
 import Card from "@/comp/card/categorycard";
 import Link from "next/link";
 import data from "@/data/data/category";
-import { getCategory } from "@/services/userApi";
+import { getCategoryList } from "@/utils/api/guestUser";
 
 const CategoryPage = async () => {
-  // const res = await getCategory();
-  // console.log(res);
+  const res = await getCategoryList();
+  console.log(res);
   if (!data || !data.categories) return "No Data Found";
   return (
     <div
