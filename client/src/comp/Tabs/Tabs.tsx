@@ -8,9 +8,10 @@ const Tabs = ({ allClasses, activeClass, setActiveClass }: any) => {
     <Grid container spacing={4}>
       <Grid item xs={12}>
         <FlexRowCenter gap={1} flexWrap="wrap">
-          {allClasses.map((val: string) => (
+          {allClasses.map((val: string, index: number) => (
             <FilterButton
               disableRipple
+              key={index}
               onClick={() => setActiveClass(val)}
               selected={activeClass === val ? 1 : 0}
             >

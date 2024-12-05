@@ -1,18 +1,18 @@
 import Card from "@/comp/card/categorycard";
 import Link from "next/link";
-import data from "@/data/data/category";
+import { notFound } from "next/navigation";
+// import data from "@/data/data/category";
 import { getCategoryList } from "@/utils/api/guestUser";
 
 const CategoryPage = async () => {
-  const res = await getCategoryList();
-  console.log(res);
-  if (!data || !data.categories) return "No Data Found";
+  const data = await getCategoryList();
+  if (!data || !data.categories) return notFound();
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
       {data.categories.map((val) => (
-        <Link href={`/subcategory/${val?.category_id}`}>
+        <Link href={`/subcategory/${val?._id}`}>
           <Card
             title={val.name}
             description={val.description}

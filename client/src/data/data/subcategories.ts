@@ -65,8 +65,6 @@ export default {
       createdAt: "2024-11-09T12:06:44.437Z",
       updatedAt: "2024-11-09T12:06:44.437Z",
       fixedPrice: 700,
-      minPrice: 600,
-      maxPrice: 800,
       priceDetails: "per sq feet",
     },
     {
