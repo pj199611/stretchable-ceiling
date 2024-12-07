@@ -23,7 +23,7 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
   return (
     <Fragment>
       {/* TOP BAR SECTION */}
-      <Topbar />
+      {/* <Topbar /> */}
 
       {/* HEADER */}
       <Sticky fixedOn={0} onSticky={toggleIsFixed} scrollDistance={300}>
@@ -40,7 +40,9 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
       <MobileNavigationBar />
 
       {/* FOOTER */}
-      <Footer1 />
+      <div style={{ position: "relative", width: "100%", left: 0, bottom: 0 }}>
+        <Footer1 />
+      </div>
     </Fragment>
   );
 }

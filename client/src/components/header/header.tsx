@@ -3,6 +3,8 @@ import { Fragment, ReactNode } from "react";
 import useTheme from "@mui/material/styles/useTheme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import clsx from "clsx";
+import Image from "next/image";
+import Logo from "@/images/Final.svg";
 // LOCAL CUSTOM HOOKS
 import useHeader from "./hooks/use-header";
 // GLOBAL CUSTOM COMPONENTS
@@ -15,7 +17,7 @@ import CategoriesMenu from "./components/categories-menu";
 import LoginCartButtons from "./components/login-cart-buttons";
 // STYLED COMPONENTS
 import { HeaderWrapper, StyledContainer } from "./styles";
-
+import MenuList from "@/comp/menu-list";
 // ==============================================================
 interface Props {
   isFixed?: boolean;
@@ -34,23 +36,27 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {/* LEFT CONTENT - LOGO AND CATEGORY */}
       <FlexBox minWidth={100} alignItems="center">
         <Link href="/">
-          Nest and Nook Interior
-          {/* <LazyImage
-            src={
-              "https://themeisle.com/blog/wp-content/uploads/2024/06/Online-Image-Optimizer-Test-Image-PNG-Version.png"
-            }
-            alt="logo"
-            width="30"
-            height={30}
-          /> */}
+          <div style={{ display: "flex" }}>
+            <h2 style={{ paddingTop: 85 }}>Nest and Nook Interior</h2>
+            <Image
+              src={Logo}
+              alt="logo"
+              width={200}
+              height={200}
+              style={{ objectFit: "contain", margin: "0 -64px" }}
+            />
+          </div>
         </Link>
 
         {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
-        {isFixed ? <CategoriesMenu /> : null}
+        {/* {isFixed ? <CategoriesMenu /> : null} */}
       </FlexBox>
 
       {/* SEARCH FORM | NAVIGATION */}
       {midSlot}
+
+      {/* MEnu-List */}
+      <MenuList />
 
       {/* LOGIN AND CART BUTTON */}
       <LoginCartButtons

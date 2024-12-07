@@ -10,7 +10,7 @@ import {
   bluish,
   success,
   warning,
-  gold
+  gold,
 } from "./theme-colors";
 
 const THEMES = {
@@ -23,7 +23,7 @@ const THEMES = {
   GOLD: "GOLD",
   BLUISH: "BLUISH",
   GREEN: "GREEN",
-  YELLOW: "YELLOW"
+  YELLOW: "YELLOW",
 };
 
 const breakpoints = {
@@ -33,8 +33,8 @@ const breakpoints = {
     md: 960,
     lg: 1280,
     xl: 1600,
-    xxl: 1920
-  }
+    xxl: 1920,
+  },
 };
 
 /*
@@ -47,63 +47,63 @@ const themesOptionList = {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...primary, light: primary[100] }, ...themeColors }
+    palette: { primary: { ...primary, light: primary[100] }, ...themeColors },
   },
   [THEMES.GROCERY]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...primary, light: primary[100] }, ...themeColors }
+    palette: { primary: { ...primary, light: primary[100] }, ...themeColors },
   },
   [THEMES.PASTE]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...paste, light: paste[100] }, ...themeColors }
+    palette: { primary: { ...paste, light: paste[100] }, ...themeColors },
   },
   [THEMES.HEALTH]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...blue, light: blue[100] }, ...themeColors }
+    palette: { primary: { ...blue, light: blue[100] }, ...themeColors },
   },
   [THEMES.GIFT]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...marron, light: marron[100] }, ...themeColors }
+    palette: { primary: { ...marron, light: marron[100] }, ...themeColors },
   },
   [THEMES.ORANGE]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...orange }, ...themeColors }
+    palette: { primary: { ...orange }, ...themeColors },
   },
   [THEMES.GOLD]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...gold }, ...themeColors }
+    palette: { primary: { ...gold }, ...themeColors },
   },
   [THEMES.BLUISH]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...bluish }, ...themeColors }
+    palette: { primary: { ...bluish }, ...themeColors },
   },
   [THEMES.GREEN]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...success }, ...themeColors }
+    palette: { primary: { ...success }, ...themeColors },
   },
 
   [THEMES.YELLOW]: {
     typography,
     components,
     breakpoints,
-    palette: { primary: { ...warning }, ...themeColors }
-  }
+    palette: { primary: { ...warning }, ...themeColors },
+  },
 };
 
 const themeOptions = (pathname: string) => {
@@ -119,7 +119,8 @@ const themeOptions = (pathname: string) => {
 
   switch (pathname) {
     case "/":
-      updateTheme(THEMES.DEFAULT);
+      // updateTheme(THEMES.DEFAULT);
+      updateTheme(THEMES.ORANGE);
       break;
 
     case "/furniture-1":
@@ -151,7 +152,10 @@ const themeOptions = (pathname: string) => {
         themeOption = themesOptionList[THEMES.GREEN];
       } else if (pathname.startsWith("/gadget-3")) {
         themeOption = themesOptionList[THEMES.HEALTH];
-      } else if (pathname.startsWith("/admin") || pathname.startsWith("/vendor")) {
+      } else if (
+        pathname.startsWith("/admin") ||
+        pathname.startsWith("/vendor")
+      ) {
         themeOption = themesOptionList[THEMES.HEALTH];
       } else {
         themeOption = themesOptionList[THEMES.DEFAULT];

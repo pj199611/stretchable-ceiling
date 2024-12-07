@@ -25,7 +25,9 @@ interface Props {
 export default function DialogDrawer(props: Props) {
   const { dialogOpen, sidenavOpen, toggleDialog, toggleSidenav } = props;
 
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("xs")
+  );
 
   return (
     <Fragment>
@@ -34,16 +36,22 @@ export default function DialogDrawer(props: Props) {
         open={dialogOpen}
         fullWidth={isMobile}
         onClose={toggleDialog}
-        sx={{ zIndex: 9999 }}>
+        sx={{ zIndex: 9999 }}
+      >
         <Wrapper>
           <LogoWithTitle />
           <LoginPageView closeDialog={toggleDialog} />
-          <SocialButtons />
+          {/* <SocialButtons /> */}
           <LoginBottom />
         </Wrapper>
       </Dialog>
 
-      <Drawer open={sidenavOpen} anchor="right" onClose={toggleSidenav} sx={{ zIndex: 9999 }}>
+      <Drawer
+        open={sidenavOpen}
+        anchor="right"
+        onClose={toggleSidenav}
+        sx={{ zIndex: 9999 }}
+      >
         <MiniCart toggleSidenav={toggleSidenav} />
       </Drawer>
     </Fragment>

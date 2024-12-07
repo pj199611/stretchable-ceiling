@@ -42,7 +42,7 @@ export default function MobileNavigationBar() {
 
 const list = [
   { title: "Home", Icon: Home, href: "/" },
-  { title: "Category", Icon: CategoryOutlined, href: "/mobile-category-nav" },
+  { title: "Category", Icon: CategoryOutlined, href: "/category" },
   { title: "Cart", Icon: ShoppingBagOutlined, href: "/cart" },
-  { title: "Account", Icon: User2, href: "/profile" }
+  { title: "Account", Icon: User2, href: "/profile" },
 ];

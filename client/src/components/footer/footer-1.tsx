@@ -14,14 +14,19 @@ import { Heading } from "./styles";
 export default function Footer1() {
   return (
     <Box component="footer" bgcolor="#222935" mb={{ sm: 0, xs: 7 }}>
-      <Box component={Container} color="white" overflow="hidden" py={{ sm: 10, xs: 4 }}>
+      <Box
+        component={Container}
+        color="white"
+        overflow="hidden"
+        py={{ sm: 10, xs: 4 }}
+      >
         <Grid container spacing={3}>
-          <Grid item lg={4} md={6} sm={6} xs={12}>
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <LogoSection />
           </Grid>
 
           {/* ABOUT US LINKS */}
-          <Grid item lg={2} md={6} sm={6} xs={12}>
+          <Grid item lg={3} md={6} sm={6} xs={12}>
             <AboutLinks />
           </Grid>
 
@@ -36,15 +41,15 @@ export default function Footer1() {
             <Heading>Contact Us</Heading>
 
             <Paragraph py={0.6} color="grey.500">
-              70 Washington Square South, New York, NY 10012, United States
+              Gurgaon
             </Paragraph>
 
             <Paragraph py={0.6} color="grey.500">
-              Email: uilib.help@gmail.com
+              Email: support@nestandnookinterior.com
             </Paragraph>
 
             <Paragraph py={0.6} mb={2} color="grey.500">
-              Phone: +1 1123 456 780
+              Phone: 844-703-0606
             </Paragraph>
 
             {/* SOCIAL LINKS WITH ICON */}
