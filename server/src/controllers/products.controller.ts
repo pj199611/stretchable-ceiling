@@ -11,8 +11,11 @@ export const getAllProductsClass = async (
     const products: IProduct[] = await Product.find();
     const productsClass = [];
     for (let i = 0; i < products.length; i++) {
-      productsClass.push(products[i].class);
+      if (products[i].class) {
+        productsClass.push(products[i].class);
+      }
     }
+
     res.json(productsClass);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch products' });
@@ -27,9 +30,9 @@ export const getProductsOfOneClass = async (
     const products: IProduct[] = await Product.find();
     const productsClass = [];
     for (let i = 0; i < products.length; i++) {
-        if(products[i].class===req.params.id){
-            productsClass.push(products[i])
-        }
+      if (products[i].class === req.params.id) {
+        productsClass.push(products[i]);
+      }
     }
     res.json(productsClass);
   } catch (error) {

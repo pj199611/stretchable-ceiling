@@ -3,11 +3,14 @@ import {
   getUser,
   updateUser,
   getCategories,
-  getSubCategoriesByCategoryId
+  getSubCategoriesByCategoryId,
+  
 } from '../controllers/admin.controller';
 
 import {
-  getProductsByCategoryAndSubCategory
+  getAllProductsClass,
+  getProductsByCategoryAndSubCategory,
+  getProductsOfOneClass
 } from '../controllers/products.controller';
 
 import { authenticateToken } from '../middlewares/auth';
@@ -37,6 +40,8 @@ router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', authenticateToken,deleteOrder);
 router.post("/customize_order",authenticateToken,createCustomizedOrder);
+router.get("/productClass",getAllProductsClass);
+router.get("/productClass/:id",getProductsOfOneClass)
 // ----------- //
 
 // category management routes
