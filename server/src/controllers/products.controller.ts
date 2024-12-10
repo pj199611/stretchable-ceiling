@@ -11,7 +11,7 @@ export const getAllProductsClass = async (
     const products: IProduct[] = await Product.find();
     const productsClass = [];
     for (let i = 0; i < products.length; i++) {
-      if (products[i].class) {
+      if (products[i].class && !(productsClass.includes(products[i].class))) {
         productsClass.push(products[i].class);
       }
     }
