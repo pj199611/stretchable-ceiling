@@ -3,6 +3,39 @@ import Product from '../models/products.model';
 import IProduct from '../interfaces/IProduct';
 import Order from '../models/orders.model';
 
+export const getAllProductsClass = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const products: IProduct[] = await Product.find();
+    const productsClass = [];
+    for (let i = 0; i < products.length; i++) {
+      productsClass.push(products[i].class);
+    }
+    res.json(productsClass);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
+};
+
+export const getProductsOfOneClass = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const products: IProduct[] = await Product.find();
+    const productsClass = [];
+    for (let i = 0; i < products.length; i++) {
+        if(products[i].class===req.params.id){
+            productsClass.push(products[i])
+        }
+    }
+    res.json(productsClass);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
+};
 
 export const getAllProducts = async (
   req: Request,
@@ -13,9 +46,7 @@ export const getAllProducts = async (
     const limit = parseInt(req.query.limit as string) || 10;
 
     const skip = (page - 1) * limit;
-    const products: IProduct[] = await Product.find()
-      .skip(skip)
-      .limit(limit);
+    const products: IProduct[] = await Product.find().skip(skip).limit(limit);
 
     const totalProducts = await Product.countDocuments();
 
@@ -121,7 +152,6 @@ export const deleteProduct = async (
   }
 };
 
-
 export const getProductsByCategoryAndSubCategory = async (
   req: Request,
   res: Response
@@ -130,7 +160,9 @@ export const getProductsByCategoryAndSubCategory = async (
 
   try {
     if (!categoryId || !subCategoryId) {
-      res.status(400).json({ message: 'Category ID and SubCategory ID are required' });
+      res
+        .status(400)
+        .json({ message: 'Category ID and SubCategory ID are required' });
       return;
     }
 
@@ -140,7 +172,9 @@ export const getProductsByCategoryAndSubCategory = async (
     });
 
     if (products.length === 0) {
-      res.status(404).json({ message: 'No products found for this category and subcategory' });
+      res.status(404).json({
+        message: 'No products found for this category and subcategory',
+      });
       return;
     }
 

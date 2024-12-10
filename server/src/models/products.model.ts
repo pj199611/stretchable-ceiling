@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema<IProduct>(
       type:Number,
       required:false
     },
+    class:{
+      type:String,
+      required:true
+    },
     imageUrl: {
       type: String,
       required:false
