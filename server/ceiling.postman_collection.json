@@ -434,7 +434,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/users/productsOfSubCategory?categoryId=64a7f6c5d5b5b14bc9d1a8b3&subCategoryId=64a7f6c5d5b5b14bc9d1a8b3",
+							"raw": "http://localhost:8000/api/users/productsOfSubCategory?categoryId=675ab13f256dd74b073a6692&subCategoryId=675ab13f256dd74b073a669c",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -448,11 +448,11 @@
 							"query": [
 								{
 									"key": "categoryId",
-									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+									"value": "675ab13f256dd74b073a6692"
 								},
 								{
 									"key": "subCategoryId",
-									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+									"value": "675ab13f256dd74b073a669c"
 								}
 							]
 						}
