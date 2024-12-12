@@ -38,12 +38,16 @@ import {
   getProductsByCategoryAndSubCategory,
 } from '../controllers/products.controller';
 
+
+import dotenv from "dotenv";
+dotenv.config();
+
 const router = express.Router();
 
 // Products Management Routes
 router.get('/products', authenticateToken, getAllProducts);
 router.get('/products/:id', authenticateToken, getProductById);
-router.post('/products', authenticateToken, checkAdminRole, upload.single('image'), createProduct);
+router.post('/products', authenticateToken, checkAdminRole, upload.array('images', parseInt(process.env.MAXIMUM_IMAGES_SUPPORTED)), createProduct);
 router.put('/products/:id', authenticateToken, checkAdminRole, updateProduct);
 router.delete('/products/:id', authenticateToken, checkAdminRole, deleteProduct);
 router.get('/productsOfSubCategory', authenticateToken, checkAdminRole, getProductsByCategoryAndSubCategory);

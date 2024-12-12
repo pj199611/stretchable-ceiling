@@ -5,9 +5,10 @@ export default interface IProduct extends Document {
   description?: string;
   subCategory: Types.ObjectId;
   category: Types.ObjectId;
-  imageUrl?: string;
-  class:string;
-  product_price?:Number;
+  images: string[]; 
+  thumbnail: string;
+  class: string;
+  product_price?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

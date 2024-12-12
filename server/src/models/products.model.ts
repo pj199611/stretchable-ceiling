@@ -30,9 +30,13 @@ const productSchema = new mongoose.Schema<IProduct>(
       type:String,
       required:true
     },
-    imageUrl: {
+    images: {
+      type: [String], 
+      required: true,
+    },
+    thumbnail: {
       type: String,
-      required:false
+      required: true,
     },
   },
   { timestamps: true }

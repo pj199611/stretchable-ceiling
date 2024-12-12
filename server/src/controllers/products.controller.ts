@@ -83,27 +83,35 @@ export const getProductById = async (
   }
 };
 
-export const createProduct = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const createProduct = async (req: Request, res: Response): Promise<void> => {
+
+  console.log("req.files",req.files)
   try {
-    // Check if an image was uploaded
-    if (!req.file) {
-      res.status(400).json({ error: 'Image is required' });
+    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+      res.status(400).json({ error: 'At least one image is required' });
       return;
     }
 
-    // Create new product with image URL from Cloudinary
+    const imagePaths = (req.files as Express.Multer.File[]).map((file) => file.path);
+    if (imagePaths.length === 0) {
+      res.status(400).json({ error: 'Images are required' });
+      return;
+    }
+
+    console.log("imagePaths",imagePaths);
+
     const newProduct: IProduct = new Product({
       ...req.body,
-      imageUrl: req.file.path, //cloudinary image path and saving in db
+      images: imagePaths,
+      thumbnail: imagePaths[0],
     });
 
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create product' });
+
+    console.log("Error",error);
+    res.status(500).json({ error: 'Failed to create product', details: error.message });
   }
 };
 
