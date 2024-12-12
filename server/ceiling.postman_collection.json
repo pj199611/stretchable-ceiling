@@ -305,19 +305,31 @@
 			"item": [
 				{
 					"name": "getUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM1ODRlYmZjMWY5NTcyMWI3ODIwZjgiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMTU2MDcyNywiZXhwIjoxNzMyMTY1NTI3fQ.TowjcW3hyF99HToX_TSvhJJ1ql1mLxouRRRCI5Qc4Ro",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMzk5NjAxNCwiZXhwIjoxNzM0NjAwODE0fQ.Q9N9fNKQbKv4dPDl-_h6uQctaCSjOMP7zO1KPeVuSmo",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8000/api/users/user",
 							"protocol": "http",
@@ -407,7 +419,7 @@
 					"response": []
 				},
 				{
-					"name": "products/product_id",
+					"name": "productsOfSubCategory",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -422,7 +434,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/users/products/672de0b4211123bbed73666d",
+							"raw": "http://localhost:8000/api/users/productsOfSubCategory?categoryId=64a7f6c5d5b5b14bc9d1a8b3&subCategoryId=64a7f6c5d5b5b14bc9d1a8b3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -431,8 +443,17 @@
 							"path": [
 								"api",
 								"users",
-								"products",
-								"672de0b4211123bbed73666d"
+								"productsOfSubCategory"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+								}
 							]
 						}
 					},
@@ -556,7 +577,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/users/subcategories/6730b0eb92ce96b7e6c3e49f",
+							"raw": "http://localhost:8000/api/users/subcategories/67583d8a7015700a5e7a6432",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -566,7 +587,42 @@
 								"api",
 								"users",
 								"subcategories",
-								"6730b0eb92ce96b7e6c3e49f"
+								"67583d8a7015700a5e7a6432"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productsOfSubCategoryDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/productsOfSubCategoryDetails?categoryId=64a7f6c5d5b5b14bc9d1a8b3&subCategoryId=64a7f6c5d5b5b14bc9d1a8b3&productId=675aa3d07fb0a9c65b3cc153",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"productsOfSubCategoryDetails"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "64a7f6c5d5b5b14bc9d1a8b3"
+								},
+								{
+									"key": "productId",
+									"value": "675aa3d07fb0a9c65b3cc153"
+								}
 							]
 						}
 					},

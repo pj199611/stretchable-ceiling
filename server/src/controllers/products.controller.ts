@@ -194,3 +194,32 @@ export const getProductsByCategoryAndSubCategory = async (
     res.status(500).json({ message: 'Failed to fetch products', error });
   }
 };
+
+
+export const getProductsByCategoryAndSubCategoryDetails = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { categoryId, subCategoryId,productId } = req.query;
+
+  try {
+    if (!categoryId || !subCategoryId || !productId) {
+      res
+        .status(400)
+        .json({ message: 'Category ID and SubCategory ID are required' });
+      return;
+    }
+
+    const product = await Product.find({
+      category: categoryId,
+      subCategory: subCategoryId,
+      _id:productId
+    });
+
+   
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch product', error });
+  }
+};
