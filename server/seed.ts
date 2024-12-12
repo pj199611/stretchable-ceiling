@@ -148,6 +148,12 @@ const products = Array.from({ length: 100 }, (_, index) => {
     imageUrl: `image-url-${index + 1}`,
     createdAt: new Date(),
     updatedAt: new Date(),
+    thumbnail:
+      'https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg',
+    images: [
+      'https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg',
+      'https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/g6vbgcayonxfoiuykek4.jpg',
+    ],
     product_price: 50 + (index % 10) * 10,
     class: categories[categoryIndex].name,
     category: categories[categoryIndex]._id,
