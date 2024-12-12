@@ -8,8 +8,10 @@ import {
 
 import {
   getAllProducts,
+  getAllProductsClass,
   getProductsByCategoryAndSubCategory,
-  getProductsByCategoryAndSubCategoryDetails
+  getProductsByCategoryAndSubCategoryDetails,
+  getProductsOfOneClass
 } from '../controllers/products.controller';
 
 import { authenticateToken } from '../middlewares/auth';
@@ -31,6 +33,8 @@ router.put('/user/:id', updateUser);
 
 // products
 router.get("/products",getAllProducts);
+router.get("/productClasses",getAllProductsClass);
+router.get("/productsOfOneClass/:name",getProductsOfOneClass);
 router.get('/productsOfSubCategory', getProductsByCategoryAndSubCategory);
 router.get("/productsOfSubCategoryDetails",getProductsByCategoryAndSubCategoryDetails);
 // Order Routes
@@ -44,7 +48,6 @@ router.post("/customize_order",authenticateToken,createCustomizedOrder);
 
 // category management routes
 router.get("/subcategories/:categoryId",getSubCategoriesByCategoryId);
-
 // sub category management routes
 router.get('/categories', getCategories);
 

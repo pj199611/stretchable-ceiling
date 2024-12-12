@@ -30,7 +30,7 @@ export const getProductsOfOneClass = async (
     const products: IProduct[] = await Product.find();
     const productsClass = [];
     for (let i = 0; i < products.length; i++) {
-      if (products[i].class === req.params.id) {
+      if (products[i].class === req.params.name) {
         productsClass.push(products[i]);
       }
     }

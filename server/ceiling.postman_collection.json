@@ -627,6 +627,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getAllProductsClass",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/productClasses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"productClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductsOfOneClass/:name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/productsOfOneClass/clothing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"productsOfOneClass",
+								"clothing"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
