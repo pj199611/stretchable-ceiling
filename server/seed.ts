@@ -45,6 +45,110 @@ const categories = [
   },
 ];
 
+// More subcategories per category to ensure diversity
+const subcategories = [
+  // Optics Subcategories
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'optical lenses',
+    description: 'various types of optical lenses',
+    price: 100,
+    category: categories[0]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'light equipment',
+    description: 'equipment for optical lighting',
+    price: 120,
+    category: categories[0]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+
+  // Electronics Subcategories
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'smartphones',
+    description: 'advanced smartphones with cutting-edge features',
+    price: 500,
+    category: categories[1]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'laptops',
+    description: 'powerful laptops for work and play',
+    price: 800,
+    category: categories[1]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+
+  // Furniture Subcategories
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'living room furniture',
+    description: 'furniture for the living room',
+    price: 300,
+    category: categories[2]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'bedroom furniture',
+    description: 'furniture for the bedroom',
+    price: 350,
+    category: categories[2]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+
+  // Clothing Subcategories
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'men\'s clothing',
+    description: 'clothing for men',
+    price: 50,
+    category: categories[3]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'women\'s clothing',
+    description: 'clothing for women',
+    price: 60,
+    category: categories[3]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+
+  // Sports Subcategories
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'sports apparel',
+    description: 'apparel for various sports',
+    price: 40,
+    category: categories[4]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: 'sports accessories',
+    description: 'accessories for sports activities',
+    price: 70,
+    category: categories[4]._id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+// Locations array
 const locations = [
   {
     _id: new mongoose.Types.ObjectId(),
@@ -88,57 +192,10 @@ const locations = [
   },
 ];
 
-const subcategories = [
-  {
-    _id: new mongoose.Types.ObjectId(),
-    name: 'sub cat optics',
-    description: 'optics with sub cat light',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    price: 100,
-    category: categories[0]._id,
-  },
-  {
-    _id: new mongoose.Types.ObjectId(),
-    name: 'sub cat furniture',
-    description: 'furniture with modern designs',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    price: 100,
-    category: categories[2]._id,
-  },
-  {
-    _id: new mongoose.Types.ObjectId(),
-    name: 'sub cat electronics',
-    description: 'electronic products with advanced features',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    price: 100,
-    category: categories[1]._id,
-  },
-  {
-    _id: new mongoose.Types.ObjectId(),
-    name: 'sub cat clothing',
-    description: 'clothing items for all seasons',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    price: 50,
-    category: categories[3]._id,
-  },
-  {
-    _id: new mongoose.Types.ObjectId(),
-    name: 'sub cat sports',
-    description: 'sports accessories and gear',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    price: 150,
-    category: categories[4]._id,
-  },
-];
-
+// Generate random products
 const products = Array.from({ length: 100 }, (_, index) => {
-  const categoryIndex = index % categories.length;
-  const subcategoryIndex = index % subcategories.length;
+  const categoryIndex = Math.floor(Math.random() * categories.length); // Random category
+  const subcategoryIndex = Math.floor(Math.random() * subcategories.length); // Random subcategory
   const locationIndex = index % locations.length;
 
   return {
@@ -155,13 +212,14 @@ const products = Array.from({ length: 100 }, (_, index) => {
       'https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/g6vbgcayonxfoiuykek4.jpg',
     ],
     product_price: 50 + (index % 10) * 10,
-    class: categories[categoryIndex].name,
+    class: categories[categoryIndex].name, // Random class based on category
     category: categories[categoryIndex]._id,
-    subCategory: subcategories[subcategoryIndex]._id,
+    subCategory: subcategories[subcategoryIndex]._id, // Random subcategory based on category
     location: locations[locationIndex]._id,
   };
 });
 
+// Orders array
 const orders = Array.from({ length: 100 }, (_, index) => {
   const userId = new mongoose.Types.ObjectId();
   const productIds = Array.from(
@@ -198,6 +256,7 @@ const orders = Array.from({ length: 100 }, (_, index) => {
   };
 });
 
+// Seeder execution
 (async function () {
   try {
     await mongoose.connect(process.env.MONGO_URI!, {
@@ -205,6 +264,7 @@ const orders = Array.from({ length: 100 }, (_, index) => {
     });
     console.log('Connected to DB');
 
+    // Clear previous data
     await Category.deleteMany({});
     await Location.deleteMany({});
     await Order.deleteMany({});
