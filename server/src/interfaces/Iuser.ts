@@ -6,5 +6,6 @@ export default interface IUser extends Document {
   userName:string;
   createdAt: Date;
   role: string;
+  requestCallback:Boolean
   isPasswordValid(password: string): Promise<boolean>;
 }

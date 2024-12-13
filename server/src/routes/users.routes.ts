@@ -6,7 +6,6 @@ import {
   updateUser,
   getCategories,
   getSubCategoriesByCategoryId,
-  getDropdownData
 } from '../controllers/admin.controller';
 
 import {
@@ -27,6 +26,7 @@ import {
   deleteOrder,
   createCustomizedOrder,
 } from '../controllers/order.controller';
+import { getDropdownData, requestCallback } from '../controllers/users.controller';
 
 const router = express.Router();
 dotenv.config();
@@ -36,6 +36,8 @@ dotenv.config();
 router.get('/user', authenticateToken,getUser);
 router.put('/user/:id', updateUser);
 
+
+router.post("/requestcallback",authenticateToken,requestCallback)
 
 //dropdown data
 router.get("/dropdownData",getDropdownData);

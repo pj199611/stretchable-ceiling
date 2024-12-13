@@ -1,6 +1,6 @@
 import mongoose, { CallbackError, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-import IUser from '../interfaces/IUser';
+import IUser from '../interfaces/Iuser';
 
 const UserSchema: Schema = new Schema<IUser>(
   {
@@ -18,6 +18,11 @@ const UserSchema: Schema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+    },
+    requestCallback:{
+      type:Boolean,
+      reqyuired:false,
+      default:false
     },
     role: {
       type: String,

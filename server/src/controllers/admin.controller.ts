@@ -166,31 +166,7 @@ export const getClientById = async (
   }
 };
 
-export const getDropdownData = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const result = [];
-    const categories = await Category.find();
 
-    for (const category of categories) {
-      const subcategories = await SubCategory.find({ category: category._id });
-      const categoryData = {
-        _id: category._id,
-        name: category.name,
-        subcategory: subcategories.map(subcategory => {
-          return {name:subcategory.name,id:subcategory._id}
-        }) 
-      };
-      result.push(categoryData);
-    }
-    res.json(result);
-  } catch (error) {
-    console.log(error);
-    res.json({ error: 'An error occurred' });
-  }
-};
 
 // Category management controllers
 export const createCategory = async (
