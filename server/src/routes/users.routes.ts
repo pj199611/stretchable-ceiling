@@ -1,4 +1,6 @@
 import express from 'express';
+import dotenv from "dotenv"
+import upload from '../utils/image-upload';
 import {
   getUser,
   updateUser,
@@ -26,6 +28,8 @@ import {
 } from '../controllers/order.controller';
 
 const router = express.Router();
+dotenv.config();
+
 
 // user detail routes
 router.get('/user', authenticateToken,getUser);
@@ -43,7 +47,7 @@ router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', authenticateToken,deleteOrder);
-router.post("/customize_order",authenticateToken,createCustomizedOrder);
+router.post("/customize_order",authenticateToken,upload.array('images', parseInt(process.env.MAXIMUM_IMAGES_SUPPORTED)),createCustomizedOrder);
 // ----------- //
 
 // category management routes

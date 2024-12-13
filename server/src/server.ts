@@ -2,7 +2,9 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 import AuthRoutes from './routes/auth.routes';
+
 import AdminRoutes from './routes/admin.routes';
 import ArchitectRoutes from './routes/architect.routes';
 import UserRoutes from './routes/users.routes';
@@ -19,6 +21,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(mongoSanitize()); 
 
 app.use(cors());
 setupSwagger(app);

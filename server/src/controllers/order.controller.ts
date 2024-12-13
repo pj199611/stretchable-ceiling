@@ -148,27 +148,45 @@ export const deleteOrder = async (
 };
 
 
-//create customized order
 export const createCustomizedOrder = async (
   req: IRequest,
   res: Response
 ): Promise<void> => {
   try {
-    const {
-      stockPhotoIds,
-      imageUrls
-    } = req.body;
+    console.log("Req.body:", req.body);
+
+    // Extract the image paths from the uploaded files
+    const imagePaths = (req.files as Express.Multer.File[]).map((file) => file.path);
+
+    // Parse stockPhotoIds from the request body
+    const stockPhotoIds = JSON.parse(req.body.stockPhotoIds || "[]"); // Default to an empty array if undefined
+
+    console.log("stockPhotoIds:", stockPhotoIds);
 
     const newOrder = new Order({
       user: req.user?._id,
+      products: [
+        {
+          stockPhotoIds: stockPhotoIds,
+          imageUrls: imagePaths,
+        },
+      ],
     });
 
-    newOrder.products[0].stockPhotoIds=stockPhotoIds;
-    newOrder.products[0].imageUrls=imageUrls;
+    // Set the customization flag based on stockPhotoIds or imageUrls
+    if (stockPhotoIds.length > 0 || imagePaths.length > 0) {
+      newOrder.isCustomized = true;
+    }
 
+    console.log("newOrder:", newOrder);
+
+    // Save the order to the database
     const savedOrder = await newOrder.save();
+
     res.status(201).json(savedOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create order' });
+    console.error("Error creating customized order:", error);
+    res.status(500).json({ error: "Failed to create order" });
   }
 };
+
