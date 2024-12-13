@@ -11,7 +11,7 @@ export const getAllProductsClass = async (
     const products: IProduct[] = await Product.find();
     const productsClass = [];
     for (let i = 0; i < products.length; i++) {
-      if (products[i].class && !(productsClass.includes(products[i].class))) {
+      if (products[i].class && !productsClass.includes(products[i].class)) {
         productsClass.push(products[i].class);
       }
     }
@@ -83,22 +83,26 @@ export const getProductById = async (
   }
 };
 
-export const createProduct = async (req: Request, res: Response): Promise<void> => {
-
-  console.log("req.files",req.files)
+export const createProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  console.log('req.files', req.files);
   try {
     if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
       res.status(400).json({ error: 'At least one image is required' });
       return;
     }
 
-    const imagePaths = (req.files as Express.Multer.File[]).map((file) => file.path);
+    const imagePaths = (req.files as Express.Multer.File[]).map(
+      (file) => file.path
+    );
     if (imagePaths.length === 0) {
       res.status(400).json({ error: 'Images are required' });
       return;
     }
 
-    console.log("imagePaths",imagePaths);
+    console.log('imagePaths', imagePaths);
 
     const newProduct: IProduct = new Product({
       ...req.body,
@@ -109,9 +113,10 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (error) {
-
-    console.log("Error",error);
-    res.status(500).json({ error: 'Failed to create product', details: error.message });
+    console.log('Error', error);
+    res
+      .status(500)
+      .json({ error: 'Failed to create product', details: error.message });
   }
 };
 
@@ -177,10 +182,15 @@ export const getProductsByCategoryAndSubCategory = async (
       return;
     }
 
-    const products = await Product.find({
-      category: categoryId,
-      subCategory: subCategoryId,
-    });
+    const products = await Product.find(
+      req.query.class
+        ? {
+            category: categoryId,
+            subCategory: subCategoryId,
+            class: req.query.class,
+          }
+        : { category: categoryId, subCategory: subCategoryId }
+    );
 
     if (products.length === 0) {
       res.status(404).json({
@@ -195,12 +205,11 @@ export const getProductsByCategoryAndSubCategory = async (
   }
 };
 
-
 export const getProductsByCategoryAndSubCategoryDetails = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { categoryId, subCategoryId,productId } = req.query;
+  const { categoryId, subCategoryId, productId } = req.query;
 
   try {
     if (!categoryId || !subCategoryId || !productId) {
@@ -213,10 +222,8 @@ export const getProductsByCategoryAndSubCategoryDetails = async (
     const product = await Product.find({
       category: categoryId,
       subCategory: subCategoryId,
-      _id:productId
+      _id: productId,
     });
-
-   
 
     res.status(200).json(product);
   } catch (error) {

@@ -5,7 +5,7 @@ import IOrder from '../interfaces/IOrder';
 import { IRequest } from '../interfaces/IReq';
 import Client from '../models/clients.model';
 import Category from '../models/category.model';
-import Location from "../models/location.model";
+import Location from '../models/location.model';
 import SubCategory from '../models/subCategory.model';
 
 // User management controllers
@@ -46,7 +46,7 @@ export const deleteUser = async (
 };
 
 export const getUser = async (req: IRequest, res: Response): Promise<void> => {
-  const id  = req.user.id;
+  const id = req.user.id;
   try {
     const user = await User.findById(id);
     if (!user) {
@@ -64,9 +64,13 @@ export const updateUser = async (
   res: Response
 ): Promise<void> => {
   const { id } = req.params;
-  const {email,password} = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findByIdAndUpdate(id, {email,password}, { new: true });
+    const user = await User.findByIdAndUpdate(
+      id,
+      { email, password },
+      { new: true }
+    );
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -162,6 +166,32 @@ export const getClientById = async (
   }
 };
 
+export const getDropdownData = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const result = [];
+    const categories = await Category.find();
+
+    for (const category of categories) {
+      const subcategories = await SubCategory.find({ category: category._id });
+      const categoryData = {
+        _id: category._id,
+        name: category.name,
+        subcategory: subcategories.map(subcategory => {
+          return {name:subcategory.name,id:subcategory._id}
+        }) 
+      };
+      result.push(categoryData);
+    }
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.json({ error: 'An error occurred' });
+  }
+};
+
 // Category management controllers
 export const createCategory = async (
   req: Request,
@@ -188,9 +218,7 @@ export const getCategories = async (
     const limit = parseInt(req.query.limit as string) || 10;
 
     const skip = (page - 1) * limit;
-    const categories = await Category.find()
-      .skip(skip)
-      .limit(limit);
+    const categories = await Category.find().skip(skip).limit(limit);
 
     const totalCategories = await Category.countDocuments();
 
@@ -367,8 +395,10 @@ export const getSubCategoryById = async (
   }
 };
 
-
-export const getSubCategoriesByCategoryId = async (req: Request, res: Response): Promise<void> => {
+export const getSubCategoriesByCategoryId = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { categoryId } = req.params;
     const { page = 1, pageSize = 10 } = req.query;
@@ -392,7 +422,7 @@ export const getSubCategoriesByCategoryId = async (req: Request, res: Response):
       totalSubCategories,
       currentPage: pageNumber,
       totalPages: Math.ceil(totalSubCategories / limit),
-      pageSize: limit
+      pageSize: limit,
     };
 
     res.status(200).json({ subCategories, pagination });
@@ -400,7 +430,6 @@ export const getSubCategoriesByCategoryId = async (req: Request, res: Response):
     res.status(500).json({ error: 'Failed to fetch subcategories' });
   }
 };
-
 
 export const deleteSubCategory = async (
   req: Request,
@@ -418,11 +447,13 @@ export const deleteSubCategory = async (
   }
 };
 
-
 // locations management controller
 
 // Create a new location
-export const createLocation = async (req:Request, res:Response):Promise<void> => {
+export const createLocation = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { name, location_price, operator } = req.body;
 
@@ -436,21 +467,31 @@ export const createLocation = async (req:Request, res:Response):Promise<void> =>
     await location.save();
     res.status(201).json(location);
   } catch (error) {
-    res.status(500).json({ error: 'Error creating location', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Error creating location', details: error.message });
   }
 };
 
 // Get all locations
-export const getLocations = async (req:Request, res:Response):Promise<void> => {
+export const getLocations = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const locations = await Location.find();
     res.status(200).json(locations);
   } catch (error) {
-    res.status(500).json({ error: 'Error retrieving locations', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Error retrieving locations', details: error.message });
   }
 };
 
-export const getLocationById = async (req:Request, res:Response):Promise<void> => {
+export const getLocationById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const location = await Location.findById(req.params.id);
     if (!location) {
@@ -458,17 +499,22 @@ export const getLocationById = async (req:Request, res:Response):Promise<void> =
     }
     res.status(200).json(location);
   } catch (error) {
-    res.status(500).json({ error: 'Error retrieving location', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Error retrieving location', details: error.message });
   }
 };
 
-export const updateLocation = async (req:Request, res:Response):Promise<void> => {
+export const updateLocation = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { name, location_price, operator } = req.body;
 
     const location = await Location.findById(req.params.id);
     if (!location) {
-       res.status(404).json({ error: 'Location not found' });
+      res.status(404).json({ error: 'Location not found' });
     }
 
     // Update fields
@@ -479,11 +525,16 @@ export const updateLocation = async (req:Request, res:Response):Promise<void> =>
     await location.save();
     res.status(200).json(location);
   } catch (error) {
-    res.status(500).json({ error: 'Error updating location', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Error updating location', details: error.message });
   }
 };
 
-export const deleteLocation = async (req:Request, res:Response):Promise<void> => {
+export const deleteLocation = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const location = await Location.findByIdAndDelete(req.params.id);
     if (!location) {
@@ -491,6 +542,8 @@ export const deleteLocation = async (req:Request, res:Response):Promise<void> =>
     }
     res.status(200).json({ message: 'Location deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting location', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Error deleting location', details: error.message });
   }
 };

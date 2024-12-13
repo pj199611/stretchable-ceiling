@@ -5,7 +5,8 @@ import {
   getUser,
   updateUser,
   getCategories,
-  getSubCategoriesByCategoryId
+  getSubCategoriesByCategoryId,
+  getDropdownData
 } from '../controllers/admin.controller';
 
 import {
@@ -34,6 +35,10 @@ dotenv.config();
 // user detail routes
 router.get('/user', authenticateToken,getUser);
 router.put('/user/:id', updateUser);
+
+
+//dropdown data
+router.get("/dropdownData",getDropdownData);
 
 // products
 router.get("/products",getAllProducts);
