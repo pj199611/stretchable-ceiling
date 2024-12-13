@@ -467,7 +467,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM1ODRlYmZjMWY5NTcyMWI3ODIwZjgiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMTU2NTA0MiwiZXhwIjoxNzMyMTY5ODQyfQ.FufOZJi3xgfn0yCCikDKmp7AD0ehxriBJd8wdjjmY7M",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
 									"type": "string"
 								}
 							]
@@ -498,7 +498,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM1ODRlYmZjMWY5NTcyMWI3ODIwZjgiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMTU2NTA0MiwiZXhwIjoxNzMyMTY5ODQyfQ.FufOZJi3xgfn0yCCikDKmp7AD0ehxriBJd8wdjjmY7M",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
 									"type": "string"
 								}
 							]
@@ -507,7 +507,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"products\": [\n    {\n      \"product\": \"672de0b4211123bbed73666d\",  // Replace with actual product ObjectId\n      \"quantity\": 2,\n    \"area\": 1\n    }],\n    \"shippingAddress\": {\n        \"address\": \"3125\",\n        \"city\": \"delhi\",\n        \"postalCode\": 110008,\n        \"country\": \"india\"\n    }\n\n}",
+							"raw": "{\n    \"products\": [\n    {\n      \"product\": \"675ab13f256dd74b073a66a0\",\n      \"quantity\": 2,\n    \"area\": 1\n    },{\n        \"product\":\"675ab13f256dd74b073a66e3\",\n        \"quantity\":2,\n        \"area\":1000\n    }],\n    \"shippingAddress\": {\n        \"address\": \"3125\",\n        \"city\": \"delhi\",\n        \"postalCode\": 110008,\n        \"country\": \"india\"\n    }\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -577,7 +577,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/users/subcategories/67583d8a7015700a5e7a6432",
+							"raw": "http://localhost:8000/api/users/subcategories/675ab13f256dd74b073a6690",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -587,7 +587,7 @@
 								"api",
 								"users",
 								"subcategories",
-								"67583d8a7015700a5e7a6432"
+								"675ab13f256dd74b073a6690"
 							]
 						}
 					},
@@ -655,7 +655,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/users/productsOfOneClass/clothing",
+							"raw": "http://localhost:8000/api/users/productsOfOneClass/optics",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -665,7 +665,59 @@
 								"api",
 								"users",
 								"productsOfOneClass",
-								"clothing"
+								"optics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customize_order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "postman-cloud:///1efb86bb-6f44-4d10-b577-789a2c25fdca"
+								},
+								{
+									"key": "stockPhotoIds",
+									"value": "[1234,5678]",
+									"type": "text"
+								},
+								{
+									"key": "stockPhotoIds[]",
+									"value": "456",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/customize_order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"customize_order"
 							]
 						}
 					},

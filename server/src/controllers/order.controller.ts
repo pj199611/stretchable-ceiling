@@ -163,13 +163,15 @@ export const createCustomizedOrder = async (
 
     console.log("stockPhotoIds:", stockPhotoIds);
 
-    const newOrder = new Order({
+    const newOrder = new Order({ 
       user: req.user?._id,
       products: [
         {
           stockPhotoIds: stockPhotoIds,
           imageUrls: imagePaths,
+          quantity:req.body.quantity || 1
         },
+        
       ],
     });
 
