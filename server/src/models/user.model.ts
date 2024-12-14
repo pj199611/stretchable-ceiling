@@ -11,24 +11,47 @@ const UserSchema: Schema = new Schema<IUser>(
       lowercase: true,
       trim: true,
     },
-    userName:{
-      type:String,
-      required:true
+    userName: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,
       required: true,
     },
-    requestCallback:{
-      type:Boolean,
-      reqyuired:false,
-      default:false
+    requestCallback: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     role: {
       type: String,
       enum: ['user', 'admin', 'architect'],
       default: 'user',
     },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
+    cart: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+          min: 1,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

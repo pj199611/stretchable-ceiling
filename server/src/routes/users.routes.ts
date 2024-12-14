@@ -1,6 +1,7 @@
 import express from 'express';
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import upload from '../utils/image-upload';
+
 import {
   getUser,
   updateUser,
@@ -18,6 +19,7 @@ import {
 
 import { authenticateToken } from '../middlewares/auth';
 
+
 import {
   getAllOrdersForUsers,
   getOrderById,
@@ -26,40 +28,62 @@ import {
   deleteOrder,
   createCustomizedOrder,
 } from '../controllers/order.controller';
-import { getDropdownData, requestCallback } from '../controllers/users.controller';
+
+import {
+  getDropdownData,
+  requestCallback,
+  addToWishlist,
+  removeFromWishlist,
+  addToCart,
+  removeFromCart,
+  clearCart
+} from '../controllers/users.controller';
 
 const router = express.Router();
 dotenv.config();
 
-
-// user detail routes
-router.get('/user', authenticateToken,getUser);
+// User detail routes
+router.get('/user', authenticateToken, getUser);
 router.put('/user/:id', updateUser);
 
+// Callback request
+router.post("/requestcallback", authenticateToken, requestCallback);
 
-router.post("/requestcallback",authenticateToken,requestCallback)
+// Dropdown data
+router.get("/dropdownData", getDropdownData);
 
-//dropdown data
-router.get("/dropdownData",getDropdownData);
+// Wishlist routes
+router.post('/wishlist/add', authenticateToken, addToWishlist);
+router.delete('/wishlist/remove', authenticateToken, removeFromWishlist);
 
-// products
-router.get("/products",getAllProducts);
-router.get("/productClasses",getAllProductsClass);
-router.get("/productsOfOneClass/:name",getProductsOfOneClass);
+// Cart routes
+router.post('/cart/add', authenticateToken, addToCart);
+router.delete('/cart/remove', authenticateToken, removeFromCart);
+router.delete('/cart/clear', authenticateToken, clearCart);
+
+// Products
+router.get("/products", getAllProducts);
+router.get("/productClasses", getAllProductsClass);
+router.get("/productsOfOneClass/:name", getProductsOfOneClass);
 router.get('/productsOfSubCategory', getProductsByCategoryAndSubCategory);
-router.get("/productsOfSubCategoryDetails",getProductsByCategoryAndSubCategoryDetails);
+router.get("/productsOfSubCategoryDetails", getProductsByCategoryAndSubCategoryDetails);
+
 // Order Routes
 router.get('/orders', authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
-router.delete('/orders/:id', authenticateToken,deleteOrder);
-router.post("/customize_order",authenticateToken,upload.array('images', parseInt(process.env.MAXIMUM_IMAGES_SUPPORTED)),createCustomizedOrder);
-// ----------- //
+router.delete('/orders/:id', authenticateToken, deleteOrder);
+router.post(
+  "/customize_order",
+  authenticateToken,
+  upload.array('images', parseInt(process.env.MAXIMUM_IMAGES_SUPPORTED)),
+  createCustomizedOrder
+);
 
-// category management routes
-router.get("/subcategories/:categoryId",getSubCategoriesByCategoryId);
-// sub category management routes
+// Category management routes
+router.get("/subcategories/:categoryId", getSubCategoriesByCategoryId);
+// Subcategory management routes
 router.get('/categories', getCategories);
 
 export default router;
