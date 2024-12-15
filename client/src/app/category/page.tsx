@@ -7,6 +7,8 @@ import { getCategoryList } from "@/utils/api/guestUser";
 const CategoryPage = async () => {
   const data = await getCategoryList();
   if (!data || !data.categories) return notFound();
+  const img =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
@@ -16,7 +18,7 @@ const CategoryPage = async () => {
           <Card
             title={val.name}
             description={val.description}
-            imageUrl={val.imageUrl || ""}
+            imageUrl={img || ""}
           />
         </Link>
       ))}

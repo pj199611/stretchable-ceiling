@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import * as yup from "yup";
 import { FC, useState } from "react";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
@@ -11,6 +12,7 @@ import Button from "@mui/material/Button";
 // MUI ICON COMPONENTS
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
+import { useFormik } from "formik";
 // GLOBAL CUSTOM HOOK
 import useCart from "@/hooks/useCart";
 // GLOBAL CUSTOM COMPONENTS
@@ -19,6 +21,8 @@ import { H1, H2, H3, H6 } from "@/components/Typography";
 import { FlexBox, FlexRowCenter } from "@/components/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
 import { currency } from "@/lib";
+import BazaarTextField from "@/components/BazaarTextField";
+
 // DUMMY DATA
 import productVariants from "@/data/product-variants";
 // CUSTOM DATA MODEL
@@ -28,20 +32,19 @@ import productVariants from "@/data/product-variants";
 // type Props = { product: Product };
 // ================================================================
 
-export default function ProductIntro({ product }: any) {
-  const {
-    id,
-    price,
-    title,
-    images,
-    slug,
-    thumbnail,
-    rating,
-    totalNoOfReviews,
-    productClass,
-    specific_product_price,
-    description,
-  } = product || {};
+export default function ProductIntro({
+  _id,
+  name,
+  description,
+  product_price,
+  images,
+  thumbnail,
+  Class,
+}: any) {
+  const initialValues = {
+    length: 1,
+    width: 1,
+  };
 
   const { state, dispatch } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -49,6 +52,20 @@ export default function ProductIntro({ product }: any) {
     option: "option 1",
     type: "type 1",
   });
+
+  const validationSchema = yup.object().shape({
+    length: yup.number().required("Length is required"),
+    width: yup.number().required("Length is required"),
+  });
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values) => {
+        console.log(values);
+      },
+    });
 
   // HANDLE CHANGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName: string, value: string) => () => {
@@ -59,17 +76,24 @@ export default function ProductIntro({ product }: any) {
   };
 
   // CHECK PRODUCT EXIST OR NOT IN THE CART
-  const cartItem = state.cart.find((item) => item.id === id);
+  const cartItem = state.cart.find((item) => item.id === _id);
 
   // HANDLE SELECT IMAGE
   const handleImageClick = (ind: number) => () => setSelectedImage(ind);
 
   // HANDLE CHANGE CART
   const handleCartAmountChange = (amount: number) => () => {
-    dispatch({
-      type: "CHANGE_CART_AMOUNT",
-      payload: { price, qty: amount, name: title, imgUrl: thumbnail, id, slug },
-    });
+    console.log("dispatch");
+    // dispatch({
+    //   type: "CHANGE_CART_AMOUNT",
+    //   payload: {
+    //     price: product_price,
+    //     qty: amount,
+    //     name,
+    //     imgUrl: thumbnail,
+    //     id: _id,
+    //   },
+    // });
   };
 
   return (
@@ -84,17 +108,17 @@ export default function ProductIntro({ product }: any) {
             mb={6}
           >
             <LazyImage
-              alt={title}
+              alt={name}
               width={300}
               height={300}
               loading="eager"
-              src={product.images[selectedImage]}
+              src={images?.[selectedImage]}
               sx={{ objectFit: "contain" }}
             />
           </FlexBox>
 
           <FlexBox overflow="auto">
-            {images.map((url, ind) => (
+            {images?.map((url: string, ind: number) => (
               <FlexRowCenter
                 key={ind}
                 width={64}
@@ -125,17 +149,17 @@ export default function ProductIntro({ product }: any) {
         {/* PRODUCT INFO AREA */}
         <Grid item md={6} xs={12} alignItems="center">
           {/* PRODUCT NAME */}
-          <H1 mb={1}>{title}</H1>
+          <H1 mb={1}>{name}</H1>
 
           <FlexBox alignItems="center" mb={1}>
             <div>Product Class: </div>
-            <H6>{productClass}</H6>
+            <H6>{Class}</H6>
           </FlexBox>
 
-          <FlexBox alignItems="center" mb={1}>
+          {/* <FlexBox alignItems="center" mb={1}>
             <div>Price per square feet: </div>
-            <H6>{specific_product_price}</H6>
-          </FlexBox>
+            <H6>{product_price} per square</H6>
+          </FlexBox> */}
 
           <FlexBox alignItems="center" mb={1}>
             <div>Description: </div>
@@ -145,12 +169,12 @@ export default function ProductIntro({ product }: any) {
           {/* PRODUCT RATING */}
           <FlexBox alignItems="center" gap={1} mb={2}>
             <Box lineHeight="1">Rating:</Box>
-            <Rating color="warn" value={rating} readOnly />
-            <H6 lineHeight="1">({totalNoOfReviews})</H6>
+            {/* <Rating color="warn" value={rating} readOnly /> */}
+            {/* <H6 lineHeight="1">({totalNoOfReviews})</H6> */}
           </FlexBox>
 
           {/* PRODUCT VARIANTS */}
-          {productVariants.map((variant) => (
+          {/* {productVariants.map((variant) => (
             <Box key={variant.id} mb={2}>
               <H6 mb={1}>{variant.title}</H6>
 
@@ -160,22 +184,68 @@ export default function ProductIntro({ product }: any) {
                   label={value}
                   onClick={handleChangeVariant(variant.title, value)}
                   sx={{ borderRadius: "4px", mr: 1, cursor: "pointer" }}
-                  color={
-                    selectVariants[variant.title.toLowerCase()] === value
-                      ? "primary"
-                      : "default"
-                  }
+                  // color={
+                  //   selectVariants[variant.title.toLowerCase()] === value
+                  //     ? "primary"
+                  //     : "default"
+                  // }
                 />
               ))}
             </Box>
-          ))}
+          ))} */}
 
           {/* PRICE & STOCK */}
           <Box pt={1} mb={3}>
-            <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {currency(price)}
+            <H2 color="primary" mb={0.5} lineHeight="1">
+              {currency(Number(product_price))} per square feet
             </H2>
             <Box color="inherit">Stock Available</Box>
+          </Box>
+
+          <Box pt={1} mb={3}>
+            <H2 color="primary" mb={0.5} lineHeight="1">
+              Length (sq feet):
+            </H2>
+            <BazaarTextField
+              mb={1.5}
+              fullWidth
+              name="length"
+              size="small"
+              type="number"
+              variant="outlined"
+              onBlur={handleBlur}
+              value={values.length}
+              onChange={handleChange}
+              placeholder="1"
+              error={!!touched.length && !!errors.length}
+              helperText={(touched.length && errors.length) as string}
+            />
+          </Box>
+
+          <Box pt={1} mb={3}>
+            <H2 color="primary" mb={0.5} lineHeight="1">
+              Width (sq feet):
+            </H2>
+            <BazaarTextField
+              mb={1.5}
+              fullWidth
+              name="width"
+              size="small"
+              type="number"
+              variant="outlined"
+              onBlur={handleBlur}
+              value={values.width}
+              onChange={handleChange}
+              placeholder="1"
+              error={!!touched.width && !!errors.width}
+              helperText={(touched.width && errors.width) as string}
+            />
+          </Box>
+
+          <Box pt={1} mb={3}>
+            <H2 color="primary.main" mb={0.5} lineHeight="1">
+              Estimated Cost : {values.length * values.width * product_price}
+            </H2>
           </Box>
 
           {/* ADD TO CART BUTTON */}
