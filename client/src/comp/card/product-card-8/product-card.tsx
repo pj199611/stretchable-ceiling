@@ -65,7 +65,7 @@ export default function ProductCard8({ product }: Props) {
             height={300}
             alt="category"
             className="product-img"
-            src={imageUrl}
+            src={thumbnail}
           />
 
           {/* ADD TO CART BUTTON */}

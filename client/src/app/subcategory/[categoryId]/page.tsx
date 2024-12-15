@@ -4,28 +4,31 @@ import Link from "next/link";
 // import { usePathname } from "next/navigation";
 import { notFound } from "next/navigation";
 import Card from "@/comp/card/subCategory";
-import data from "@/data/data/subcategories";
 import { getSubCategoryList } from "@/utils/api/guestUser";
 
 const SubCategoryPage = async ({ params }) => {
+  const img =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
+
   // const router = useRouter();
   // const pathname = usePathname();
   // console.log(params.categoryId);
   const data = await getSubCategoryList(params?.categoryId);
 
-  // console.log(router.query);
   if (!data || !data.subCategories?.length) return notFound();
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
       {data.subCategories.map((val) => (
-        <Link href={`/products/${val?.subcategory_id}`}>
+        <Link href={`/products/${val?._id}`}>
           <Card
             title={val.name}
             description={val.description}
-            imageUrl={val.imageUrl}
-            additionalDetails={`₹ ${val?.fixedPrice} ${val?.priceDetails}`}
+            imageUrl={img || ""}
+            additionalDetails={
+              val?.price ? `₹ ${val?.price} per sq feet` : undefined
+            }
           />
         </Link>
       ))}
