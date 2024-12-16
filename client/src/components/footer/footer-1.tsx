@@ -13,7 +13,7 @@ import { Heading } from "./styles";
 
 export default function Footer1() {
   return (
-    <Box component="footer" bgcolor="#222935" mb={{ sm: 0, xs: 7 }}>
+    <Box  bgcolor="#222935">
       <Box
         component={Container}
         color="white"

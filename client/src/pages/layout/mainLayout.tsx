@@ -21,7 +21,7 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
       {/* Mobile Bottom Tabs */}
       <MobileNavigationBar />
 
-      <div style={{ position: "relative", width: "100%", left: 0, bottom: 0 }}>
+      <div style={{ position: "fixed", width: "100%", left: 0, bottom: 0 }}>
         <Footer1 />
       </div>
     </Fragment>
