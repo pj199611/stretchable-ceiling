@@ -1,37 +1,55 @@
-// "use client";
+"use client";
 import Link from "next/link";
-// import { useRouter } from "next/router";
-// import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { notFound } from "next/navigation";
 import Card from "@/comp/card/subCategory";
 import { getSubCategoryList } from "@/utils/api/guestUser";
+import useProduct from "@/hooks/useProduct";
 
-const SubCategoryPage = async ({ params }) => {
-  const img =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
+const img =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
 
-  // const router = useRouter();
-  // const pathname = usePathname();
-  // console.log(params.categoryId);
-  const data = await getSubCategoryList(params?.categoryId);
+const SubCategoryPage = () => {
+  const pathname = usePathname();
+  const { dispatch } = useProduct();
+  const categoryId: string = pathname?.split("/subcategory/")?.[1] || "";
 
-  if (!data || !data.subCategories?.length) return notFound();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getSubCategoryList(categoryId)
+      .then((res) => {
+        console.log(res);
+        setData(res);
+      })
+      .catch((err) => setData([]))
+      .finally(() => setIsLoading(false));
+    dispatch({ type: "updateCategoryId", payload: categoryId });
+  }, []);
+
+  if (isLoading) return null;
+  // if (!data || !data.subCategories?.length) return notFound();
+  // if (data?.subCategories?.length === 0) return notFound();
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
-      {data.subCategories.map((val) => (
-        <Link href={`/products/${val?._id}`}>
-          <Card
-            title={val.name}
-            description={val.description}
-            imageUrl={img || ""}
-            additionalDetails={
-              val?.price ? `₹ ${val?.price} per sq feet` : undefined
-            }
-          />
-        </Link>
-      ))}
+      {data?.subCategories?.length > 0 &&
+        data.subCategories.map((val) => (
+          <Link href={`/products/${val?._id}`}>
+            <Card
+              title={val.name}
+              description={val.description}
+              imageUrl={img || ""}
+              additionalDetails={
+                val?.price ? `₹ ${val?.price} per sq feet` : undefined
+              }
+            />
+          </Link>
+        ))}
       <Link href={`/subcategory/customize`}>
         <Card
           title={"Customize"}

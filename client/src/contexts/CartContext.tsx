@@ -28,7 +28,8 @@ const INITIAL_CART = [
     slug: "silver-high-neck-sweater",
     name: "Silver High Neck Sweater",
     id: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
-    imgUrl: "/assets/images/products/Fashion/Clothes/1.SilverHighNeckSweater.png"
+    imgUrl:
+      "/assets/images/products/Fashion/Clothes/1.SilverHighNeckSweater.png",
   },
   {
     qty: 1,
@@ -36,7 +37,8 @@ const INITIAL_CART = [
     slug: "yellow-casual-sweater",
     name: "Yellow Casual Sweater",
     id: "76d14d65-21d0-4b41-8ee1-eef4c2232793",
-    imgUrl: "/assets/images/products/Fashion/Clothes/21.YellowCasualSweater.png"
+    imgUrl:
+      "/assets/images/products/Fashion/Clothes/21.YellowCasualSweater.png",
   },
   {
     qty: 1,
@@ -44,8 +46,8 @@ const INITIAL_CART = [
     slug: "denim-blue-jeans",
     name: "Denim Blue Jeans",
     id: "0fffb188-98d8-47f7-8189-254f06cad488",
-    imgUrl: "/assets/images/products/Fashion/Clothes/4.DenimBlueJeans.png"
-  }
+    imgUrl: "/assets/images/products/Fashion/Clothes/4.DenimBlueJeans.png",
+  },
 ];
 
 const INITIAL_STATE = { cart: INITIAL_CART };
@@ -93,5 +95,19 @@ export default function CartProvider({ children }: PropsWithChildren) {
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
-  return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
+  );
 }
+
+// const a = {
+//   qty: 1,
+//   price: 210,
+//   length: 1,
+//   width: 1,
+//   name: "Silver High Neck Sweater",
+//   categoryId: "",
+//   subcategoryId: "",
+//   productId: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
+//   imgUrl: "/assets/images/products/Fashion/Clothes/1.SilverHighNeckSweater.png",
+// };
