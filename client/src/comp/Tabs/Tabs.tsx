@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import { FlexRowCenter } from "@/components/flex-box";
 import { FilterButton } from "./styles";
 
-const Tabs = ({ allClasses, activeClass, setActiveClass }: any) => {
+const Tabs = ({ allClasses, activeClass, onChange }: any) => {
   // const filtered = data.filter((val) => val.class === filteredKey);
   return (
     <Grid container spacing={4}>
@@ -12,7 +12,7 @@ const Tabs = ({ allClasses, activeClass, setActiveClass }: any) => {
             <FilterButton
               disableRipple
               key={index}
-              onClick={() => setActiveClass(val)}
+              onClick={() => onChange(val)}
               selected={activeClass === val ? 1 : 0}
             >
               {val}

@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import { notFound } from "next/navigation";
 import ProductDetailsPageView from "@/comp/ProductDetails/ProductIntro";
 import { getProductDetails } from "@/utils/api/guestUser";
+import useProduct from "@/hooks/useProduct";
 
 // export const metadata = {
 //   title: "Product Details - Nest and Nook",
@@ -13,9 +14,16 @@ import { getProductDetails } from "@/utils/api/guestUser";
 // };
 
 const ProductDetails = ({ params }: any) => {
+  const productId = params.productId;
+  const { state } = useProduct();
   const [data, setData] = useState({});
+
   useEffect(() => {
-    getProductDetails({}).then((res) => {
+    getProductDetails({
+      categoryId: state.categoryId,
+      subCategoryId: state.subcategoryId,
+      productId: productId,
+    }).then((res) => {
       console.log(res);
       if (res.length > 0) setData(res[0]);
     });

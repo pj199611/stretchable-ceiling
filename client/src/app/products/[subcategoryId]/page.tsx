@@ -4,25 +4,40 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ProductCard from "@/comp/card/product-card-8/index";
 import Tabs from "@/comp/Tabs/Tabs";
-import { getAllProductList, getProductClasses } from "@/utils/api/guestUser";
+import { getProductClasses, getClassProductList } from "@/utils/api/guestUser";
+import useProduct from "@/hooks/useProduct";
 
-const ProductsPage = () => {
+const ProductsPage = ({ params }) => {
+  const currentSubCategoryId = params.subcategoryId;
   const [activeClass, setActiveClass] = useState<string>("All");
   const [allClasses, setAllClasses] = useState<string[]>([]);
   const [data, setData] = useState([]);
+  const { state, dispatch } = useProduct();
 
   useEffect(() => {
     getProductClasses().then((res) => {
       if (res.length > 0) setAllClasses(["All", ...res]);
     });
+    dispatch({ type: "updateSubCategoryId", payload: currentSubCategoryId });
+    dispatch({ type: "updateClass", payload: activeClass });
   }, []);
 
   useEffect(() => {
-    getAllProductList().then((res) => {
-      console.log(res);
-      setData(res?.products);
-    });
-  }, []);
+    getClassProductList({
+      categoryId: state.categoryId,
+      subCategoryId: currentSubCategoryId,
+      Class: activeClass === "All" ? "" : activeClass,
+    })
+      .then((res) => {
+        setData(res);
+      })
+      .catch((err) => setData([]));
+  }, [activeClass]);
+
+  const handleClassChange = (val) => {
+    setActiveClass(val);
+    dispatch({ type: "updateClass", payload: val });
+  };
 
   return (
     <>
@@ -30,18 +45,19 @@ const ProductsPage = () => {
         <Tabs
           allClasses={allClasses}
           activeClass={activeClass}
-          setActiveClass={setActiveClass}
+          onChange={handleClassChange}
         />
       )}
       <div
         className="m-4"
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "left" }}
       >
-        {data.map((val) => (
-          <Link href={`/product-details/black-sofa`}>
-            <ProductCard key={val._id} product={val} />
-          </Link>
-        ))}
+        {data.length > 0 &&
+          data.map((val) => (
+            <Link href={`/product-details/${val._id}`}>
+              <ProductCard key={val._id} product={val} />
+            </Link>
+          ))}
       </div>
     </>
   );

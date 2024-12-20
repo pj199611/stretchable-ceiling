@@ -9,6 +9,7 @@ import CartProvider from "@/contexts/CartContext";
 // SITE SETTINGS PROVIDER
 import SettingsProvider from "@/contexts/SettingContext";
 import TokenContext from "@/contexts/TokenContext";
+import ProductProvider from "@/contexts/ProductContext";
 import ProgressBar from "@/components/progress";
 
 // IMPORT i18n SUPPORT FILE
@@ -19,14 +20,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body className={openSans.className}>
         <CartProvider>
-          <SettingsProvider>
-            <TokenContext>
-              <ThemeProvider>
-                <ProgressBar />
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-            </TokenContext>
-          </SettingsProvider>
+          <ProductProvider>
+            <SettingsProvider>
+              <TokenContext>
+                <ThemeProvider>
+                  <ProgressBar />
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </TokenContext>
+            </SettingsProvider>
+          </ProductProvider>
         </CartProvider>
       </body>
     </html>
