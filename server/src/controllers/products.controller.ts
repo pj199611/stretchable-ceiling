@@ -209,10 +209,10 @@ export const getProductsByCategoryAndSubCategoryDetails = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { categoryId, subCategoryId, productId } = req.query;
+  const { productId } = req.query;
 
   try {
-    if (!categoryId || !subCategoryId || !productId) {
+    if (!productId) {
       res
         .status(400)
         .json({ message: 'Category ID and SubCategory ID are required' });
@@ -220,8 +220,6 @@ export const getProductsByCategoryAndSubCategoryDetails = async (
     }
 
     const product = await Product.find({
-      category: categoryId,
-      subCategory: subCategoryId,
       _id: productId,
     });
 
