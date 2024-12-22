@@ -54,8 +54,8 @@ export default function ProductIntro({
   });
 
   const validationSchema = yup.object().shape({
-    length: yup.number().required("Length is required"),
-    width: yup.number().required("Length is required"),
+    length: yup.number().required("Length is required").positive().moreThan(0),
+    width: yup.number().required("Length is required").positive().moreThan(0),
   });
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -76,24 +76,31 @@ export default function ProductIntro({
   };
 
   // CHECK PRODUCT EXIST OR NOT IN THE CART
-  const cartItem = state.cart.find((item) => item.id === _id);
+  const cartItem = state.cart.find(
+    (item) =>
+      item.id === _id &&
+      item.length === values.length &&
+      item.width === values.width
+  );
 
   // HANDLE SELECT IMAGE
   const handleImageClick = (ind: number) => () => setSelectedImage(ind);
 
   // HANDLE CHANGE CART
   const handleCartAmountChange = (amount: number) => () => {
-    console.log("dispatch");
-    // dispatch({
-    //   type: "CHANGE_CART_AMOUNT",
-    //   payload: {
-    //     price: product_price,
-    //     qty: amount,
-    //     name,
-    //     imgUrl: thumbnail,
-    //     id: _id,
-    //   },
-    // });
+    if (values.length > 0 && values.width > 0)
+      dispatch({
+        type: "CHANGE_CART_AMOUNT",
+        payload: {
+          id: _id,
+          qty: amount,
+          price: values.length * values.width * product_price,
+          length: values.length || 1,
+          width: values.width || 1,
+          name: name,
+          imgUrl: images[0],
+        },
+      });
   };
 
   return (
@@ -255,6 +262,7 @@ export default function ProductIntro({
               variant="contained"
               onClick={handleCartAmountChange(1)}
               sx={{ mb: 4.5, px: "1.75rem", height: 40 }}
+              disabled={values.length < 1 || values.width < 1}
             >
               Add to Cart
             </Button>

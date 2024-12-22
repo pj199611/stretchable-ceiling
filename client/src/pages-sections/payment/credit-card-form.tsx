@@ -16,7 +16,7 @@ export default function CreditCardForm() {
     name: "",
     exp_date: "",
     cvc: "",
-    shipping_zip: "",
+    shipping_pin: "",
     shipping_country: "",
     shipping_address1: "",
     shipping_address2: "",
@@ -25,24 +25,24 @@ export default function CreditCardForm() {
     billing_email: "",
     billing_contact: "",
     billing_company: "",
-    billing_zip: "",
+    billing_pin: "",
     billing_country: "",
     billing_address1: "",
-    billing_address2: ""
+    billing_address2: "",
   };
 
   const VALIDATION_SCHEMA = yup.object().shape({
     card_no: yup.string().required("required"),
     name: yup.string().required("required"),
     exp_date: yup.string().required("required"),
-    cvc: yup.string().required("required")
-    // shipping_zip: yup.string().required("required"),
+    cvc: yup.string().required("required"),
+    // shipping_pin: yup.string().required("required"),
     // shipping_country: yup.object().required("required"),
     // shipping_address1: yup.string().required("required"),
     // billing_name: yup.string().required("required"),
     // billing_email: yup.string().required("required"),
     // billing_contact: yup.string().required("required"),
-    // billing_zip: yup.string().required("required"),
+    // billing_pin: yup.string().required("required"),
     // billing_country: yup.string().required("required"),
     // billing_address1: yup.string().required("required"),
   });
@@ -56,8 +56,16 @@ export default function CreditCardForm() {
     <Formik
       onSubmit={handleFormSubmit}
       initialValues={INITIAL_VALUES}
-      validationSchema={VALIDATION_SCHEMA}>
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+      validationSchema={VALIDATION_SCHEMA}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+      }) => (
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item sm={6} xs={12}>

@@ -6,7 +6,7 @@ type InitialState = any;
 
 type ActionType = {
   type: string;
-  payload: any;
+  payload: string;
 };
 
 const INITIAL_STATE = {
@@ -21,9 +21,20 @@ export const ProductContext = createContext({});
 const reducer = (state: InitialState, action: ActionType) => {
   switch (action.type) {
     case "updateCategoryId":
-      return { ...state, categoryId: action.payload };
+      return {
+        ...state,
+        categoryId: action.payload,
+        subcategoryId: "",
+        productId: "",
+        class: "",
+      };
     case "updateSubCategoryId":
-      return { ...state, subcategoryId: action.payload };
+      return {
+        ...state,
+        subcategoryId: action.payload,
+        productId: "",
+        class: "",
+      };
     case "updateProductId":
       return { ...state, productId: action.payload };
     case "updateClass":

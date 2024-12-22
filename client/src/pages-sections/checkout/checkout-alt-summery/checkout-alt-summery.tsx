@@ -3,9 +3,9 @@
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 // GLOBAL CUSTOM COMPONENTS
-import { Paragraph } from "components/Typography";
+import { Paragraph } from "@/components/Typography";
 // GLOBAL CUSTOM HOOK
-import useCart from "hooks/useCart";
+import useCart from "@/hooks/useCart";
 // LOCAL CUSTOM COMPONENTS
 import CartItem from "./cart-item";
 import ListItem from "../list-item";

@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useFormik } from "formik";
 import * as yup from "yup";
 // GLOBAL CUSTOM COMPONENT
-import { H5 } from "components/Typography";
+import { H5 } from "@/components/Typography";
 
 import { Address } from "./_types";
 

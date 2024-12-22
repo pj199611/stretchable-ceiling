@@ -1,8 +1,8 @@
 // GLOBAL CUSTOM COMPONENTS
-import { Paragraph } from "components/Typography";
-import { FlexBetween } from "components/flex-box";
+import { Paragraph } from "@/components/Typography";
+import { FlexBetween } from "@/components/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 
 // ==============================================================
 interface Props {

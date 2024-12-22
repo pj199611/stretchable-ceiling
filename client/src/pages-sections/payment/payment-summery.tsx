@@ -3,9 +3,9 @@ import Divider from "@mui/material/Divider";
 // LOCAL CUSTOM COMPONENT
 import PaymentItem from "./payment-item";
 // GLOBAL CUSTOM COMPONENTS
-import { Paragraph } from "components/Typography";
+import { Paragraph } from "@/components/Typography";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 
 export default function PaymentSummary() {
   return (

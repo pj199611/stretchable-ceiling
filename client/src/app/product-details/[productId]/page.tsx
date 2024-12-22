@@ -15,10 +15,11 @@ import useProduct from "@/hooks/useProduct";
 
 const ProductDetails = ({ params }: any) => {
   const productId = params.productId;
-  const { state } = useProduct();
+  const { state, dispatch } = useProduct();
   const [data, setData] = useState({});
 
   useEffect(() => {
+    dispatch({ type: "updateProductId", payload: productId });
     getProductDetails({
       categoryId: state.categoryId,
       subCategoryId: state.subcategoryId,

@@ -2,6 +2,10 @@ import { Metadata } from "next";
 import IndexPageView from "@/pages-sections/landing/page-view";
 import Link from "next/link";
 import Carousal from "@/comp/carousal";
+import Img1 from "@/images/3d-stretchable-fabric-ceiling-work.jpg";
+import Img2 from "@/images/Page-1234-scaled-700x466.jpg";
+import Img3 from "@/images/stretch-ceiling-1.webp";
+import CategoryPage from "@/pages/categoryPage";
 
 export const metadata: Metadata = {
   title: "Bazaar - Next.js E-commerce Template",
@@ -16,8 +20,7 @@ const carouselData = [
     buttonLink: "/category",
     buttonText: "Check Category",
     title: "Category",
-    imgUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s",
+    imgUrl: Img1,
     subTitle: "The gift of a man is his goodwill. Take care of gift",
   },
   {
@@ -25,9 +28,7 @@ const carouselData = [
     buttonLink: "#",
     buttonText: "Shop Now",
     subTitle: "GIFT SHOP",
-    imgUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJA32WU4rBpx7maglqeEtt3ot1tPIRWptxA&s",
-
+    imgUrl: Img2,
     title: "The gift of a man is his goodwill. Take care of gift",
   },
   {
@@ -35,8 +36,7 @@ const carouselData = [
     buttonLink: "/category",
     buttonText: "Shop Now",
     subTitle: "GIFT SHOP",
-    imgUrl:
-      "https://gratisography.com/wp-content/uploads/2024/03/gratisography-funflower-800x525.jpg",
+    imgUrl: Img3,
     title: "The gift of a man is his goodwill. Take care of gift",
   },
 ];
@@ -45,6 +45,7 @@ export default function IndexPage() {
   return (
     <>
       <Carousal carouselData={carouselData} />
+      <CategoryPage />
     </>
   );
   // return <IndexPageView />;

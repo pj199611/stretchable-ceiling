@@ -1,6 +1,6 @@
 // GLOBAL CUSTOM COMPONENTS
-import { H6, Paragraph } from "components/Typography";
-import { FlexBox, FlexRowCenter } from "components/flex-box";
+import { H6, Paragraph } from "@/components/Typography";
+import { FlexBox, FlexRowCenter } from "@/components/flex-box";
 // LOCAL CUSTOM COMPONENTS
 import IconComponent from "../icon-component";
 
@@ -14,8 +14,13 @@ interface Props {
 
 export default function ServiceCard1({ icon, title, description }: Props) {
   return (
-    <FlexBox gap={2}>
-      <FlexRowCenter width={50} height={50} bgcolor="grey.100" borderRadius="50%">
+    <FlexBox gap={1}>
+      <FlexRowCenter
+        width={50}
+        height={50}
+        bgcolor="grey.100"
+        borderRadius="50%"
+      >
         {icon ? <IconComponent icon={icon} fontSize="small" /> : null}
       </FlexRowCenter>
 

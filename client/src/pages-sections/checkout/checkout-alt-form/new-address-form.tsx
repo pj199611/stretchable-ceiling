@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 // YUP
 import * as yup from "yup";
 // LOCAL CUSTOM COMPONENT
-import { H5 } from "components/Typography";
+import { H5 } from "@/components/Typography";
 // CUSTOM DATA MODEL
 import { Address } from "./_types";
 

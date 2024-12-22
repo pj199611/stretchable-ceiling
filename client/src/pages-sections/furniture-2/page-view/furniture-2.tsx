@@ -1,5 +1,5 @@
 // GLOBAL CUSTOM COMPONENTS
-import Setting from "components/settings";
+import Setting from "@/components/settings";
 // LOCAL CUSTOM SECTION COMPONENTS
 import Section1 from "../section-1";
 import Section2 from "../section-2";
@@ -21,28 +21,24 @@ export default function FurnitureTwoPageView() {
       <Section2 />
 
       {/* NEW ARRIVALS PRODUCTS SECTION */}
-      <Section3 />
+      {/* <Section3 /> */}
 
       {/* BED ROOM & DINNING DEAL SECTION */}
-      <Section4 />
+      {/* <Section4 /> */}
 
       {/* TRENDING PRODUCTS SECTION */}
-      <Section5 />
+      {/* <Section5 /> */}
 
       {/* GRID BANNERS SECTION */}
-      <Section6 />
-
-      {/* TESTIMONIAL SECTION */}
-      <Section7 />
-
-      {/* NEWSLETTER BANNER SECTION */}
-      <Section8 />
+      {/* <Section6 /> */}
 
       {/* SERVICES SECTION */}
       <Section9 />
 
-      {/* SETTINGS IS USED ONLY FOR DEMO, YOU CAN REMOVE THIS */}
-      <Setting />
+      {/* TESTIMONIAL SECTION */}
+      <Section7 />
+      {/* NEWSLETTER BANNER SECTION */}
+      {/* <Section8 /> */}
     </div>
   );
 }

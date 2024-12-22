@@ -1,7 +1,7 @@
 import { BoxProps } from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import { FlexBox } from "components/flex-box";
-import { Paragraph } from "components/Typography";
+import { FlexBox } from "@/components/flex-box";
+import { Paragraph } from "@/components/Typography";
 
 // ==============================================================
 interface Props extends BoxProps {

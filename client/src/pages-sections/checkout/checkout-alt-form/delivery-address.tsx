@@ -11,8 +11,8 @@ import Heading from "./heading";
 import NewAddressForm from "./new-address-form";
 import EditAddressForm from "./edit-address-form";
 // GLOBAL CUSTOM COMPONENTS
-import { H6, Paragraph } from "components/Typography";
-import { FlexBetween, FlexBox } from "components/flex-box";
+import { H6, Paragraph } from "@/components/Typography";
+import { FlexBetween, FlexBox } from "@/components/flex-box";
 import { Address, InitialValues } from "./_types";
 
 // ==============================================================

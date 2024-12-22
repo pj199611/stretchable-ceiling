@@ -8,7 +8,7 @@ import { getSubCategoryList } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
 
 const img =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
+  "https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/aluminum-pvc-fabric-stretch-ceiling-fabric-light-box-t20231128105948.png";
 
 const SubCategoryPage = () => {
   const pathname = usePathname();
