@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 // GLOBAL CUSTOM COMPONENTS
-import FlexBox from "components/flex-box/flex-box";
+import FlexBox from "@/components/flex-box/flex-box";
 // Local CUSTOM COMPONENTS
 import FormLabel from "./form-label";
 import CreditCardForm from "./credit-card-form";

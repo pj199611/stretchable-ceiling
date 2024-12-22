@@ -15,11 +15,11 @@ import { FormikErrors, FormikTouched } from "formik";
 // LOCAL CUSTOM COMPONENT
 import Heading from "./heading";
 // GLOBAL CUSTOM COMPONENTS
-import LazyImage from "components/LazyImage";
-import { FlexBox } from "components/flex-box";
-import { Paragraph } from "components/Typography";
+import LazyImage from "@/components/LazyImage";
+import { FlexBox } from "@/components/flex-box";
+import { Paragraph } from "@/components/Typography";
 // DATA
-import { months, years } from "data/months-years";
+import { months, years } from "@/data/months-years";
 // CUSTOM DATA MODEL
 import { InitialValues } from "./_types";
 

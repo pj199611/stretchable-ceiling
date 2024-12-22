@@ -3,54 +3,43 @@
 import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
 
 // =================================================================================
-type InitialState = { cart: CartItem[] };
+type InitialState = { cart: CartItem[]; note: string };
 
 export type CartItem = {
   qty: number;
   name: string;
-  slug: string;
   price: number;
   imgUrl?: string;
   id: string | number;
+  length: number;
+  width: number;
 };
 
-type CartActionType = {
-  type: "CHANGE_CART_AMOUNT";
-  payload: CartItem;
-};
-
+type CartActionType =
+  | {
+      type: "CHANGE_CART_AMOUNT";
+      payload: CartItem;
+    }
+  | {
+      type: "CHANGE_NOTE";
+      payload: string;
+    };
 // =================================================================================
 
 const INITIAL_CART = [
   {
+    id: "111", //productId
     qty: 1,
-    price: 210,
-    slug: "silver-high-neck-sweater",
-    name: "Silver High Neck Sweater",
-    id: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
+    price: 100,
+    length: 1,
+    width: 1,
+    name: "NAME",
     imgUrl:
-      "/assets/images/products/Fashion/Clothes/1.SilverHighNeckSweater.png",
-  },
-  {
-    qty: 1,
-    price: 110,
-    slug: "yellow-casual-sweater",
-    name: "Yellow Casual Sweater",
-    id: "76d14d65-21d0-4b41-8ee1-eef4c2232793",
-    imgUrl:
-      "/assets/images/products/Fashion/Clothes/21.YellowCasualSweater.png",
-  },
-  {
-    qty: 1,
-    price: 140,
-    slug: "denim-blue-jeans",
-    name: "Denim Blue Jeans",
-    id: "0fffb188-98d8-47f7-8189-254f06cad488",
-    imgUrl: "/assets/images/products/Fashion/Clothes/4.DenimBlueJeans.png",
+      "https://media.istockphoto.com/id/1416797815/photo/golden-number-one.jpg?s=612x612&w=0&k=20&c=A1AOP7RZK8Rkk2yxEumTlWmhQE-0nGfxVz3Ef39Dzxc=",
   },
 ];
 
-const INITIAL_STATE = { cart: INITIAL_CART };
+const INITIAL_STATE = { cart: INITIAL_CART, note: "" };
 
 // ==============================================================
 interface ContextProps {
@@ -61,27 +50,42 @@ interface ContextProps {
 
 export const CartContext = createContext<ContextProps>({} as ContextProps);
 
+const checkItem = (item: CartItem, cartItem: CartItem) => {
+  return (
+    item.id === cartItem.id &&
+    item.length === cartItem.length &&
+    item.width === cartItem.width
+  );
+};
+
 const reducer = (state: InitialState, action: CartActionType) => {
   switch (action.type) {
+    case "CHANGE_NOTE":
+      return { ...state, note: action.payload };
+
     case "CHANGE_CART_AMOUNT":
       let cartList = state.cart;
       let cartItem = action.payload;
-      let exist = cartList.find((item) => item.id === cartItem.id);
+      let exist = cartList.find((item) => checkItem(item, cartItem));
 
+      // remove item
       if (cartItem.qty < 1) {
-        const filteredCart = cartList.filter((item) => item.id !== cartItem.id);
+        const filteredCart = cartList.filter(
+          (item) => !checkItem(item, cartItem)
+        );
         return { ...state, cart: filteredCart };
       }
 
-      // IF PRODUCT ALREADY EXITS IN CART
+      // change qty
       if (exist) {
         const newCart = cartList.map((item) =>
-          item.id === cartItem.id ? { ...item, qty: cartItem.qty } : item
+          checkItem(item, cartItem) ? { ...item, qty: cartItem.qty } : item
         );
 
         return { ...state, cart: newCart };
       }
 
+      // add item
       return { ...state, cart: [...cartList, cartItem] };
 
     default: {
@@ -99,15 +103,3 @@ export default function CartProvider({ children }: PropsWithChildren) {
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 }
-
-// const a = {
-//   qty: 1,
-//   price: 210,
-//   length: 1,
-//   width: 1,
-//   name: "Silver High Neck Sweater",
-//   categoryId: "",
-//   subcategoryId: "",
-//   productId: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
-//   imgUrl: "/assets/images/products/Fashion/Clothes/1.SilverHighNeckSweater.png",
-// };

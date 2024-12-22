@@ -8,7 +8,7 @@ const CategoryPage = async () => {
   const data = await getCategoryList();
   if (!data || !data.categories) return notFound();
   const img =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s";
+    "https://files.cdn-files-a.com/uploads/1230204/2000_5bc1b582eadf9.jpg";
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}

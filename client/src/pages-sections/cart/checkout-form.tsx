@@ -7,24 +7,30 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 // GLOBAL CUSTOM HOOK
-import useCart from "hooks/useCart";
+import useCart from "@/hooks/useCart";
 // GLOBAL CUSTOM COMPONENTS
-import { Span } from "components/Typography";
-import { FlexBetween, FlexBox } from "components/flex-box";
+import { Span } from "@/components/Typography";
+import { FlexBetween, FlexBox } from "@/components/flex-box";
 // DUMMY CUSTOM DATA
-import countryList from "data/countryList";
+import countryList from "@/data/countryList";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 
 export default function CheckoutForm() {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
 
-  const getTotalPrice = () => state.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const getTotalPrice = () =>
+    state.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
-  const STATE_LIST = [
-    { value: "new-york", label: "New York" },
-    { value: "chicago", label: "Chicago" }
-  ];
+  const handleChangeNote = (e) => {
+    // setText(e.target.value);
+    dispatch({ type: "CHANGE_NOTE", payload: e.target.value });
+  };
+
+  // const STATE_LIST = [
+  //   { value: "new-york", label: "New York" },
+  //   { value: "chicago", label: "Chicago" },
+  // ];
 
   return (
     <Card sx={{ padding: 3 }}>
@@ -47,31 +53,42 @@ export default function CheckoutForm() {
           lineHeight="1"
           borderRadius="3px"
           color="primary.main"
-          bgcolor="primary.light">
+          bgcolor="primary.light"
+        >
           Note
         </Span>
       </FlexBox>
 
       {/* COMMENTS TEXT FIELD */}
-      <TextField variant="outlined" rows={6} fullWidth multiline />
+      <TextField
+        variant="outlined"
+        rows={6}
+        fullWidth
+        multiline
+        value={state.note}
+        onChange={handleChangeNote}
+      />
 
       <Divider sx={{ mb: 2 }} />
 
+      {/*-------------- On adding Voucher ------------------ */}
       {/* APPLY VOUCHER TEXT FIELD */}
-      <TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" />
+      {/* <TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" /> */}
 
-      <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2, mb: 4 }}>
+      {/* <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2, mb: 4 }}>
         Apply Voucher
-      </Button>
+      </Button> */}
 
-      <Divider sx={{ mb: 2 }} />
+      {/* <Divider sx={{ mb: 2 }} /> */}
+      {/*--------------------------------- */}
 
-      <Span fontWeight={600} mb={2} display="block">
+      {/*-------------- Shopping Estimate ------------------ */}
+      {/* <Span fontWeight={600} mb={2} display="block">
         Shipping Estimates
-      </Span>
+      </Span> */}
 
       {/* COUNTRY TEXT FIELD */}
-      <Autocomplete
+      {/* <Autocomplete
         fullWidth
         sx={{ mb: 2 }}
         options={countryList}
@@ -84,10 +101,10 @@ export default function CheckoutForm() {
             placeholder="Select Country"
           />
         )}
-      />
+      /> */}
 
       {/* STATE/CITY TEXT FIELD */}
-      <TextField
+      {/* <TextField
         select
         fullWidth
         size="small"
@@ -100,23 +117,31 @@ export default function CheckoutForm() {
             {label}
           </MenuItem>
         ))}
-      </TextField>
+      </TextField> */}
 
       {/* ZIP-CODE TEXT FIELD */}
-      <TextField
+      {/* <TextField
         fullWidth
         size="small"
         label="Zip Code"
         placeholder="3100"
         variant="outlined"
         sx={{ mt: 2 }}
-      />
+      /> */}
 
-      <Button variant="outlined" color="primary" fullWidth sx={{ my: 2 }}>
+      {/* <Button variant="outlined" color="primary" fullWidth sx={{ my: 2 }}>
         Calculate Shipping
-      </Button>
+      </Button> */}
+      {/*--------------------------------- */}
 
-      <Button fullWidth color="primary" href="/checkout" variant="contained" LinkComponent={Link}>
+      <Button
+        fullWidth
+        color="primary"
+        href="/checkout"
+        variant="contained"
+        LinkComponent={Link}
+        disabled={getTotalPrice() < 1}
+      >
         Checkout Now
       </Button>
     </Card>

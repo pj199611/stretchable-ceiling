@@ -3,10 +3,10 @@ import Container from "@mui/material/Container";
 // LOCAL CUSTOM COMPONENT
 import BannerCard from "./banner-card";
 // GLOBAL CUSTOM COMPONENT
-import LazyImage from "components/LazyImage";
+import LazyImage from "@/components/LazyImage";
 // IMPORT IMAGES
-import bannerOne from "../../../../public/assets/images/banners/banner-28.jpg";
-import bannerTwo from "../../../../public/assets/images/banners/banner-29.jpg";
+import bannerOne from "@/images/Page-1234-scaled-700x466.jpg";
+import bannerTwo from "@/images/Page-1234-scaled-700x466.jpg";
 
 export default function Section2() {
   return (

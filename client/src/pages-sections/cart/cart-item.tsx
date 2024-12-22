@@ -6,13 +6,13 @@ import Add from "@mui/icons-material/Add";
 import Close from "@mui/icons-material/Close";
 import Remove from "@mui/icons-material/Remove";
 // GLOBAL CUSTOM COMPONENTS
-import Image from "components/BazaarImage";
-import { Span } from "components/Typography";
-import { FlexBox } from "components/flex-box";
+import Image from "@/components/BazaarImage";
+import { Span } from "@/components/Typography";
+import { FlexBox } from "@/components/flex-box";
 // GLOBAL CUSTOM HOOK
-import useCart from "hooks/useCart";
+import useCart from "@/hooks/useCart";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 // STYLED COMPONENT
 import { Wrapper } from "./styles";
 
@@ -20,21 +20,43 @@ import { Wrapper } from "./styles";
 type Props = {
   qty: number;
   name: string;
-  slug: string;
+  // slug: string;
   price: number;
   imgUrl?: string;
   id: string | number;
+  length: number;
+  width: number;
+  // productId: string;
 };
 // =========================================================
 
-export default function CartItem({ id, name, qty, price, imgUrl, slug }: Props) {
+export default function CartItem({
+  id,
+  name,
+  qty,
+  price,
+  imgUrl,
+  // slug,
+  length = 1,
+  width = 1,
+} // productId,
+: Props) {
   const { dispatch } = useCart();
 
   // HANDLE CHANGE CART PRODUCT QUANTITY
   const handleCartAmountChange = (amount: number) => () => {
     dispatch({
       type: "CHANGE_CART_AMOUNT",
-      payload: { id, name, price, imgUrl, qty: amount, slug }
+      payload: {
+        id,
+        name,
+        price,
+        imgUrl,
+        qty: amount,
+        // slug,
+        length,
+        width,
+      },
     });
   };
 
@@ -52,15 +74,18 @@ export default function CartItem({ id, name, qty, price, imgUrl, slug }: Props) 
       <IconButton
         size="small"
         onClick={handleCartAmountChange(0)}
-        sx={{ position: "absolute", right: 15, top: 15 }}>
+        sx={{ position: "absolute", right: 15, top: 15 }}
+      >
         <Close fontSize="small" />
       </IconButton>
 
       <FlexBox p={2} rowGap={2} width="100%" flexDirection="column">
-        <Link href={`/products/${slug}`}>
+        <Link href={`/product-details/${id}`}>
           <Span ellipsis fontWeight="600" fontSize={18}>
             {name}
           </Span>
+          <br />
+          {`${length} sq feet X ${width} sq feet`}
         </Link>
 
         {/* PRODUCT PRICE SECTION */}
@@ -81,7 +106,8 @@ export default function CartItem({ id, name, qty, price, imgUrl, slug }: Props) 
             sx={{ p: "5px" }}
             variant="outlined"
             disabled={qty === 1}
-            onClick={handleCartAmountChange(qty - 1)}>
+            onClick={handleCartAmountChange(qty - 1)}
+          >
             <Remove fontSize="small" />
           </Button>
 
@@ -93,7 +119,8 @@ export default function CartItem({ id, name, qty, price, imgUrl, slug }: Props) 
             color="primary"
             sx={{ p: "5px" }}
             variant="outlined"
-            onClick={handleCartAmountChange(qty + 1)}>
+            onClick={handleCartAmountChange(qty + 1)}
+          >
             <Add fontSize="small" />
           </Button>
         </FlexBox>

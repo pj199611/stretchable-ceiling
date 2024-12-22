@@ -27,7 +27,7 @@ export default function MiniCart({ toggleSidenav }: Props) {
   const handleCartAmountChange = (amount: number, product: CartItem) => () => {
     dispatch({
       type: "CHANGE_CART_AMOUNT",
-      payload: { ...product, qty: amount }
+      payload: { ...product, qty: amount },
     });
   };
 
@@ -54,7 +54,7 @@ export default function MiniCart({ toggleSidenav }: Props) {
             {cartList.map((item) => (
               <MiniCartItem
                 item={item}
-                key={item.id}
+                key={`${item.id}-${item.length}-${item.width}`}
                 handleCartAmountChange={handleCartAmountChange}
               />
             ))}
@@ -66,7 +66,10 @@ export default function MiniCart({ toggleSidenav }: Props) {
 
       {/* CART BOTTOM ACTION BUTTONS */}
       {cartList.length > 0 ? (
-        <BottomActions total={currency(getTotalPrice())} handleNavigate={handleNavigate} />
+        <BottomActions
+          total={currency(getTotalPrice())}
+          handleNavigate={handleNavigate}
+        />
       ) : null}
     </Box>
   );

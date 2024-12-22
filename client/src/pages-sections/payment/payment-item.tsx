@@ -1,7 +1,7 @@
-import { Paragraph } from "components/Typography";
-import FlexBetween from "components/flex-box/flex-between";
+import { Paragraph } from "@/components/Typography";
+import FlexBetween from "@/components/flex-box/flex-between";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
 
 // ==============================================================
 type Props = { title: string; amount?: number };

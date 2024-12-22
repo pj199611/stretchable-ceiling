@@ -2,7 +2,7 @@ import { SyntheticEvent } from "react";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 // GLOBAL CUSTOM COMPONENT
-import { Paragraph } from "components/Typography";
+import { Paragraph } from "@/components/Typography";
 
 // ==============================================================
 interface Props {

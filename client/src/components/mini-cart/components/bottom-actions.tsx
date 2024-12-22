@@ -9,6 +9,21 @@ interface Props {
 // ==============================================================
 
 export default function BottomActions({ total, handleNavigate }: Props) {
+  if (!localStorage.getItem("access_token"))
+    return (
+      <Box p={2.5}>
+        <Button
+          fullWidth
+          color="primary"
+          variant="contained"
+          sx={{ mb: "0.75rem", height: "40px" }}
+          onClick={handleNavigate("/login")}
+        >
+          Login
+        </Button>
+      </Box>
+    );
+
   return (
     <Box p={2.5}>
       <Button
@@ -16,7 +31,8 @@ export default function BottomActions({ total, handleNavigate }: Props) {
         color="primary"
         variant="contained"
         sx={{ mb: "0.75rem", height: "40px" }}
-        onClick={handleNavigate("/checkout-alternative")}>
+        onClick={handleNavigate("/checkout")}
+      >
         Checkout Now ({total})
       </Button>
 
@@ -25,7 +41,8 @@ export default function BottomActions({ total, handleNavigate }: Props) {
         color="primary"
         variant="outlined"
         sx={{ height: 40 }}
-        onClick={handleNavigate("/cart")}>
+        onClick={handleNavigate("/cart")}
+      >
         View Cart
       </Button>
     </Box>

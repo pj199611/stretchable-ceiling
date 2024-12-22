@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControlLabel from "@mui/material/FormControlLabel";
 // GLOBAL CUSTOM COMPONENTS
-import { H6 } from "components/Typography";
+import { H6 } from "@/components/Typography";
 // DUMMY CUSTOM DATA
-import countryList from "data/countryList";
+import countryList from "@/data/countryList";
 
 // ==============================================================
 interface Props {
@@ -30,7 +30,7 @@ export default function BillingAddressForm({
   touched,
   values,
   sameAsShipping,
-  handleCheckboxChange
+  handleCheckboxChange,
 }: Props) {
   return (
     <Card sx={{ mb: 4, p: 3 }}>
@@ -48,12 +48,12 @@ export default function BillingAddressForm({
         sx={{
           zIndex: 1,
           position: "relative",
-          mb: sameAsShipping ? "" : "1rem"
+          mb: sameAsShipping ? "" : "1rem",
         }}
       />
 
       {!sameAsShipping && (
-        <Grid container spacing={6}>
+        <Grid container columnSpacing={1}>
           <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
@@ -64,43 +64,9 @@ export default function BillingAddressForm({
               onChange={handleChange}
               value={values.billing_name}
               error={!!touched.billing_name && !!errors.billing_name}
-              helperText={(touched.billing_name && errors.billing_name) as string}
-            />
-
-            <TextField
-              fullWidth
-              sx={{ mb: 2 }}
-              onBlur={handleBlur}
-              label="Phone Number"
-              name="billing_contact"
-              onChange={handleChange}
-              value={values.billing_contact}
-              error={!!touched.billing_contact && !!errors.billing_contact}
-              helperText={(touched.billing_contact && errors.billing_contact) as string}
-            />
-
-            <TextField
-              fullWidth
-              type="number"
-              sx={{ mb: 2 }}
-              label="Zip Code"
-              name="billing_zip"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.billing_zip}
-              error={!!touched.billing_zip && !!errors.billing_zip}
-              helperText={(touched.billing_zip && errors.billing_zip) as string}
-            />
-
-            <TextField
-              fullWidth
-              label="Address 1"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              name="billing_address1"
-              value={values.billing_address1}
-              error={!!touched.billing_address1 && !!errors.billing_address1}
-              helperText={(touched.billing_address1 && errors.billing_address1) as string}
+              helperText={
+                (touched.billing_name && errors.billing_name) as string
+              }
             />
           </Grid>
 
@@ -115,9 +81,74 @@ export default function BillingAddressForm({
               onChange={handleChange}
               value={values.billing_email}
               error={!!touched.billing_email && !!errors.billing_email}
-              helperText={(touched.billing_email && errors.billing_email) as string}
+              helperText={
+                (touched.billing_email && errors.billing_email) as string
+              }
             />
+          </Grid>
 
+          <Grid item sm={6} xs={12}>
+            <TextField
+              fullWidth
+              sx={{ mb: 2 }}
+              onBlur={handleBlur}
+              label="Phone Number"
+              name="billing_contact"
+              onChange={handleChange}
+              value={values.billing_contact}
+              error={!!touched.billing_contact && !!errors.billing_contact}
+              helperText={
+                (touched.billing_contact && errors.billing_contact) as string
+              }
+            />
+          </Grid>
+
+          <Grid item sm={6} xs={12}>
+            <TextField
+              fullWidth
+              label="Address 1"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              name="billing_address1"
+              value={values.billing_address1}
+              error={!!touched.billing_address1 && !!errors.billing_address1}
+              helperText={
+                (touched.billing_address1 && errors.billing_address1) as string
+              }
+            />
+          </Grid>
+
+          <Grid item sm={6} xs={12}>
+            <TextField
+              fullWidth
+              label="Address 2"
+              onBlur={handleBlur}
+              name="billing_address2"
+              onChange={handleChange}
+              value={values.billing_address2}
+              error={!!touched.billing_address2 && !!errors.billing_address2}
+              helperText={
+                (touched.billing_address2 && errors.billing_address2) as string
+              }
+            />
+          </Grid>
+
+          <Grid item sm={6} xs={12}>
+            <TextField
+              fullWidth
+              type="number"
+              sx={{ mb: 2 }}
+              label="Pin Code"
+              name="billing_pin"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.billing_pin}
+              error={!!touched.billing_pin && !!errors.billing_pin}
+              helperText={(touched.billing_pin && errors.billing_pin) as string}
+            />
+          </Grid>
+
+          {/* <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               sx={{ mb: 2 }}
@@ -127,9 +158,13 @@ export default function BillingAddressForm({
               onChange={handleChange}
               value={values.billing_company}
               error={!!touched.billing_company && !!errors.billing_company}
-              helperText={(touched.billing_company && errors.billing_company) as string}
+              helperText={
+                (touched.billing_company && errors.billing_company) as string
+              }
             />
+          </Grid> */}
 
+          {/* <Grid item sm={6} xs={12}>
             <Autocomplete
               fullWidth
               sx={{ mb: 2 }}
@@ -142,23 +177,15 @@ export default function BillingAddressForm({
                   label="Country"
                   placeholder="Select Country"
                   error={!!touched.billing_country && !!errors.billing_country}
-                  helperText={(touched.billing_country && errors.billing_country) as string}
+                  helperText={
+                    (touched.billing_country &&
+                      errors.billing_country) as string
+                  }
                   {...params}
                 />
               )}
             />
-
-            <TextField
-              fullWidth
-              label="Address 2"
-              onBlur={handleBlur}
-              name="billing_address2"
-              onChange={handleChange}
-              value={values.billing_address2}
-              error={!!touched.billing_address2 && !!errors.billing_address2}
-              helperText={(touched.billing_address2 && errors.billing_address2) as string}
-            />
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
     </Card>

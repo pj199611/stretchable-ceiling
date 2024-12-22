@@ -6,30 +6,41 @@ import TextField from "@mui/material/TextField";
 // LOCAL CUSTOM COMPONENT
 import ListItem from "../list-item";
 // GLOBAL CUSTOM COMPONENTS
-import { Paragraph } from "components/Typography";
+import { Paragraph } from "@/components/Typography";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
+import { currency } from "@/lib";
+import useCart from "@/hooks/useCart";
 
 export default function CheckoutSummary() {
+  const { state } = useCart();
+
+  const getTotalPrice = () =>
+    state.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
   return (
     <Card sx={{ p: 3 }}>
-      <ListItem mb={1} title="Subtotal" value={2610} />
+      <ListItem mb={1} title="Subtotal" value={getTotalPrice()} />
       <ListItem mb={1} title="Shipping" />
-      <ListItem mb={1} title="Tax" value={40} />
+      <ListItem mb={1} title="Tax" value={getTotalPrice() * 0.18} />
       <ListItem mb={1} title="Discount" />
 
       <Divider sx={{ my: 2 }} />
 
       <Paragraph fontSize={25} fontWeight={600} lineHeight={1}>
-        {currency(2610)}
+        Amount To Pay: {currency(getTotalPrice() * 1.18)}
       </Paragraph>
 
-      <Stack spacing={2} mt={3}>
-        <TextField placeholder="Voucher" variant="outlined" size="small" fullWidth />
+      {/* <Stack spacing={2} mt={3}>
+        <TextField
+          placeholder="Voucher"
+          variant="outlined"
+          size="small"
+          fullWidth
+        />
         <Button variant="outlined" color="primary" fullWidth>
           Apply Voucher
         </Button>
-      </Stack>
+      </Stack> */}
     </Card>
   );
 }
