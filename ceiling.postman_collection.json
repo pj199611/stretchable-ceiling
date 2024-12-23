@@ -745,6 +745,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "requestCallback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/requestcallback",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"requestcallback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateEstimatedAmount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"locationName\": \"bangalore\",\r\n    \"products\": [\r\n        {\r\n            \"_id\": \"675c3281910beeb25b774785\",\r\n            \"name\": \"Product 1\",\r\n            \"description\": \"Description for product 1\",\r\n            \"subCategory\": \"675c3281910beeb25b77477d\",\r\n            \"category\": \"675c3281910beeb25b774772\",\r\n            \"product_price\": 50,\r\n            \"area\": \"100\",\r\n            \"class\": \"electronics\",\r\n            \"images\": [\r\n                \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg\",\r\n                \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/g6vbgcayonxfoiuykek4.jpg\"\r\n            ],\r\n            \"thumbnail\": \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg\",\r\n            \"createdAt\": \"2024-12-13T13:11:29.412Z\",\r\n            \"updatedAt\": \"2024-12-13T13:11:29.412Z\",\r\n            \"__v\": 0\r\n        },\r\n        {\r\n            \"_id\": \"675c3281910beeb25b774789\",\r\n            \"name\": \"Product 5\",\r\n            \"description\": \"Description for product 5\",\r\n            \"subCategory\": \"675c3281910beeb25b77477c\",\r\n            \"category\": \"675c3281910beeb25b774775\",\r\n            \"product_price\": 90,\r\n            \"area\": \"100\",\r\n            \"class\": \"sports\",\r\n            \"images\": [\r\n                \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg\",\r\n                \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/g6vbgcayonxfoiuykek4.jpg\"\r\n            ],\r\n            \"thumbnail\": \"https://res.cloudinary.com/dpp1v9aek/image/upload/v1733995876/products/wllpnspfxzn9hzdkp63f.jpg\",\r\n            \"createdAt\": \"2024-12-13T13:11:29.412Z\",\r\n            \"updatedAt\": \"2024-12-13T13:11:29.412Z\",\r\n            \"__v\": 0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/calculateEstimatedAmount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"calculateEstimatedAmount"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
