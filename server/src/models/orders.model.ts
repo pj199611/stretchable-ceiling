@@ -103,7 +103,7 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
     let productPrice
 
     // Fetch product details
-    const product = await Product.findById(item.product).lean();
+    const product = await Product.findById(item._id).lean();
     if (product && product.product_price) {
       productPrice = product.product_price;
     } else {

@@ -4,7 +4,8 @@ import SubCategory from '../models/subCategory.model';
 import { Request, Response } from 'express';
 import User from '../models/user.model';
 import Product from '../models/products.model';
-
+import Location from '../models/location.model';
+import Order from '../models/orders.model';
 
 export const getDropdownData = async (
   req: Request,
@@ -40,17 +41,18 @@ export const requestCallback = async (
     const user = await User.findById(req.user._id);
     user.requestCallback = true;
     await user.save();
-    res.json({ message: "callback is arranged" })
+    res.json({ message: 'callback is arranged' });
   } catch (error) {
     console.log(error);
     res.json({ error: 'An error occurred' });
   }
 };
 
-
-
 // Add product to wishlist
-export const addToWishlist = async (req: IRequest, res: Response): Promise<void> => {
+export const addToWishlist = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const { productId } = req.body;
     const user = await User.findById(req.user._id);
@@ -68,7 +70,10 @@ export const addToWishlist = async (req: IRequest, res: Response): Promise<void>
 };
 
 // Remove product from wishlist
-export const removeFromWishlist = async (req: IRequest, res: Response): Promise<void> => {
+export const removeFromWishlist = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const { productId } = req.body;
     const user = await User.findById(req.user._id);
@@ -78,7 +83,10 @@ export const removeFromWishlist = async (req: IRequest, res: Response): Promise<
     );
     await user.save();
 
-    res.json({ message: 'Product removed from wishlist', wishlist: user.wishlist });
+    res.json({
+      message: 'Product removed from wishlist',
+      wishlist: user.wishlist,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
@@ -86,7 +94,10 @@ export const removeFromWishlist = async (req: IRequest, res: Response): Promise<
 };
 
 // Add product to cart
-export const addToCart = async (req: IRequest, res: Response): Promise<void> => {
+export const addToCart = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const { productId, quantity } = req.body;
     const product = await Product.findById(productId);
@@ -119,12 +130,17 @@ export const addToCart = async (req: IRequest, res: Response): Promise<void> => 
 };
 
 // Remove product from cart
-export const removeFromCart = async (req: IRequest, res: Response): Promise<void> => {
+export const removeFromCart = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const { productId } = req.body;
     const user = await User.findById(req.user._id);
 
-    user.cart = user.cart.filter((item) => item.product.toString() !== productId);
+    user.cart = user.cart.filter(
+      (item) => item.product.toString() !== productId
+    );
     await user.save();
 
     res.json({ message: 'Product removed from cart', cart: user.cart });
@@ -135,7 +151,10 @@ export const removeFromCart = async (req: IRequest, res: Response): Promise<void
 };
 
 // Clear cart
-export const clearCart = async (req: IRequest, res: Response): Promise<void> => {
+export const clearCart = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
   try {
     const user = await User.findById(req.user._id);
     user.cart = [];
@@ -145,5 +164,42 @@ export const clearCart = async (req: IRequest, res: Response): Promise<void> => 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
+  }
+};
+
+export const calculateEstimatedAmount = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const { products, locationName } = req.body;
+    let totalAmount = 0;
+    const location = await Location.findOne({ name: locationName });
+
+    for (const item of products) {
+      let productPrice;
+      const product = await Product.findById(item._id).lean();
+      if (product && product.product_price) {
+        productPrice = product.product_price;
+      } else {
+        const subCategory = await SubCategory.findById(product?.subCategory).lean();
+        productPrice = subCategory ? subCategory.price : 0;
+      }
+
+      const area = item.area;
+
+      let itemTotal;
+      if (location.operator === 'add') {
+        itemTotal = area * (productPrice + location.location_price);
+      } else if (location.operator === 'subtract') {
+        itemTotal = area * (productPrice - location.location_price);
+      }
+      totalAmount += itemTotal;
+    }
+
+    res.json({ estimatedCost: totalAmount });
+  } catch (error) {
+    console.log('error', error);
+    res.status(500).json({ error: 'Failed to create order' });
   }
 };

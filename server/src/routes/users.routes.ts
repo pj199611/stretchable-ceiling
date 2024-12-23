@@ -36,7 +36,8 @@ import {
   removeFromWishlist,
   addToCart,
   removeFromCart,
-  clearCart
+  clearCart,
+  calculateEstimatedAmount
 } from '../controllers/users.controller';
 
 const router = express.Router();
@@ -85,5 +86,8 @@ router.post(
 router.get("/subcategories/:categoryId", getSubCategoriesByCategoryId);
 // Subcategory management routes
 router.get('/categories', getCategories);
+
+// calculate estimated routes
+router.post("/calculateEstimatedAmount",calculateEstimatedAmount);
 
 export default router;
