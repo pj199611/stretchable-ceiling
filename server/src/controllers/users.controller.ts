@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import User from '../models/user.model';
 import Product from '../models/products.model';
 import Location from '../models/location.model';
-import Order from '../models/orders.model';
+import RequestCallback from '../models/requestCallback.model';
 
 export const getDropdownData = async (
   req: Request,
@@ -38,13 +38,35 @@ export const requestCallback = async (
   res: Response
 ): Promise<void> => {
   try {
-    const user = await User.findById(req.user._id);
-    user.requestCallback = true;
-    await user.save();
+    const { name, phoneNumber, comment } = req.body;
+    const requestCallback = new RequestCallback({ name, phoneNumber, comment });
+    await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {
     console.log(error);
     res.json({ error: 'An error occurred' });
+  }
+};
+
+// get all products from wishlist
+
+export const getWishList = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    // Fetch the user by their ID
+    const user = await User.findById(req.user._id).populate('wishlist');
+
+    if (!user) {
+       res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return the populated wishlist with product details
+    res.json({ wishlist: user.wishlist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
   }
 };
 
@@ -58,11 +80,13 @@ export const addToWishlist = async (
     const user = await User.findById(req.user._id);
 
     if (!user.wishlist.includes(productId)) {
-      user.wishlist.push(productId);
+      const product = await Product.findById({ _id: productId });
+      console.log('product', product);
+      user.wishlist.push(product);
       await user.save();
     }
 
-    res.json({ message: 'Product added to wishlist', wishlist: user.wishlist });
+    res.json({ message: 'Product added to wishlist' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
@@ -85,8 +109,23 @@ export const removeFromWishlist = async (
 
     res.json({
       message: 'Product removed from wishlist',
-      wishlist: user.wishlist,
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+};
+
+export const clearWishlist = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const user = await User.findById(req.user._id);
+    user.wishlist = [];
+    await user.save();
+
+    res.json({ message: 'wishlist cleared', wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
@@ -150,6 +189,30 @@ export const removeFromCart = async (
   }
 };
 
+export const getAllCartItems = async (
+  req: IRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    // Fetch the user by their ID
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+    }
+
+    const populatedUser = await user.populate({
+      path: 'cart.product',
+      model: 'Product',
+    });
+
+    res.json({ cart: populatedUser.cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+};
+
 // Clear cart
 export const clearCart = async (
   req: IRequest,
@@ -182,7 +245,9 @@ export const calculateEstimatedAmount = async (
       if (product && product.product_price) {
         productPrice = product.product_price;
       } else {
-        const subCategory = await SubCategory.findById(product?.subCategory).lean();
+        const subCategory = await SubCategory.findById(
+          product?.subCategory
+        ).lean();
         productPrice = subCategory ? subCategory.price : 0;
       }
 

@@ -7,7 +7,7 @@ export default interface IUser extends Document {
   createdAt: Date;
   role: string;
   cart:Record<any,any>[];
-  wishlist:string[]
+  wishlist:Record<any,any>[];
   requestCallback:Boolean
   isPasswordValid(password: string): Promise<boolean>;
 }

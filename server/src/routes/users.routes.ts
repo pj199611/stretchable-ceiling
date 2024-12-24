@@ -37,7 +37,10 @@ import {
   addToCart,
   removeFromCart,
   clearCart,
-  calculateEstimatedAmount
+  calculateEstimatedAmount,
+  getAllCartItems,
+  getWishList,
+  clearWishlist
 } from '../controllers/users.controller';
 
 const router = express.Router();
@@ -48,19 +51,22 @@ router.get('/user', authenticateToken, getUser);
 router.put('/user/:id', updateUser);
 
 // Callback request
-router.post("/requestcallback", authenticateToken, requestCallback);
+router.post("/requestcallback", requestCallback);
 
 // Dropdown data
 router.get("/dropdownData", getDropdownData);
 
 // Wishlist routes
+router.get('/wishlist', authenticateToken,getWishList );
 router.post('/wishlist/add', authenticateToken, addToWishlist);
 router.delete('/wishlist/remove', authenticateToken, removeFromWishlist);
+router.delete('/wishlist/clear', authenticateToken, clearWishlist);
 
 // Cart routes
 router.post('/cart/add', authenticateToken, addToCart);
 router.delete('/cart/remove', authenticateToken, removeFromCart);
 router.delete('/cart/clear', authenticateToken, clearCart);
+router.get("/cart",authenticateToken,getAllCartItems);
 
 // Products
 router.get("/products", getAllProducts);

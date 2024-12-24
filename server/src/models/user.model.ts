@@ -19,11 +19,6 @@ const UserSchema: Schema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    requestCallback: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     role: {
       type: String,
       enum: ['user', 'admin', 'architect'],
