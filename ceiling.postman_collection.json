@@ -681,7 +681,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTExODc3NiwiZXhwIjoxNzM1NzIzNTc2fQ.0ROQLT9z2MYa4VQheinn2pViUy4ETRNdNe4OuR_CYag",
 									"type": "string"
 								}
 							]
@@ -702,10 +702,24 @@
 									"type": "text"
 								},
 								{
-									"key": "stockPhotoIds[]",
-									"value": "456",
-									"type": "text",
-									"disabled": true
+									"key": "shippingAddress[address]",
+									"value": "3125",
+									"type": "text"
+								},
+								{
+									"key": "shippingAddress[city]",
+									"value": "delhi",
+									"type": "text"
+								},
+								{
+									"key": "shippingAddress[postalCode]",
+									"value": "110008",
+									"type": "text"
+								},
+								{
+									"key": "shippingAddress[country]",
+									"value": "india",
+									"type": "text"
 								}
 							]
 						},

@@ -164,6 +164,7 @@ export const createCustomizedOrder = async (
     console.log("stockPhotoIds:", stockPhotoIds);
 
     const newOrder = new Order({ 
+      shippingAddress:req.body.shippingAddress,
       user: req.user?._id,
       products: [
         {
