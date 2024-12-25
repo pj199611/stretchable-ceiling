@@ -7,6 +7,7 @@ import {
   updateUser,
   getCategories,
   getSubCategoriesByCategoryId,
+  getLocations,
 } from '../controllers/admin.controller';
 
 import {
@@ -93,6 +94,8 @@ router.get("/subcategories/:categoryId", getSubCategoriesByCategoryId);
 // Subcategory management routes
 router.get('/categories', getCategories);
 
+// locations
+router.get('/location', getLocations);
 // calculate estimated routes
 router.post("/calculateEstimatedAmount",calculateEstimatedAmount);
 

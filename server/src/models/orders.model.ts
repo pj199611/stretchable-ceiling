@@ -52,6 +52,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
             required: false,
           },
         ],
+        customizedUrls:[{type:String,required:false}],
         imageUrls: [{ type: String, required: false }],
       },
     ],
@@ -86,7 +87,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
 orderSchema.pre('save', async function (next) {
   if (
     this.products[0].stockPhotoIds.length > 0 ||
-    this.products[0].imageUrls.length > 0
+    this.products[0].imageUrls.length > 0 || this.products[0].customizedUrls.length>0
   ) {
     this.isCustomized = true;
     return;

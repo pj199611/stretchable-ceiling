@@ -4,4 +4,5 @@ export default interface IRequestCallback extends Document {
     name:string;
     phoneNumber:Number;
     comment:string;
+    mail:string;
 }

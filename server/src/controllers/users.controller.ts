@@ -38,8 +38,8 @@ export const requestCallback = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, phoneNumber, comment } = req.body;
-    const requestCallback = new RequestCallback({ name, phoneNumber, comment });
+    const { mail,name, phoneNumber, comment } = req.body;
+    const requestCallback = new RequestCallback({ name, phoneNumber, comment,mail });
     await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {

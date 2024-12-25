@@ -160,14 +160,17 @@ export const createCustomizedOrder = async (
 
     // Parse stockPhotoIds from the request body
     const stockPhotoIds = JSON.parse(req.body.stockPhotoIds || "[]"); // Default to an empty array if undefined
+    const customizedUrls = JSON.parse(req.body.customizedUrls || "[]"); // Default to an empty array if undefined
 
     console.log("stockPhotoIds:", stockPhotoIds);
 
     const newOrder = new Order({ 
       shippingAddress:req.body.shippingAddress,
       user: req.user?._id,
+      remarks:req.body.remarks,
       products: [
         {
+          customizedUrls:customizedUrls,
           stockPhotoIds: stockPhotoIds,
           imageUrls: imagePaths,
           quantity:req.body.quantity || 1

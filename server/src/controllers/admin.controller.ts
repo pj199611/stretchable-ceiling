@@ -453,7 +453,7 @@ export const getLocations = async (
   res: Response
 ): Promise<void> => {
   try {
-    const locations = await Location.find();
+    const locations = (await Location.find()).map((location)=>location.name);
     res.status(200).json(locations);
   } catch (error) {
     res

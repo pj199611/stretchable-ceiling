@@ -6,6 +6,7 @@ interface IOrderProduct {
   width?: number;
   height?: number;
   area?: number;
+  customizedUrls:string[];
   stockPhotoIds?:number[];
   imageUrls?:string[];
   shape?: string[];
