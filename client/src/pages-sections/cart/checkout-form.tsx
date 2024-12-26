@@ -14,13 +14,15 @@ import { FlexBetween, FlexBox } from "@/components/flex-box";
 // DUMMY CUSTOM DATA
 import countryList from "@/data/countryList";
 // CUSTOM UTILS LIBRARY FUNCTION
+import { useEstimatedTotalCost } from "@/hooks/useEstimatedCost";
 import { currency } from "@/lib";
 
 export default function CheckoutForm() {
   const { state, dispatch } = useCart();
+  const { estimateCost } = useEstimatedTotalCost();
 
-  const getTotalPrice = () =>
-    state.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  // const getTotalPrice = () =>
+  //   state.cart?.reduce((acc, item) => acc + item.price * item.qty, 0);
 
   const handleChangeNote = (e) => {
     // setText(e.target.value);
@@ -38,7 +40,7 @@ export default function CheckoutForm() {
         <Span color="grey.600">Total:</Span>
 
         <Span fontSize={18} fontWeight={600} lineHeight="1">
-          {currency(getTotalPrice())}
+          {currency(estimateCost)}
         </Span>
       </FlexBetween>
 
@@ -140,7 +142,7 @@ export default function CheckoutForm() {
         href="/checkout"
         variant="contained"
         LinkComponent={Link}
-        disabled={getTotalPrice() < 1}
+        disabled={estimateCost < 1}
       >
         Checkout Now
       </Button>

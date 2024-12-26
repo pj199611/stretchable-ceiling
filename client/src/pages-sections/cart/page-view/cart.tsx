@@ -19,7 +19,7 @@ export default function CartPageView() {
     <Grid container spacing={3}>
       {/* CART PRODUCT LIST */}
       <Grid item md={8} xs={12}>
-        {state.cart.map(({ name, id, price, qty, imgUrl, length, width }) => (
+        {state.cart?.map(({ name, id, price, qty, imgUrl, length, width }) => (
           <CartItem
             id={id}
             key={`${id}-${length}-${width}`}

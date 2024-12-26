@@ -1,9 +1,14 @@
 "use client";
 
 import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
-
+import { addToCart } from "@/services/authApi";
 // =================================================================================
-type InitialState = { cart: CartItem[]; note: string; wishlist: any };
+type InitialState = {
+  cart: CartItem[];
+  note: string;
+  wishlist: any;
+  location: string;
+};
 
 export type CartItem = {
   qty: number;
@@ -16,39 +21,16 @@ export type CartItem = {
 };
 
 type CartActionType =
-  | {
-      type: "CHANGE_CART_AMOUNT";
-      payload: CartItem;
-    }
-  | {
-      type: "CHANGE_NOTE";
-      payload: string;
-    }
-  | {
-      type: "UPDATE_WISHLIST";
-      payload: any;
-    }
-  | {
-      type: "REMOVE_WISHLIST";
-      payload: string;
-    };
+  | { type: "CHANGE_CART_AMOUNT"; payload: CartItem }
+  | { type: "ASSIGN_CART"; payload: CartItem[] }
+  | { type: "CHANGE_NOTE"; payload: string }
+  | { type: "UPDATE_WISHLIST"; payload: any }
+  | { type: "REMOVE_WISHLIST"; payload: string }
+  | { type: "CHANGE_LOCATION"; payload: string };
 
 // =================================================================================
 
-const INITIAL_CART = [
-  {
-    id: "111", //productId
-    qty: 1,
-    price: 100,
-    length: 1,
-    width: 1,
-    name: "NAME",
-    imgUrl:
-      "https://media.istockphoto.com/id/1416797815/photo/golden-number-one.jpg?s=612x612&w=0&k=20&c=A1AOP7RZK8Rkk2yxEumTlWmhQE-0nGfxVz3Ef39Dzxc=",
-  },
-];
-
-const INITIAL_STATE = { cart: INITIAL_CART, note: "", wishlist: [] };
+const INITIAL_STATE = { cart: [], note: "", wishlist: [], location: "delhi" };
 
 // ==============================================================
 interface ContextProps {
@@ -67,15 +49,34 @@ const checkItem = (item: CartItem, cartItem: CartItem) => {
   );
 };
 
+const UpdateCart = async (payload: {
+  productId: string;
+  quantity: number;
+  length: number;
+  width: number;
+}) => {
+  await addToCart(payload);
+};
+
 const reducer = (state: InitialState, action: CartActionType) => {
   switch (action.type) {
     case "CHANGE_NOTE":
       return { ...state, note: action.payload };
 
+    case "ASSIGN_CART":
+      return { ...state, cart: action.payload };
+
     case "CHANGE_CART_AMOUNT":
       let cartList = state.cart;
       let cartItem = action.payload;
       let exist = cartList.find((item) => checkItem(item, cartItem));
+
+      UpdateCart({
+        productId: cartItem.id,
+        quantity: cartItem.qty,
+        length: cartItem.length,
+        width: cartItem.width,
+      });
 
       // remove item
       if (cartItem.qty < 1) {
@@ -101,10 +102,12 @@ const reducer = (state: InitialState, action: CartActionType) => {
       return { ...state, wishlist: action.payload };
 
     case "REMOVE_WISHLIST":
-      const newWishlist = state.wishlist.filter(
+      const newWishlist = state.wishlist?.filter(
         (val) => val._id !== action.payload
       );
       return { ...state, wishlist: newWishlist };
+    case "CHANGE_LOCATION":
+      return { ...state, location: action.payload };
 
     default: {
       return state;

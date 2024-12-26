@@ -14,7 +14,10 @@ interface Props {
 }
 // ==============================================================
 
-export default function LoginCartButtons({ toggleDialog, toggleSidenav }: Props) {
+export default function LoginCartButtons({
+  toggleDialog,
+  toggleSidenav,
+}: Props) {
   const { state } = useCart();
 
   const ICON_COLOR = { color: "grey.600" };
@@ -25,7 +28,7 @@ export default function LoginCartButtons({ toggleDialog, toggleSidenav }: Props)
         <PersonOutline sx={ICON_COLOR} />
       </IconButton>
 
-      <Badge badgeContent={state.cart.length} color="primary">
+      <Badge badgeContent={state.cart?.length} color="primary">
         <IconButton onClick={toggleSidenav}>
           <ShoppingBagOutlined sx={ICON_COLOR} />
         </IconButton>

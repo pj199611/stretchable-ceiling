@@ -5,7 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 // MUI ICON COMPONENTS
 import Add from "@mui/icons-material/Add";
-import Close from "@mui/icons-material/Close";
+import Delete from "@mui/icons-material/Delete";
 import Remove from "@mui/icons-material/Remove";
 // GLOBAL CUSTOM COMPONENTS
 import { FlexBox } from "@/components/flex-box";
@@ -86,16 +86,17 @@ export default function MiniCartItem({ item, handleCartAmountChange }: Props) {
         </Tiny>
 
         <H6 color="primary.main" mt={0.5}>
-          {currency(item.qty * item.price)}
+          {currency(item.qty * item.price * item.length * item.width)}
         </H6>
       </Box>
 
       <IconButton
         size="small"
+        color="primary"
         onClick={handleCartAmountChange(0, item)}
         sx={{ marginLeft: 2.5 }}
       >
-        <Close fontSize="small" />
+        <Delete fontSize="small" />
       </IconButton>
     </FlexBox>
   );
