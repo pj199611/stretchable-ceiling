@@ -2,37 +2,26 @@
 
 import Link from "next/link";
 import * as yup from "yup";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
-// MUI ICON COMPONENTS
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
 import { useFormik } from "formik";
-// GLOBAL CUSTOM HOOK
 import useCart from "@/hooks/useCart";
-// GLOBAL CUSTOM COMPONENTS
+import useUser from "@/hooks/useUser";
 import LazyImage from "@/components/LazyImage";
 import { H1, H2, H3, H6 } from "@/components/Typography";
 import { FlexBox, FlexRowCenter } from "@/components/flex-box";
-// CUSTOM UTILS LIBRARY FUNCTION
 import { currency } from "@/lib";
 import BazaarTextField from "@/components/BazaarTextField";
+import { getEstimateCost } from "@/utils/api/guestUser";
 
-// DUMMY DATA
-import productVariants from "@/data/product-variants";
-// CUSTOM DATA MODEL
-// import Product from "models/Product.model";
-
-// ================================================================
-// type Props = { product: Product };
-// ================================================================
-
-export default function ProductIntro({
+export default function ProductDetailsCard({
   _id,
   name,
   description,
@@ -47,11 +36,18 @@ export default function ProductIntro({
   };
 
   const { state, dispatch } = useCart();
+  const {
+    state: {
+      user: { location },
+    },
+  } = useUser();
+  console.log(state, location);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectVariants, setSelectVariants] = useState({
-    option: "option 1",
-    type: "type 1",
-  });
+  const [estimateCost, setEstimateCost] = useState(product_price);
+  // const [selectVariants, setSelectVariants] = useState({
+  //   option: "option 1",
+  //   type: "type 1",
+  // });
 
   const validationSchema = yup.object().shape({
     length: yup.number().required("Length is required").positive().moreThan(0),
@@ -67,13 +63,20 @@ export default function ProductIntro({
       },
     });
 
+  useEffect(() => {
+    getEstimateCost({
+      locationName: location,
+      products: [{ _id, area: values.length * values.width }],
+    }).then((res) => setEstimateCost(res?.estimatedCost || 0));
+  }, [values.length, values.width]);
+
   // HANDLE CHANGE TYPE AND OPTIONS
-  const handleChangeVariant = (variantName: string, value: string) => () => {
-    setSelectVariants((state) => ({
-      ...state,
-      [variantName.toLowerCase()]: value,
-    }));
-  };
+  // const handleChangeVariant = (variantName: string, value: string) => () => {
+  //   setSelectVariants((state) => ({
+  //     ...state,
+  //     [variantName.toLowerCase()]: value,
+  //   }));
+  // };
 
   // CHECK PRODUCT EXIST OR NOT IN THE CART
   const cartItem = state.cart.find(
@@ -83,10 +86,8 @@ export default function ProductIntro({
       item.width === values.width
   );
 
-  // HANDLE SELECT IMAGE
   const handleImageClick = (ind: number) => () => setSelectedImage(ind);
 
-  // HANDLE CHANGE CART
   const handleCartAmountChange = (amount: number) => () => {
     if (values.length > 0 && values.width > 0)
       dispatch({
@@ -249,11 +250,14 @@ export default function ProductIntro({
             />
           </Box>
 
-          <Box pt={1} mb={3}>
-            <H2 color="primary.main" mb={0.5} lineHeight="1">
-              Estimated Cost : {values.length * values.width * product_price}
-            </H2>
-          </Box>
+          {estimateCost > 0 && (
+            <Box pt={1} mb={3}>
+              <H2 color="primary.main" mb={0.5} lineHeight="1">
+                Estimated Cost : {estimateCost}
+                {/* {values.length * values.width * product_price} */}
+              </H2>
+            </Box>
+          )}
 
           {/* ADD TO CART BUTTON */}
           {!cartItem?.qty ? (

@@ -15,6 +15,8 @@ import MobileHeader from "./components/mobile-header";
 import DialogDrawer from "./components/dialog-drawer";
 import CategoriesMenu from "./components/categories-menu";
 import LoginCartButtons from "./components/login-cart-buttons";
+import WishlistBtn from "@/comp/wishlist/wishlistBtn";
+
 // STYLED COMPONENTS
 import { HeaderWrapper, StyledContainer } from "./styles";
 import MenuList from "@/comp/menu-list";
@@ -37,7 +39,10 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       <FlexBox minWidth={100} alignItems="center">
         <Link href="/">
           <div style={{ display: "flex" }}>
-            <h2 style={{ paddingTop: 85 }}>Nest and Nook Interior</h2>
+            <div style={{ paddingTop: 72, textAlign: "center" }}>
+              <h2>Nest and Nook </h2>
+              <h2>Interior </h2>
+            </div>
             <Image
               src={Logo}
               alt="logo"
@@ -51,19 +56,20 @@ export default function Header({ isFixed, className, midSlot }: Props) {
         {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
         {/* {isFixed ? <CategoriesMenu /> : null} */}
       </FlexBox>
-
       {/* SEARCH FORM | NAVIGATION */}
       {midSlot}
-
       {/* MEnu-List */}
-      <MenuList />
+      {/* <MenuList /> */}
+      <Link href="/category"> Category</Link>
 
+      {/* <Wishlist /> */}
+      <WishlistBtn />
       {/* LOGIN AND CART BUTTON */}
       <LoginCartButtons
         toggleDialog={toggleDialog}
         toggleSidenav={toggleSidenav}
       />
-
+      
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer
         dialogOpen={dialogOpen}

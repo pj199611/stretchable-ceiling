@@ -12,8 +12,9 @@ const AxiosInstance = axios.create({
 
 AxiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    const accessToken = JSON.parse(token);
+    const accessToken = localStorage.getItem("access_token");
+    // console.log(token);
+    // const accessToken = JSON.parse(token);
 
     config.headers = {
       ...config.headers,
@@ -38,7 +39,7 @@ AxiosInstance.interceptors.request.use(
 AxiosInstance.interceptors.response.use(
   (response) => {
     // Can be modified response
-    console.log("instance", response);
+    // console.log("instance", response);
     return response.data;
   },
   (error) => {

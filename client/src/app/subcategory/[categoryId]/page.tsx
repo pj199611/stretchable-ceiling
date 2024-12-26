@@ -38,9 +38,10 @@ const SubCategoryPage = () => {
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
       {data?.subCategories?.length > 0 &&
-        data.subCategories.map((val) => (
+        data.subCategories.map((val, index) => (
           <Link href={`/products/${val?._id}`}>
             <Card
+              key={`${val.name}-${index}`}
               title={val.name}
               description={val.description}
               imageUrl={img || ""}
@@ -52,6 +53,7 @@ const SubCategoryPage = () => {
         ))}
       <Link href={`/subcategory/customize`}>
         <Card
+          key="customize"
           title={"Customize"}
           description={"Customize your ceiling"}
           imageUrl={

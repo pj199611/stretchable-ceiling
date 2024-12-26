@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { notFound } from "next/navigation";
-import ProductDetailsPageView from "@/comp/ProductDetails/ProductIntro";
+import ProductDetailsPageView from "@/comp/ProductDetails/ProductDetailsCard";
 import { getProductDetails } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
 
@@ -14,7 +14,8 @@ import useProduct from "@/hooks/useProduct";
 // };
 
 const ProductDetails = ({ params }: any) => {
-  const productId = params.productId;
+  const { productId } = use(params);
+  // const productId = Params.productId;
   const { state, dispatch } = useProduct();
   const [data, setData] = useState({});
 
@@ -41,6 +42,7 @@ const ProductDetails = ({ params }: any) => {
           images={data.images}
           thumbnail={data.thumbnail}
           Class={data.class}
+          data={data}
         />
         {/* ---------------ADD---------------- */}
         {/* Description & Reviews */}

@@ -31,25 +31,27 @@ import {
 type Props = { product: any };
 // ==============================================================
 
-export default function ProductCard8({ product }: Props) {
-  const { slug, id, title, price, thumbnail, imageUrl } = product || {};
+export default function ProductCard({ product }: Props) {
+  const { name, product_price, thumbnail, images, _id } = product || {};
 
+  // Update Wishlist logic
   const {
     cartItem,
     handleCartAmountChange,
     isFavorite,
     toggleDialog,
     toggleFavorite,
-  } = useProduct(slug);
+  } = useProduct(product, 1, 1);
 
   // HANDLE ADD TO CART PRODUCT
   const handleAddToCart = () => {
     const payload = {
-      id,
-      slug,
-      price,
-      name: title,
-      imgUrl: thumbnail,
+      id: _id,
+      price: product_price,
+      name,
+      imgUrl: thumbnail || images[0],
+      length: 1,
+      width: 1,
       qty: (cartItem?.qty || 0) + 1,
     };
 
@@ -86,18 +88,20 @@ export default function ProductCard8({ product }: Props) {
           </FavoriteButton>
 
           {/* PRODUCT QUICK VIEW BUTTON */}
-          <Box mx={1}>
-            <QuickViewButton
-              fullWidth
-              size="large"
-              color="dark"
-              variant="contained"
-              className="product-view-action"
-              onClick={toggleDialog}
-            >
-              View Details
-            </QuickViewButton>
-          </Box>
+          <Link href={`/product-details/${_id}`}>
+            <Box mx={1}>
+              <QuickViewButton
+                fullWidth
+                size="large"
+                color="dark"
+                variant="contained"
+                className="product-view-action"
+                onClick={toggleDialog}
+              >
+                View Details
+              </QuickViewButton>
+            </Box>
+          </Link>
         </CardMedia>
       </Card>
     </div>
