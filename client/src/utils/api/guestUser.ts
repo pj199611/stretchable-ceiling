@@ -69,3 +69,9 @@ export const getDropdownData = cache(async () => {
   console.log(response);
   return response;
 });
+
+// http://localhost:8000/api/users/calculateEstimatedAmount
+export const getEstimateCost = cache(async (payload) => {
+  const response = await axios.post("/users/calculateEstimatedAmount", payload);
+  return response;
+});
