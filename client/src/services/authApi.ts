@@ -97,19 +97,45 @@ export const getCart = async () => {
 };
 
 // http://localhost:8000/api/users/cart/add
-export const addToCart = async () => {
-  const response = await AxiosInstance.post("/users/cart/add");
+export const addToCart = async ({
+  productId,
+  quantity = 1,
+  length = 1,
+  width = 1,
+}: {
+  productId: string;
+  quantity: number;
+  length: number;
+  width: number;
+}) => {
+  const payload = { productId, quantity, length, width };
+  const response = await AxiosInstance.post("/users/cart/add", payload);
   return response;
 };
 
 // http://localhost:8000/api/users/cart/remove
-export const delCart = async () => {
-  const response = await AxiosInstance.delete("/users/cart/remove");
+export const delCart = async ({
+  productId,
+  length = 1,
+  width = 1,
+}: {
+  productId: string;
+  length: number;
+  width: number;
+}) => {
+  const payload = { productId, length, width };
+  const response = await AxiosInstance.delete("/users/cart/remove", payload);
   return response;
 };
 
 // http://localhost:8000/api/users/cart/clear
 export const clearCart = async () => {
-  const response = await AxiosInstance.delete("/users/cart/remove");
+  const response = await AxiosInstance.delete("/users/cart/clear");
+  return response;
+};
+
+// http://localhost:8000/api/users/user
+export const getUser = async () => {
+  const response = await AxiosInstance.get("/users/user");
   return response;
 };

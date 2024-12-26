@@ -62,7 +62,7 @@ export default function MobileHeader() {
             <Icon.User sx={ICON_STYLE} />
           </IconButton>
 
-          <Badge badgeContent={state.cart.length} color="primary">
+          <Badge badgeContent={state.cart?.length} color="primary">
             <IconButton onClick={toggleSidenav}>
               <Icon.CartBag sx={ICON_STYLE} />
             </IconButton>
@@ -78,7 +78,6 @@ export default function MobileHeader() {
         sx={{ zIndex: 9999 }}
       >
         <Box width="auto" padding={2} height="100vh">
-
           <FlexBetween mb={1}>
             <Paragraph>Search Items</Paragraph>
 

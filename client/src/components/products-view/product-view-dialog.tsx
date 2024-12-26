@@ -31,7 +31,7 @@ export default function ProductViewDialog(props: Props) {
   const { product, openDialog, handleCloseDialog } = props;
 
   const { state, dispatch } = useCart();
-  const cartItem = state.cart.find((item) => item.id === product.id);
+  const cartItem = state.cart?.find((item) => item.id === product.id);
 
   const handleCartAmountChange = (amount: number) => () => {
     dispatch({

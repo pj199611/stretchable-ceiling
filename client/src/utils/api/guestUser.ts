@@ -75,3 +75,10 @@ export const getEstimateCost = cache(async (payload) => {
   const response = await axios.post("/users/calculateEstimatedAmount", payload);
   return response;
 });
+
+// http://localhost:8000/api/users/location
+export const getLocation = cache(async () => {
+  const response = await axios.get("/users/location");
+  console.log(response);
+  return response;
+});
