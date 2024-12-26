@@ -28,7 +28,7 @@ export default function useProduct(
     } else {
       addToWishlist({ productId: product._id }).then((res) =>
         dispatch({
-          type: "UPDATE_WISHLIST",
+          type: "ASSIGN_WISHLIST",
           payload: state.wishlist?.concat(product),
         })
       );

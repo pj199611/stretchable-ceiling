@@ -33,7 +33,7 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
       userDispatch({ type: "ASSIGN_USER", payload: newUser });
     });
     getWishlist().then((res) => {
-      dispatch({ type: "UPDATE_WISHLIST", payload: res?.wishlist });
+      dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
     });
     getCart().then((res) => {
       const newCart = res?.cart?.map((val) => ({

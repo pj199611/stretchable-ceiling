@@ -24,7 +24,7 @@ type CartActionType =
   | { type: "CHANGE_CART_AMOUNT"; payload: CartItem }
   | { type: "ASSIGN_CART"; payload: CartItem[] }
   | { type: "CHANGE_NOTE"; payload: string }
-  | { type: "UPDATE_WISHLIST"; payload: any }
+  | { type: "ASSIGN_WISHLIST"; payload: any }
   | { type: "REMOVE_WISHLIST"; payload: string }
   | { type: "CHANGE_LOCATION"; payload: string };
 
@@ -98,7 +98,7 @@ const reducer = (state: InitialState, action: CartActionType) => {
       // add item
       return { ...state, cart: [...cartList, cartItem] };
 
-    case "UPDATE_WISHLIST":
+    case "ASSIGN_WISHLIST":
       return { ...state, wishlist: action.payload };
 
     case "REMOVE_WISHLIST":
@@ -106,6 +106,7 @@ const reducer = (state: InitialState, action: CartActionType) => {
         (val) => val._id !== action.payload
       );
       return { ...state, wishlist: newWishlist };
+
     case "CHANGE_LOCATION":
       return { ...state, location: action.payload };
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import useCart from "@/hooks/useCart";
 import CartItem from "../cart-item";
 import CheckoutForm from "../checkout-form";
+import EmptyCartView from "@/components/mini-cart/components/empty-view";
 
 export default function CartPageView() {
   const router = useRouter();
@@ -12,9 +13,9 @@ export default function CartPageView() {
     router.push("/login");
     return;
   }
-
   const { state } = useCart();
 
+  if (!state.cart?.length) return <EmptyCartView />;
   return (
     <Grid container spacing={3}>
       {/* CART PRODUCT LIST */}
