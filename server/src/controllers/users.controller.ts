@@ -39,7 +39,12 @@ export const requestCallback = async (
 ): Promise<void> => {
   try {
     const { mail, name, phoneNumber, comment } = req.body;
-    const requestCallback = new RequestCallback({ name, phoneNumber, comment, mail });
+    const requestCallback = new RequestCallback({
+      name,
+      phoneNumber,
+      comment,
+      mail,
+    });
     await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {
@@ -141,7 +146,9 @@ export const addToCart = async (
     const { productId, quantity, length, width } = req.body;
     const product = await Product.findById(productId);
 
-    if (!product)  res.status(404).json({ error: 'Product not found' });
+    if (!product) {
+       res.status(404).json({ error: 'Product not found' });
+    }
 
     const user = await User.findById(req.user._id);
 
@@ -153,32 +160,52 @@ export const addToCart = async (
         item.width === width
     );
 
-    let price=null
+    let price = null;
 
     if (product.product_price) {
       price = product.product_price;
     } else {
-      const subCategory = await SubCategory.findById(product?.subCategory).lean();
+      const subCategory = await SubCategory.findById(
+        product?.subCategory
+      ).lean();
       price = subCategory.price;
     }
 
     if (cartItem) {
-      cartItem.quantity += quantity; // Increment quantity if item exists
+      // Update the quantity (add or subtract)
+      cartItem.quantity = quantity;
+
+      // Remove the cart item if quantity becomes 0 or less
+      if (cartItem.quantity <= 0) {
+        user.cart = user.cart.filter(
+          (item) =>
+            !(
+              item.product.toString() === productId &&
+              item.length === length &&
+              item.width === width
+            )
+        );
+      }
     } else {
-      user.cart.push({
-        product: productId,
-        quantity,
-        price,
-        length,
-        width,
-        name: product.name,
-        imgUrl: product.thumbnail,
-      });
+      if (quantity > 0) {
+        // Add a new product with the specified length and width
+        user.cart.push({
+          product: productId,
+          quantity,
+          price,
+          length,
+          width,
+          name: product.name,
+          imgUrl: product.thumbnail,
+        });
+      } else {
+         res.status(400).json({ error: 'Quantity must be greater than 0 for new products' });
+      }
     }
 
     await user.save();
 
-    res.json({ message: 'Product added to cart' });
+    res.json({ message: 'Product added successfully', cart: user.cart });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
@@ -204,13 +231,12 @@ export const removeFromCart = async (
 
     await user.save();
 
-    res.json({ message: 'Product removed from cart'});
+    res.json({ message: 'Product removed from cart' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
 
 export const getAllCartItems = async (
   req: IRequest,
