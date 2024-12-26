@@ -7,9 +7,7 @@ import MiniCartItem from "./components/cart-item";
 import EmptyCartView from "./components/empty-view";
 import BottomActions from "./components/bottom-actions";
 import Scrollbar from "@/components/scrollbar";
-import { currency } from "@/lib";
 import { CartItem } from "@/contexts/CartContext";
-import { useEstimatedTotalCost } from "@/hooks/useEstimatedCost";
 
 type Props = { toggleSidenav: () => void };
 
@@ -17,7 +15,6 @@ export default function MiniCart({ toggleSidenav }: Props) {
   const { push } = useRouter();
   const { state, dispatch } = useCart();
   const cartList = state.cart;
-  const { estimateCost } = useEstimatedTotalCost();
 
   const handleCartAmountChange = (amount: number, product: CartItem) => () => {
     dispatch({
@@ -59,7 +56,6 @@ export default function MiniCart({ toggleSidenav }: Props) {
       {cartList?.length > 0 ? (
         <BottomActions
           dispatch={dispatch}
-          total={currency(estimateCost)}
           handleNavigate={handleNavigate}
         />
       ) : null}

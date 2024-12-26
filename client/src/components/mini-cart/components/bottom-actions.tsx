@@ -1,18 +1,21 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { clearCart } from "@/services/authApi";
+import { useEstimatedTotalCost } from "@/hooks/useEstimatedCost";
+import { currency } from "@/lib";
 
 interface Props {
-  total: string;
   handleNavigate: (path: string) => () => void;
   dispatch: any;
 }
 
 export default function BottomActions({
   dispatch,
-  total,
+
   handleNavigate,
 }: Props) {
+  const { estimateCost } = useEstimatedTotalCost();
+
   const handleClearCart = async () => {
     await clearCart();
     dispatch({ type: "ASSIGN_CART", payload: [] });
@@ -51,8 +54,9 @@ export default function BottomActions({
         variant="contained"
         sx={{ mb: "0.75rem", height: "40px" }}
         onClick={handleNavigate("/checkout")}
+        disabled={estimateCost < 1}
       >
-        Checkout Now ({total})
+        Checkout Now ({currency(estimateCost)})
       </Button>
 
       <Button
