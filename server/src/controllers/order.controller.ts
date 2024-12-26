@@ -17,7 +17,7 @@ export const getAllOrdersForUsers = async (
       .populate('products.product');
 
     console.log("Orders fetched:", orders);
-    res.status(200).json(orders);
+    res.status(200).json({orders});
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: 'Failed to fetch orders' });
@@ -60,19 +60,16 @@ export const createOrder = async (
     const {
       products,
       shippingAddress,
-      area,
     } = req.body;
+
     const newOrder = new Order({
       user: req.user?._id,
       products,
-      shippingAddress,
-      area,
+      shippingAddress
     });
 
     const location = await Location.find({ name: shippingAddress.city });
-    console.log("lcoation", location[0])
     const total_Amount = await newOrder.calculateTotalAmount(location[0] as unknown as any);
-    console.log(total_Amount)
     newOrder.totalAmount = total_Amount;
 
     const savedOrder = await newOrder.save();

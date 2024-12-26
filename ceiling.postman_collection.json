@@ -347,7 +347,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"productId\":\"675c3281910beeb25b774785\",\r\n    \"quantity\":1000,\r\n    \"length\":1000,\r\n    \"width\":1000\r\n}",
+									"raw": "{\r\n    \"productId\":\"675c3281910beeb25b774785\",\r\n    \"quantity\":1,\r\n    \"length\":1003,\r\n    \"width\":1003\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -379,7 +379,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTA0MTc5NywiZXhwIjoxNzM1NjQ2NTk3fQ.oZLylG02-Mx7E7Z8D_C0DeFQliAcI_vQ2WQotf8s7m0",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTIyODMxOSwiZXhwIjoxNzM1ODMzMTE5fQ.90cb9gmYehCLVJgBscCTgwh-PWtmLqp6QU6RPitTriY",
 											"type": "string"
 										}
 									]
@@ -388,7 +388,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n      \"productId\":\"675c3281910beeb25b774785\"\r\n}",
+									"raw": "{\r\n    \"productId\":\"675c3281910beeb25b774785\",\r\n    \"length\":1003,\r\n    \"width\":1003\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -414,19 +414,31 @@
 						},
 						{
 							"name": "cart",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTE0ODg1NSwiZXhwIjoxNzM1NzUzNjU1fQ.10HyTIG6cEo-yVxuX45HACeTT8mZE4osChCb_948HJk",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTIyODMxOSwiZXhwIjoxNzM1ODMzMTE5fQ.90cb9gmYehCLVJgBscCTgwh-PWtmLqp6QU6RPitTriY",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:8000/api/users/cart",
 									"protocol": "http",
@@ -451,7 +463,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTE0ODg1NSwiZXhwIjoxNzM1NzUzNjU1fQ.10HyTIG6cEo-yVxuX45HACeTT8mZE4osChCb_948HJk",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTIyODMxOSwiZXhwIjoxNzM1ODMzMTE5fQ.90cb9gmYehCLVJgBscCTgwh-PWtmLqp6QU6RPitTriY",
 											"type": "string"
 										}
 									]

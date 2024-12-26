@@ -138,70 +138,79 @@ export const addToCart = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { productId, quantity,length,width } = req.body;
+    const { productId, quantity, length, width } = req.body;
     const product = await Product.findById(productId);
 
-    if (!product) res.status(404).json({ error: 'Product not found' });
+    if (!product)  res.status(404).json({ error: 'Product not found' });
 
     const user = await User.findById(req.user._id);
 
+    // Find cart item with the same composite key (productId, length, width)
     const cartItem = user.cart.find(
-      (item) => item.product.toString() === productId
+      (item) =>
+        item.product.toString() === productId &&
+        item.length === length &&
+        item.width === width
     );
 
-    let price = null;
+    let price=null
 
     if (product.product_price) {
-      price = product.product_price
-    }
-    else {
+      price = product.product_price;
+    } else {
       const subCategory = await SubCategory.findById(product?.subCategory).lean();
       price = subCategory.price;
     }
 
     if (cartItem) {
-      cartItem.quantity += quantity;
+      cartItem.quantity += quantity; // Increment quantity if item exists
     } else {
       user.cart.push({
         product: productId,
         quantity,
-        price: price,
-        length:length,
-        width:width,
-        name:product.name,
-        imgUrl:product.thumbnail
+        price,
+        length,
+        width,
+        name: product.name,
+        imgUrl: product.thumbnail,
       });
     }
 
     await user.save();
 
-    res.json({ message: 'Product added to cart'});
+    res.json({ message: 'Product added to cart' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
 
-// Remove product from cart
+
 export const removeFromCart = async (
   req: IRequest,
   res: Response
 ): Promise<void> => {
   try {
-    const { productId } = req.body;
+    const { productId, length, width } = req.body;
     const user = await User.findById(req.user._id);
 
+    // Filter out the item with the matching composite key
     user.cart = user.cart.filter(
-      (item) => item.product.toString() !== productId
+      (item) =>
+        item.product.toString() !== productId ||
+        item.length !== length ||
+        item.width !== width
     );
+
     await user.save();
 
-    res.json({ message: 'Product removed from cart', cart: user.cart });
+    res.json({ message: 'Product removed from cart'});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+
 
 export const getAllCartItems = async (
   req: IRequest,
