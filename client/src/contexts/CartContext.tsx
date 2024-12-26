@@ -3,7 +3,7 @@
 import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
 
 // =================================================================================
-type InitialState = { cart: CartItem[]; note: string };
+type InitialState = { cart: CartItem[]; note: string; wishlist: any };
 
 export type CartItem = {
   qty: number;
@@ -23,7 +23,16 @@ type CartActionType =
   | {
       type: "CHANGE_NOTE";
       payload: string;
+    }
+  | {
+      type: "UPDATE_WISHLIST";
+      payload: any;
+    }
+  | {
+      type: "REMOVE_WISHLIST";
+      payload: string;
     };
+
 // =================================================================================
 
 const INITIAL_CART = [
@@ -39,7 +48,7 @@ const INITIAL_CART = [
   },
 ];
 
-const INITIAL_STATE = { cart: INITIAL_CART, note: "" };
+const INITIAL_STATE = { cart: INITIAL_CART, note: "", wishlist: [] };
 
 // ==============================================================
 interface ContextProps {
@@ -87,6 +96,15 @@ const reducer = (state: InitialState, action: CartActionType) => {
 
       // add item
       return { ...state, cart: [...cartList, cartItem] };
+
+    case "UPDATE_WISHLIST":
+      return { ...state, wishlist: action.payload };
+
+    case "REMOVE_WISHLIST":
+      const newWishlist = state.wishlist.filter(
+        (val) => val._id !== action.payload
+      );
+      return { ...state, wishlist: newWishlist };
 
     default: {
       return state;

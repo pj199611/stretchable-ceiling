@@ -6,6 +6,7 @@ export const openSans = Open_Sans({ subsets: ["latin"] });
 import ThemeProvider from "@/theme/theme-provider";
 // PRODUCT CART PROVIDER
 import CartProvider from "@/contexts/CartContext";
+import UserContext from "@/contexts/UserContext";
 // SITE SETTINGS PROVIDER
 import SettingsProvider from "@/contexts/SettingContext";
 import TokenContext from "@/contexts/TokenContext";
@@ -19,18 +20,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={openSans.className}>
-        <CartProvider>
-          <ProductProvider>
-            <SettingsProvider>
-              <TokenContext>
-                <ThemeProvider>
-                  <ProgressBar />
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </TokenContext>
-            </SettingsProvider>
-          </ProductProvider>
-        </CartProvider>
+        <UserContext>
+          <CartProvider>
+            <ProductProvider>
+              <SettingsProvider>
+                <TokenContext>
+                  <ThemeProvider>
+                    <ProgressBar />
+                    <Layout>{children}</Layout>
+                  </ThemeProvider>
+                </TokenContext>
+              </SettingsProvider>
+            </ProductProvider>
+          </CartProvider>
+        </UserContext>
       </body>
     </html>
   );

@@ -48,7 +48,6 @@ const reducer = (state: InitialState, action: ActionType) => {
 export default function ProductProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  console.log("state", state);
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   return (

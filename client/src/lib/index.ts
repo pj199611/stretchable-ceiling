@@ -54,7 +54,7 @@ function calculateDiscount(price: number, discount: number) {
  */
 
 function currency(price: number, fraction: number = 2) {
-  const formatCurrency = price.toFixed(fraction);
+  const formatCurrency = price?.toFixed(fraction);
   return `₹ ${formatCurrency}`;
 }
 
