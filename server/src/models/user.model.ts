@@ -45,10 +45,42 @@ const UserSchema: Schema = new Schema<IUser>(
           type: Number,
           required: true,
         },
+        length: {
+          type: Number,
+          default: 1,
+          required: false
+        },
+        width: {
+          type: Number,
+          default: 1,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        imgUrl: {
+          type: String,
+          required: true,
+        },
+
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.password; // Exclude password field
+        return ret;
+      },
+    },
+    toObject: {
+      transform: function (doc, ret) {
+        delete ret.password; // Exclude password field
+        return ret;
+      },
+    },
+  }
 );
 
 UserSchema.pre('save', async function (next) {

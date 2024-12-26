@@ -38,8 +38,8 @@ export const requestCallback = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { mail,name, phoneNumber, comment } = req.body;
-    const requestCallback = new RequestCallback({ name, phoneNumber, comment,mail });
+    const { mail, name, phoneNumber, comment } = req.body;
+    const requestCallback = new RequestCallback({ name, phoneNumber, comment, mail });
     await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {
@@ -59,7 +59,7 @@ export const getWishList = async (
     const user = await User.findById(req.user._id).populate('wishlist');
 
     if (!user) {
-       res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: 'User not found' });
     }
 
     // Return the populated wishlist with product details
@@ -138,7 +138,7 @@ export const addToCart = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { productId, quantity } = req.body;
+    const { productId, quantity,length,width } = req.body;
     const product = await Product.findById(productId);
 
     if (!product) res.status(404).json({ error: 'Product not found' });
@@ -149,19 +149,33 @@ export const addToCart = async (
       (item) => item.product.toString() === productId
     );
 
+    let price = null;
+
+    if (product.product_price) {
+      price = product.product_price
+    }
+    else {
+      const subCategory = await SubCategory.findById(product?.subCategory).lean();
+      price = subCategory.price;
+    }
+
     if (cartItem) {
       cartItem.quantity += quantity;
     } else {
       user.cart.push({
         product: productId,
         quantity,
-        price: product.product_price,
+        price: price,
+        length:length,
+        width:width,
+        name:product.name,
+        imgUrl:product.thumbnail
       });
     }
 
     await user.save();
 
-    res.json({ message: 'Product added to cart', cart: user.cart });
+    res.json({ message: 'Product added to cart'});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });

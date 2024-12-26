@@ -68,17 +68,17 @@ export const createOrder = async (
       shippingAddress,
       area,
     });
-    
-    const location=await Location.find({name:shippingAddress.city});
-    console.log("lcoation",location[0])
-    const total_Amount=await newOrder.calculateTotalAmount(location[0] as unknown as any);
+
+    const location = await Location.find({ name: shippingAddress.city });
+    console.log("lcoation", location[0])
+    const total_Amount = await newOrder.calculateTotalAmount(location[0] as unknown as any);
     console.log(total_Amount)
-    newOrder.totalAmount=total_Amount;
+    newOrder.totalAmount = total_Amount;
 
     const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
   } catch (error) {
-    console.log("error",error)
+    console.log("error", error)
     res.status(500).json({ error: 'Failed to create order' });
   }
 };
@@ -164,18 +164,17 @@ export const createCustomizedOrder = async (
 
     console.log("stockPhotoIds:", stockPhotoIds);
 
-    const newOrder = new Order({ 
-      shippingAddress:req.body.shippingAddress,
+    const newOrder = new Order({
+      shippingAddress: req.body.shippingAddress,
       user: req.user?._id,
-      remarks:req.body.remarks,
+      remarks: req.body.remarks,
       products: [
         {
-          customizedUrls:customizedUrls,
+          customizedUrls: customizedUrls,
           stockPhotoIds: stockPhotoIds,
           imageUrls: imagePaths,
-          quantity:req.body.quantity || 1
+          quantity: req.body.quantity || 1
         },
-        
       ],
     });
 
