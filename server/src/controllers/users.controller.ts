@@ -186,7 +186,7 @@ export const addToCart = async (
 
     if (cartItem) {
       // Increment quantity if the item exists
-      cartItem.quantity += quantity;
+      cartItem.quantity = quantity;
     } else {
       // Add a new item to the cart
       user.cart.push({
