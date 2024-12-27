@@ -105,7 +105,7 @@ export const removeFromWishlist = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { productId } = req.body;
+    const { productId } = req.query;
     const user = await User.findById(req.user._id);
 
     user.wishlist = user.wishlist.filter(
