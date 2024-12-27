@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 // MUI ICON COMPONENTS
 import Add from "@mui/icons-material/Add";
-import Close from "@mui/icons-material/Close";
+import Delete from "@mui/icons-material/Delete";
 import Remove from "@mui/icons-material/Remove";
 // GLOBAL CUSTOM COMPONENTS
 import Image from "@/components/BazaarImage";
@@ -26,24 +26,20 @@ type Props = {
   id: string | number;
   length: number;
   width: number;
-  // productId: string;
 };
 // =========================================================
 
 export default function CartItem({
-  id,
+  id, // productId,
   name,
   qty,
   price,
   imgUrl,
-  // slug,
   length = 1,
   width = 1,
-} // productId,
-: Props) {
+}: Props) {
   const { dispatch } = useCart();
 
-  // HANDLE CHANGE CART PRODUCT QUANTITY
   const handleCartAmountChange = (amount: number) => () => {
     dispatch({
       type: "CHANGE_CART_AMOUNT",
@@ -62,21 +58,24 @@ export default function CartItem({
 
   return (
     <Wrapper>
-      <Image
-        alt={name}
-        width={140}
-        height={140}
-        display="block"
-        src={imgUrl || "/assets/images/products/iphone-xi.png"}
-      />
+      <Link href={`/product-details/${id}`}>
+        <Image
+          alt={name}
+          width={140}
+          height={140}
+          display="block"
+          src={imgUrl || "/assets/images/products/iphone-xi.png"}
+        />
+      </Link>
 
       {/* DELETE BUTTON */}
       <IconButton
         size="small"
+        color="primary"
         onClick={handleCartAmountChange(0)}
         sx={{ position: "absolute", right: 15, top: 15 }}
       >
-        <Close fontSize="small" />
+        <Delete fontSize="small" />
       </IconButton>
 
       <FlexBox p={2} rowGap={2} width="100%" flexDirection="column">
@@ -95,7 +94,7 @@ export default function CartItem({
           </Span>
 
           <Span fontWeight={600} color="primary.main">
-            {currency(price * qty)}
+            {currency(price * qty * length * width)}
           </Span>
         </FlexBox>
 

@@ -19,7 +19,7 @@ export default function CheckoutAltSummary() {
         Your order
       </Paragraph>
 
-      {state.cart.map(({ name, qty, price, id }) => (
+      {state.cart?.map(({ name, qty, price, id }) => (
         <CartItem name={name} price={price} qty={qty} key={id} />
       ))}
 

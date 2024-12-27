@@ -40,7 +40,12 @@ export const requestCallback = async (
 ): Promise<void> => {
   try {
     const { mail, name, phoneNumber, comment } = req.body;
-    const requestCallback = new RequestCallback({ name, phoneNumber, comment, mail });
+    const requestCallback = new RequestCallback({
+      name,
+      phoneNumber,
+      comment,
+      mail,
+    });
     await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {
@@ -234,7 +239,6 @@ export const removeFromCart = async (
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
 
 export const getAllCartItems = async (
   req: IRequest,

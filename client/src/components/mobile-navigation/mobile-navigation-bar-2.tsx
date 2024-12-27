@@ -44,7 +44,7 @@ export default function MobileNavigationBar2({ children }: PropsWithChildren) {
             const CONTENT = (
               <Fragment>
                 {title === "Cart" ? (
-                  <Badge badgeContent={state.cart.length} color="primary">
+                  <Badge badgeContent={state.cart?.length} color="primary">
                     {ICON}
                   </Badge>
                 ) : (

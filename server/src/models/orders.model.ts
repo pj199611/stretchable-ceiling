@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
           type: Number,
           required: true,
           min: 1,
-          default:1
+          default: 1,
         },
         // not required for now
         // width: {
@@ -52,14 +52,14 @@ const orderSchema = new mongoose.Schema<IOrder>(
             required: false,
           },
         ],
-        customizedUrls:[{type:String,required:false}],
+        customizedUrls: [{ type: String, required: false }],
         imageUrls: [{ type: String, required: false }],
       },
     ],
     isCustomized: {
       type: Boolean,
       required: true,
-      default:false
+      default: false,
     },
     totalAmount: {
       type: Number,
@@ -87,7 +87,8 @@ const orderSchema = new mongoose.Schema<IOrder>(
 orderSchema.pre('save', async function (next) {
   if (
     this.products[0].stockPhotoIds.length > 0 ||
-    this.products[0].imageUrls.length > 0 || this.products[0].customizedUrls.length>0
+    this.products[0].imageUrls.length > 0 ||
+    this.products[0].customizedUrls.length > 0
   ) {
     this.isCustomized = true;
     return;
@@ -101,7 +102,7 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
   let totalAmount = 0;
 
   for (const item of this.products) {
-    let productPrice
+    let productPrice;
 
     // Fetch product details
     const product = await Product.findById(item._id).lean();
@@ -109,7 +110,9 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
       productPrice = product.product_price;
     } else {
       // Fallback to subcategory price if product price is unavailable
-      const subCategory = await SubCategory.findById(product?.subCategory).lean();
+      const subCategory = await SubCategory.findById(
+        product?.subCategory
+      ).lean();
       productPrice = subCategory ? subCategory.price : 0; // Adjust `price` field as per your schema
     }
 
@@ -127,14 +130,17 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
       productPrice,
       operator: location.operator,
       locationPrice: location.location_price,
-      itemTotal: area * (location.operator === 'add' ? productPrice + location.location_price : productPrice - location.location_price),
+      itemTotal:
+        area *
+        (location.operator === 'add'
+          ? productPrice + location.location_price
+          : productPrice - location.location_price),
     });
   }
 
   this.totalAmount = totalAmount;
   return this.totalAmount;
 };
-
 
 const Order = mongoose.model<IOrder>('Order', orderSchema);
 export default Order;

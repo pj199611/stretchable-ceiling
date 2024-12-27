@@ -1,19 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import * as yup from "yup";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
-import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
 import { useFormik } from "formik";
 import useCart from "@/hooks/useCart";
-import useUser from "@/hooks/useUser";
 import LazyImage from "@/components/LazyImage";
 import { H1, H2, H3, H6 } from "@/components/Typography";
 import { FlexBox, FlexRowCenter } from "@/components/flex-box";
@@ -36,18 +32,8 @@ export default function ProductDetailsCard({
   };
 
   const { state, dispatch } = useCart();
-  const {
-    state: {
-      user: { location },
-    },
-  } = useUser();
-  console.log(state, location);
   const [selectedImage, setSelectedImage] = useState(0);
   const [estimateCost, setEstimateCost] = useState(product_price);
-  // const [selectVariants, setSelectVariants] = useState({
-  //   option: "option 1",
-  //   type: "type 1",
-  // });
 
   const validationSchema = yup.object().shape({
     length: yup.number().required("Length is required").positive().moreThan(0),
@@ -65,21 +51,12 @@ export default function ProductDetailsCard({
 
   useEffect(() => {
     getEstimateCost({
-      locationName: location,
+      locationName: state.location,
       products: [{ _id, area: values.length * values.width }],
     }).then((res) => setEstimateCost(res?.estimatedCost || 0));
   }, [values.length, values.width]);
 
-  // HANDLE CHANGE TYPE AND OPTIONS
-  // const handleChangeVariant = (variantName: string, value: string) => () => {
-  //   setSelectVariants((state) => ({
-  //     ...state,
-  //     [variantName.toLowerCase()]: value,
-  //   }));
-  // };
-
-  // CHECK PRODUCT EXIST OR NOT IN THE CART
-  const cartItem = state.cart.find(
+  const cartItem = state.cart?.find(
     (item) =>
       item.id === _id &&
       item.length === values.length &&

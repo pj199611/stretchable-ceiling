@@ -23,7 +23,7 @@ export default function MobileNavigationBar() {
         {list.map(({ Icon, href, title }) => (
           <StyledNavLink href={href} key={title}>
             {title === "Cart" ? (
-              <Badge badgeContent={state.cart.length} color="primary">
+              <Badge badgeContent={state.cart?.length} color="primary">
                 <Icon fontSize="small" sx={iconStyle} />
               </Badge>
             ) : (

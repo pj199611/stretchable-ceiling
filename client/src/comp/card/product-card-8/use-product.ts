@@ -12,10 +12,10 @@ export default function useProduct(
   const { enqueueSnackbar } = useSnackbar();
   const [openModal, setOpenModal] = useState(false);
   const [isFavorite, setIsFavorite] = useState(
-    state.wishlist.filter((val) => val._id === product._id).length > 0
+    state.wishlist?.filter((val) => val._id === product._id).length > 0
   );
 
-  const cartItem = state.cart.find(
+  const cartItem = state.cart?.find(
     (item) =>
       item.id === product._id && item.length === length && item.width === width
   );
@@ -28,8 +28,8 @@ export default function useProduct(
     } else {
       addToWishlist({ productId: product._id }).then((res) =>
         dispatch({
-          type: "UPDATE_WISHLIST",
-          payload: state.wishlist.concat(product),
+          type: "ASSIGN_WISHLIST",
+          payload: state.wishlist?.concat(product),
         })
       );
     }
