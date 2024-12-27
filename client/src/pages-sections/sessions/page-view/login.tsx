@@ -10,7 +10,7 @@ import usePasswordVisible from "../use-password-visible";
 // GLOBAL CUSTOM COMPONENTS
 import BazaarTextField from "@/components/BazaarTextField";
 import { jwtDecode } from "jwt-decode";
-import { login_me, login_me_axios } from "@/services/authApi";
+import { login_me_axios } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import useRole from "@/hooks/hooks/useRole";
 

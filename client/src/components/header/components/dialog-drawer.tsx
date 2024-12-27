@@ -42,7 +42,7 @@ export default function DialogDrawer(props: Props) {
           <LogoWithTitle />
           <LoginPageView closeDialog={toggleDialog} />
           {/* <SocialButtons /> */}
-          <LoginBottom />
+          <LoginBottom toggleDialog={toggleDialog} />
         </Wrapper>
       </Dialog>
 

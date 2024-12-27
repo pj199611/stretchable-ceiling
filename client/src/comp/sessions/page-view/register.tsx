@@ -14,7 +14,7 @@ import usePasswordVisible from "../use-password-visible";
 import { Span } from "@/components/Typography";
 import { FlexBox } from "@/components/flex-box";
 import BazaarTextField from "@/components/BazaarTextField";
-import { register_me, register_me_axios } from "@/services/authApi";
+import { register_me_axios } from "@/services/authApi";
 
 const RegisterPageView = () => {
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
@@ -32,6 +32,7 @@ const RegisterPageView = () => {
     email: "",
     password: "",
     re_password: "",
+    mobile: "",
     agreement: false,
   };
 
@@ -40,6 +41,7 @@ const RegisterPageView = () => {
     name: yup.string().required("Name is required"),
     email: yup.string().email("invalid email").required("Email is required"),
     password: yup.string().required("Password is required"),
+    mobile: yup.number().required("Mobile is required"),
     re_password: yup
       .string()
       .oneOf([yup.ref("password"), null], "Passwords must match")
@@ -64,6 +66,7 @@ const RegisterPageView = () => {
           userName: values.name,
           email: values.email,
           password: values.password,
+          mobile: values.mobile,
         });
         console.log(data, data?.success);
         if (data.success) {
@@ -100,6 +103,21 @@ const RegisterPageView = () => {
       <BazaarTextField
         mb={1.5}
         fullWidth
+        name="mobile"
+        size="small"
+        label="Mobile Number"
+        variant="outlined"
+        onBlur={handleBlur}
+        value={values.mobile}
+        onChange={handleChange}
+        placeholder="9999999999"
+        error={!!touched.mobile && !!errors.mobile}
+        helperText={(touched.mobile && errors.mobile) as string}
+      />
+
+      <BazaarTextField
+        mb={1.5}
+        fullWidth
         name="email"
         size="small"
         type="email"
@@ -107,8 +125,8 @@ const RegisterPageView = () => {
         onBlur={handleBlur}
         value={values.email}
         onChange={handleChange}
-        label="Email or Phone Number"
-        placeholder="exmple@mail.com"
+        label="Email"
+        placeholder="abc@gmail.com"
         error={!!touched.email && !!errors.email}
         helperText={(touched.email && errors.email) as string}
       />

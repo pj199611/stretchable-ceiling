@@ -14,7 +14,7 @@ import usePasswordVisible from "../use-password-visible";
 import { Span } from "@/components/Typography";
 import { FlexBox } from "@/components/flex-box";
 import BazaarTextField from "@/components/BazaarTextField";
-import { register_me, register_me_axios } from "@/services/authApi";
+import { register_me_axios } from "@/services/authApi";
 
 const RegisterPageView = () => {
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();

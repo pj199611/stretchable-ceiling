@@ -4,7 +4,7 @@ import React, { useState, useEffect, FormEvent } from "react";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { register_me, register_me_axios } from "@/services/authApi";
+import { register_me_axios } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 // import Navbar from '@/components/Navbar';
 // import { TailSpin } from "react-loader-spinner";

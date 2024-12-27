@@ -10,7 +10,7 @@ import usePasswordVisible from "../use-password-visible";
 // GLOBAL CUSTOM COMPONENTS
 import BazaarTextField from "@/components/BazaarTextField";
 import { jwtDecode } from "jwt-decode";
-import { login_me, login_me_axios } from "@/services/authApi";
+import { login_me_axios } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import useRole from "@/hooks/hooks/useRole";
 
@@ -55,14 +55,6 @@ const LoginPageView = ({ closeDialog }: Props) => {
         localStorage.setItem("role", newRole);
         RouteUser(newRole);
       }
-
-      console.log(
-        "access Token-->",
-        AccessToken,
-        jwtDecode(AccessToken),
-        "-----role-->",
-        decoded["role"]
-      );
     }
   };
 
@@ -89,7 +81,7 @@ const LoginPageView = ({ closeDialog }: Props) => {
         onBlur={handleBlur}
         value={values.email}
         onChange={handleChange}
-        label="Email or Phone Number"
+        label="Email"
         placeholder="exmple@mail.com"
         helperText={touched.email && errors.email}
         error={Boolean(touched.email && errors.email)}

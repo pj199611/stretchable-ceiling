@@ -4,7 +4,7 @@ import React, { useEffect, useState, FormEvent } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
-import { login_me, login_me_axios } from "@/services/authApi";
+import { login_me_axios } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 
