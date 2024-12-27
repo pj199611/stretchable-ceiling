@@ -103,7 +103,7 @@ export const addToWishlist = async (
 export const removeFromWishlist = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { productId } = req.query;
 
@@ -120,14 +120,14 @@ export const removeFromWishlist = async (
     );
 
     if (!user) {
-       res.status(404).json({ error: 'User not found' });
+       return res.status(404).json({ error: 'User not found' });
     }
 
     if (!user.wishlist.includes(productId)) {
-       res.status(400).json({ error: 'Product not found in wishlist' });
+       return res.status(400).json({ error: 'Product not found in wishlist' });
     }
 
-    res.json({
+    return res.json({
       message: 'Product removed from wishlist',
       wishlist: user.wishlist, // Optionally return the updated wishlist
     });
