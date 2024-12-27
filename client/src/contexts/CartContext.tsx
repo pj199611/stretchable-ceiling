@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
-import { addToCart } from "@/services/authApi";
+import { addToCart, delCart } from "@/services/authApi";
 // =================================================================================
 type InitialState = {
   cart: CartItem[];
@@ -48,7 +48,13 @@ const checkItem = (item: CartItem, cartItem: CartItem) => {
     item.width === cartItem.width
   );
 };
-
+const DelFromCart = async (payload: {
+  productId: string;
+  length: number;
+  width: number;
+}) => {
+  await delCart(payload);
+};
 const UpdateCart = async (payload: {
   productId: string;
   quantity: number;
@@ -71,15 +77,13 @@ const reducer = (state: InitialState, action: CartActionType) => {
       let cartItem = action.payload;
       let exist = cartList.find((item) => checkItem(item, cartItem));
 
-      UpdateCart({
-        productId: cartItem.id,
-        quantity: cartItem.qty,
-        length: cartItem.length,
-        width: cartItem.width,
-      });
-
       // remove item
       if (cartItem.qty < 1) {
+        DelFromCart({
+          productId: cartItem.id,
+          length: cartItem.length,
+          width: cartItem.width,
+        });
         const filteredCart = cartList.filter(
           (item) => !checkItem(item, cartItem)
         );
@@ -88,14 +92,25 @@ const reducer = (state: InitialState, action: CartActionType) => {
 
       // change qty
       if (exist) {
+        UpdateCart({
+          productId: cartItem.id,
+          quantity: cartItem.qty,
+          length: cartItem.length,
+          width: cartItem.width,
+        });
         const newCart = cartList.map((item) =>
           checkItem(item, cartItem) ? { ...item, qty: cartItem.qty } : item
         );
-
         return { ...state, cart: newCart };
       }
 
       // add item
+      UpdateCart({
+        productId: cartItem.id,
+        quantity: cartItem.qty,
+        length: cartItem.length,
+        width: cartItem.width,
+      });
       return { ...state, cart: [...cartList, cartItem] };
 
     case "ASSIGN_WISHLIST":

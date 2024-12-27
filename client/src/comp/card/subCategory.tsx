@@ -11,7 +11,9 @@ const Card = ({ title, description, imageUrl, additionalDetails }: any) => {
         <p className={styles.cardDescription}>{description}</p>
         {additionalDetails ? (
           <p className={styles.cardPrice}>{additionalDetails}</p>
-        ) : null}
+        ) : (
+          <p> &nbsp;</p>
+        )}
       </div>
     </div>
   );

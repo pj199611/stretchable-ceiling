@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Card from "@/comp/card/subCategory";
 import { getSubCategoryList } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
+import CircularProgress from "@/comp/Loader/CircularLoader";
 
 const img =
   "https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/aluminum-pvc-fabric-stretch-ceiling-fabric-light-box-t20231128105948.png";
@@ -30,9 +31,9 @@ const SubCategoryPage = () => {
     dispatch({ type: "updateCategoryId", payload: categoryId });
   }, []);
 
-  if (isLoading) return null;
+  if (isLoading) return <CircularProgress />;
   // if (!data || !data.subCategories?.length) return notFound();
-  // if (data?.subCategories?.length === 0) return notFound();
+
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}

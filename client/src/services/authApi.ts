@@ -1,4 +1,5 @@
 import AxiosInstance from "@/utils/axiosInstance";
+import axios from "axios";
 
 // http://localhost:8000/api/auth/signup
 export const register_me = async (formData: any) => {
@@ -122,8 +123,17 @@ export const delCart = async ({
   length: number;
   width: number;
 }) => {
-  const payload = { productId, length, width };
-  const response = await AxiosInstance.delete("/users/cart/remove", payload);
+  const data = { productId, length, width };
+  // const response = await AxiosInstance.delete("/users/cart/remove", payload); // NOT WORKING
+  const accessToken = localStorage.getItem("access_token");
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+  const response = await axios
+    .delete("http://localhost:8000/api/users/cart/remove", { headers, data })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   return response;
 };
 

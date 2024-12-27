@@ -7,6 +7,7 @@ import EmptyBag from "@/images/welcome.svg";
 export default function Empty({
   img = EmptyBag,
   msg = "Your shopping bag is empty. Start shopping",
+  imgProps,
 }) {
   return (
     <FlexBox
@@ -15,7 +16,14 @@ export default function Empty({
       justifyContent="center"
       height="calc(100% - 74px)"
     >
-      <Image width={300} height={300} alt="banner" src={img} />
+      <Image
+        width={300}
+        height={300}
+        {...imgProps}
+        alt="banner"
+        src={img}
+        loading="lazy"
+      />
 
       <Paragraph
         fontSize={15}

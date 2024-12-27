@@ -6,12 +6,16 @@ import ProductCard from "@/comp/card/product-card-8/index";
 import Tabs from "@/comp/Tabs/Tabs";
 import { getProductClasses, getClassProductList } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
+import Empty from "@/comp/Empty";
+import NoProducts from "@/images/no-product-found.png";
+import CircularLoader from "@/comp/Loader/CircularLoader";
 
 const ProductsPage = ({ params }) => {
   const { subcategoryId } = use(params);
   const [activeClass, setActiveClass] = useState<string>("All");
   const [allClasses, setAllClasses] = useState<string[]>([]);
   const [data, setData] = useState([]);
+  const [isDataLoading, setIsDataLoading] = useState(false);
   const { state, dispatch } = useProduct();
 
   useEffect(() => {
@@ -23,15 +27,15 @@ const ProductsPage = ({ params }) => {
   }, []);
 
   useEffect(() => {
+    setIsDataLoading(true);
     getClassProductList({
       categoryId: state.categoryId,
       subCategoryId: subcategoryId,
       Class: activeClass === "All" ? "" : activeClass,
     })
-      .then((res) => {
-        setData(res);
-      })
+      .then((res) => setData(res))
       .catch((err) => setData([]));
+    setIsDataLoading(false);
   }, [activeClass]);
 
   const handleClassChange = (val) => {
@@ -39,6 +43,8 @@ const ProductsPage = ({ params }) => {
     dispatch({ type: "updateClass", payload: val });
   };
 
+  if (isDataLoading) return <CircularLoader />;
+  
   return (
     <>
       {allClasses.length > 0 && (
@@ -48,13 +54,18 @@ const ProductsPage = ({ params }) => {
           onChange={handleClassChange}
         />
       )}
-      <div
-        className="m-4"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "left" }}
-      >
-        {data.length > 0 &&
-          data.map((val) => <ProductCard key={val._id} product={val} />)}
-      </div>
+      {data.length > 0 ? (
+        <div
+          className="m-4"
+          style={{ display: "flex", flexWrap: "wrap", justifyContent: "left" }}
+        >
+          {data.map((val) => (
+            <ProductCard key={val._id} product={val} />
+          ))}
+        </div>
+      ) : (
+        <Empty img={NoProducts} msg="" imgProps={{ width: 600, height: 300 }} />
+      )}
     </>
   );
 };
