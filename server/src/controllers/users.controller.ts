@@ -108,7 +108,7 @@ export const removeFromWishlist = async (
     const { productId } = req.query;
 
     if (!productId) {
-       res.status(400).json({ error: 'Product ID is required' });
+       return res.status(400).json({ error: 'Product ID is required' });
     }
 
     const user = await User.findByIdAndUpdate(
@@ -116,20 +116,16 @@ export const removeFromWishlist = async (
       {
         $pull: { wishlist: productId },
       },
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!user) {
        return res.status(404).json({ error: 'User not found' });
     }
 
-    if (!user.wishlist.includes(productId)) {
-       return res.status(400).json({ error: 'Product not found in wishlist' });
-    }
-
     return res.json({
       message: 'Product removed from wishlist',
-      wishlist: user.wishlist, // Optionally return the updated wishlist
+      wishlist: user.wishlist,
     });
   } catch (error) {
     console.error(error);
