@@ -6,6 +6,7 @@ import User from '../models/user.model';
 import Product from '../models/products.model';
 import Location from '../models/location.model';
 import RequestCallback from '../models/requestCallback.model';
+import mongoose from 'mongoose';
 
 export const getDropdownData = async (
   req: Request,
@@ -132,18 +133,29 @@ export const clearWishlist = async (
   }
 };
 
+
 // Add product to cart
 export const addToCart = async (
   req: IRequest,
   res: Response
 ): Promise<void> => {
+  const session = await mongoose.startSession();
+
   try {
     const { productId, quantity, length, width } = req.body;
-    const product = await Product.findById(productId);
+    session.startTransaction();
 
-    if (!product)  res.status(404).json({ error: 'Product not found' });
+    const product = await Product.findById(productId).session(session);
+    if (!product) {
+      await session.abortTransaction();
+      res.status(404).json({ error: 'Product not found' });
+    }
 
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).session(session);
+    if (!user) {
+      await session.abortTransaction();
+      res.status(404).json({ error: 'User not found' });
+    }
 
     // Find cart item with the same composite key (productId, length, width)
     const cartItem = user.cart.find(
@@ -153,18 +165,25 @@ export const addToCart = async (
         item.width === width
     );
 
-    let price=null
-
+    let price = null;
     if (product.product_price) {
       price = product.product_price;
     } else {
-      const subCategory = await SubCategory.findById(product?.subCategory).lean();
+      const subCategory = await SubCategory.findById(product?.subCategory)
+        .lean()
+        .session(session);
+      if (!subCategory) {
+        await session.abortTransaction();
+        res.status(404).json({ error: 'Subcategory not found' });
+      }
       price = subCategory.price;
     }
 
     if (cartItem) {
-      cartItem.quantity += quantity; // Increment quantity if item exists
+      // Increment quantity if the item exists
+      cartItem.quantity += quantity;
     } else {
+      // Add a new item to the cart
       user.cart.push({
         product: productId,
         quantity,
@@ -176,10 +195,15 @@ export const addToCart = async (
       });
     }
 
-    await user.save();
+    await user.save({ session });
 
-    res.json({ message: 'Product added to cart' });
+    await session.commitTransaction();
+    session.endSession();
+
+    res.json({ message: 'Product added to cart', cart: user.cart });
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
@@ -204,7 +228,7 @@ export const removeFromCart = async (
 
     await user.save();
 
-    res.json({ message: 'Product removed from cart'});
+    res.json({ message: 'Product removed from cart' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
