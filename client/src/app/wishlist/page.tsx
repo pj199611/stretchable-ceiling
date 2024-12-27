@@ -5,26 +5,26 @@ import Button from "@mui/material/Button";
 import ProductCard from "@/comp/card/product-card-8/index";
 import { getWishlist, clearWishlist } from "@/services/authApi";
 import useCart from "@/hooks/useCart";
+import NoWishlist from "@/images/no-wishlist.png";
+import Empty from "@/comp/Empty";
 
 const WishlistPage = () => {
   const { state, dispatch } = useCart();
-  const [data, setData] = useState(state.wishlist);
 
   useEffect(() => {
-    getWishlist()
-      .then((res) => {
-        setData(res?.wishlist);
-        dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
-      })
-      .catch((err) => setData([]));
+    getWishlist().then((res) => {
+      dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
+    });
   }, []);
 
   const handleClearWishlist = async () => {
-    await clearWishlist().then((res) => {
-      dispatch({ type: "ASSIGN_WISHLIST", payload: [] });
-      setData([]);
-    });
+    await clearWishlist().then((res) =>
+      dispatch({ type: "ASSIGN_WISHLIST", payload: [] })
+    );
   };
+
+  if (!state.wishlist?.length) return <Empty img={NoWishlist} msg="" />;
+
   return (
     <>
       <Button
@@ -46,8 +46,10 @@ const WishlistPage = () => {
         className="m-4"
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "left" }}
       >
-        {data?.length > 0 &&
-          data.map((val) => <ProductCard key={val._id} product={val} />)}
+        {state.wishlist?.length > 0 &&
+          state.wishlist.map((val) => (
+            <ProductCard key={val._id} product={val} />
+          ))}
       </div>
     </>
   );

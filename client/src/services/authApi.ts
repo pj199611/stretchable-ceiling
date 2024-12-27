@@ -76,10 +76,9 @@ export const addToWishlist = async (payload) => {
 };
 
 // http://localhost:8000/api/users/wishlist/remove
-export const delWishlist = async (payload) => {
+export const delWishlist = async ({ productId }) => {
   const response = await AxiosInstance.delete(
-    "/users/wishlist/remove",
-    payload
+    `/users/wishlist/remove?productId=${productId}`
   );
   return response;
 };

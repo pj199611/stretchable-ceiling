@@ -4,7 +4,7 @@ import Divider from "@mui/material/Divider";
 import useCart from "@/hooks/useCart";
 import TopHeader from "./components/top-header";
 import MiniCartItem from "./components/cart-item";
-import EmptyCartView from "./components/empty-view";
+import Empty from "@/comp/Empty";
 import BottomActions from "./components/bottom-actions";
 import Scrollbar from "@/components/scrollbar";
 import { CartItem } from "@/contexts/CartContext";
@@ -48,16 +48,13 @@ export default function MiniCart({ toggleSidenav }: Props) {
             ))}
           </Scrollbar>
         ) : (
-          <EmptyCartView />
+          <Empty />
         )}
       </Box>
 
       {/* CART BOTTOM ACTION BUTTONS */}
       {cartList?.length > 0 ? (
-        <BottomActions
-          dispatch={dispatch}
-          handleNavigate={handleNavigate}
-        />
+        <BottomActions dispatch={dispatch} handleNavigate={handleNavigate} />
       ) : null}
     </Box>
   );
