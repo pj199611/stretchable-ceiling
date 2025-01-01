@@ -6,10 +6,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // MUI ICON COMPONENTS
 import { SvgIconComponent, Menu } from "@mui/icons-material";
 // GLOBAL CUSTOM COMPONENTS
-import SideNav from "components/side-nav";
-import { H2 } from "components/Typography";
-import FlexBox from "components/flex-box/flex-box";
-import { Navigation } from "components/layouts/customer-dashboard";
+import SideNav from "@/components/side-nav";
+import { H2 } from "@/components/Typography";
+import FlexBox from "@/components/flex-box/flex-box";
+import { Navigation } from "@/components/layouts/customer-dashboard";
 import { IconButton } from "@mui/material";
 
 // STYLED COMPONENT

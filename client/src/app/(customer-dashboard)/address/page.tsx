@@ -4,8 +4,8 @@ import { AddressPageView } from "@/pages-sections/customer-dashboard/address/pag
 import api from "@/utils/__api__/address";
 
 export const metadata: Metadata = {
-  title: "Address - Bazaar Next.js E-commerce Template",
-  description: `Bazaar is a React Next.js E-commerce template. Build SEO friendly Online store, delivery app and Multi vendor store`,
+  title: "Address - Nest n Nook",
+  description: `Nest and Nook Interior Is a place to create creative and express ideas at our places.`,
   authors: [{ name: "UI-LIB", url: "https://ui-lib.com" }],
   keywords: ["e-commerce", "e-commerce template", "next.js", "react"],
 };

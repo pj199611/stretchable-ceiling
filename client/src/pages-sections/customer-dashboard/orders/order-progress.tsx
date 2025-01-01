@@ -6,12 +6,12 @@ import Avatar from "@mui/material/Avatar";
 import styled from "@mui/material/styles/styled";
 import Done from "@mui/icons-material/Done";
 // CUSTOM ICON COMPONENTS
-import Delivery from "icons/Delivery";
-import PackageBox from "icons/PackageBox";
-import TruckFilled from "icons/TruckFilled";
+import Delivery from "@/icons/Delivery";
+import PackageBox from "@/icons/PackageBox";
+import TruckFilled from "@/icons/TruckFilled";
 // GLOBAL CUSTOM COMPONENTS
-import { Paragraph } from "components/Typography";
-import { FlexBetween, FlexBox } from "components/flex-box";
+import { Paragraph } from "@/components/Typography";
+import { FlexBetween, FlexBox } from "@/components/flex-box";
 
 // STYLED COMPONENTS
 const StyledFlexbox = styled(FlexBetween)(({ theme }) => ({
@@ -23,8 +23,8 @@ const StyledFlexbox = styled(FlexBetween)(({ theme }) => ({
     height: 4,
     minWidth: 50,
     flex: "1 1 0",
-    [theme.breakpoints.down("sm")]: { flex: "unset", height: 50, minWidth: 4 }
-  }
+    [theme.breakpoints.down("sm")]: { flex: "unset", height: 50, minWidth: 4 },
+  },
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
@@ -34,7 +34,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   height: 22,
   position: "absolute",
   bgcolor: theme.palette.grey[200],
-  color: theme.palette.success.main
+  color: theme.palette.success.main,
 }));
 
 export default function OrderProgress() {
@@ -56,8 +56,9 @@ export default function OrderProgress() {
                   width: 64,
                   height: 64,
                   color: ind <= statusIndex ? "white" : "primary.main",
-                  bgcolor: ind <= statusIndex ? "primary.main" : "grey.300"
-                }}>
+                  bgcolor: ind <= statusIndex ? "primary.main" : "grey.300",
+                }}
+              >
                 <Icon color="inherit" fontSize="large" />
               </Avatar>
 
@@ -69,7 +70,10 @@ export default function OrderProgress() {
             </Box>
 
             {ind < STEP_ICONS.length - 1 ? (
-              <Box className="line" bgcolor={ind < statusIndex ? "primary.main" : "grey.300"} />
+              <Box
+                className="line"
+                bgcolor={ind < statusIndex ? "primary.main" : "grey.300"}
+              />
             ) : null}
           </Fragment>
         ))}
@@ -81,7 +85,8 @@ export default function OrderProgress() {
           textAlign="center"
           borderRadius="300px"
           color="primary.main"
-          bgcolor="primary.light">
+          bgcolor="primary.light"
+        >
           Estimated Delivery Date <b>4th October</b>
         </Paragraph>
       </FlexBox>

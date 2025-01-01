@@ -5,19 +5,13 @@ import IconButton from "@mui/material/IconButton";
 import East from "@mui/icons-material/East";
 import { format } from "date-fns";
 // GLOBAL CUSTOM COMPONENT
-import { H5, Paragraph } from "components/Typography";
+import { H5, Paragraph } from "@/components/Typography";
 // Local CUSTOM COMPONENT
 import TableRow from "../table-row";
 // CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
-// CUSTOM DATA MODEL
-import Order from "models/Order.model";
+import { currency } from "@/lib";
 
-// =================================================
-type Props = { order: Order };
-// =================================================
-
-export default function OrderRow({ order }: Props) {
+export default function OrderRow({ order }) {
   const getColor = (status: string) => {
     switch (status) {
       case "Pending":
@@ -43,7 +37,11 @@ export default function OrderRow({ order }: Props) {
         <H5 ellipsis>#{order.id.substring(0, 18)}</H5>
 
         <Box textAlign="center">
-          <Chip size="small" label={order.status} color={getColor(order.status)} />
+          <Chip
+            size="small"
+            label={order.status}
+            color={getColor(order.status)}
+          />
         </Box>
 
         <Paragraph textAlign={{ sm: "center", xs: "left" }}>
@@ -58,7 +56,8 @@ export default function OrderRow({ order }: Props) {
               fontSize="small"
               sx={{
                 color: "grey.500",
-                transform: ({ direction }) => `rotate(${direction === "rtl" ? "180deg" : "0deg"})`
+                transform: ({ direction }) =>
+                  `rotate(${direction === "rtl" ? "180deg" : "0deg"})`,
               }}
             />
           </IconButton>

@@ -9,10 +9,10 @@ import CreditCard from "@mui/icons-material/CreditCard";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlined from "@mui/icons-material/ShoppingBagOutlined";
 // GLOBAL CUSTOM COMPONENTS
-import FlexBox from "components/flex-box/flex-box";
-import { Paragraph, Span } from "components/Typography";
+import FlexBox from "@/components/flex-box/flex-box";
+import { Paragraph, Span } from "@/components/Typography";
 // CUSTOM ICON COMPONENT
-import CustomerService from "icons/CustomerService";
+import CustomerService from "@/icons/CustomerService";
 // STYLED COMPONENTS
 import { MainContainer, StyledNavLink } from "./styles";
 
@@ -28,7 +28,11 @@ export default function Navigation() {
           </Paragraph>
 
           {item.list.map(({ Icon, count, href, title }) => (
-            <StyledNavLink href={href} key={title} isCurrentPath={pathname.includes(href)}>
+            <StyledNavLink
+              href={href}
+              key={title}
+              isCurrentPath={pathname.includes(href)}
+            >
               <FlexBox alignItems="center" gap={1}>
                 <Icon color="inherit" fontSize="small" className="nav-icon" />
                 <Span>{title}</Span>
@@ -52,15 +56,15 @@ const MENUS = [
         href: "/wish-list",
         title: "Wishlist",
         Icon: FavoriteBorder,
-        count: 19
+        count: 19,
       },
       {
         href: "/support-tickets",
         title: "Support Tickets",
         Icon: CustomerService,
-        count: 1
-      }
-    ]
+        count: 1,
+      },
+    ],
   },
   {
     title: "ACCOUNT SETTINGS",
@@ -71,8 +75,8 @@ const MENUS = [
         href: "/payment-methods",
         title: "Payment Methods",
         Icon: CreditCard,
-        count: 4
-      }
-    ]
-  }
+        count: 4,
+      },
+    ],
+  },
 ];

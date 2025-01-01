@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import ProductCard from "@/comp/card/product-card-8/index";
 import { getWishlist, clearWishlist } from "@/services/authApi";
@@ -23,7 +23,8 @@ const WishlistPage = () => {
     );
   };
 
-  if (!state.wishlist?.length) return <Empty img={NoWishlist} msg="" />;
+  if (!state.wishlist?.length)
+    return <Empty img={NoWishlist} msg="" imgProps={{}} />;
 
   return (
     <>
