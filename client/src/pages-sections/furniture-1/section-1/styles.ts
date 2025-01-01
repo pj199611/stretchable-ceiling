@@ -6,7 +6,12 @@ import styled from "@mui/material/styles/styled";
 export const Wrapper = styled("div")({
   marginBottom: 60,
   overflow: "hidden",
-  ".carousel-content": { maxWidth: 600 }
+  ".carousel-content": {
+    color: "white",
+    maxWidth: 600,
+    // backgroundColor: "bisque",
+    // opacity: 0.7,
+  },
 });
 
 export const ContentWrapper = styled("div")(({ theme }) => ({
@@ -20,7 +25,7 @@ export const ContentWrapper = styled("div")(({ theme }) => ({
   backgroundRepeat: "no-repeat",
   backgroundImage: "url('/assets/images/headers/furniture-1.jpg')",
   [theme.breakpoints.down("md")]: { h1: { fontSize: 50 }, paddingInline: 16 },
-  [theme.breakpoints.down("sm")]: { textAlign: "center", h1: { fontSize: 40 } }
+  [theme.breakpoints.down("sm")]: { textAlign: "center", h1: { fontSize: 40 } },
 }));
 
 export const StyledButton = styled(Button)({
@@ -28,5 +33,5 @@ export const StyledButton = styled(Button)({
   fontWeight: 400,
   borderRadius: 0,
   fontSize: "16px",
-  padding: "8px 30px"
+  padding: "8px 30px",
 });

@@ -6,6 +6,7 @@ import Img1 from "@/images/3d-stretchable-fabric-ceiling-work.jpg";
 import Img2 from "@/images/Page-1234-scaled-700x466.jpg";
 import Img3 from "@/images/stretch-ceiling-1.webp";
 import FurnitureTwoPageView from "@/pages-sections/furniture-2/page-view";
+import FurnitureOnePageView from "@/pages-sections/furniture-1/section-1/section-1";
 
 export const metadata: Metadata = {
   title: "Bazaar - Next.js E-commerce Template",
@@ -44,6 +45,7 @@ const carouselData = [
 export default function IndexPage() {
   return (
     <>
+      <FurnitureOnePageView />
       <Carousal carouselData={carouselData} />
       <FurnitureTwoPageView />
     </>
