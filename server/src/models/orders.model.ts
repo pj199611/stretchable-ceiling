@@ -26,10 +26,12 @@ const orderSchema = new mongoose.Schema<IOrder>(
         width: {
           type: Number,
           required: false,
+          default:1
         },
         height: {
           type: Number,
           required: false,
+          default:1
         },
         area: {
           type: Number,
