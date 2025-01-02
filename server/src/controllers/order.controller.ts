@@ -72,8 +72,8 @@ export const createOrder = async (
     const total_Amount = await newOrder.calculateTotalAmount(location[0] as unknown as any);
     newOrder.totalAmount = total_Amount;
 
-    const savedOrder = await newOrder.save();
-    res.status(201).json(savedOrder);
+    await newOrder.save();
+    res.status(201).json({message: 'order created'});
   } catch (error) {
     console.log("error", error)
     res.status(500).json({ error: 'Failed to create order' });
