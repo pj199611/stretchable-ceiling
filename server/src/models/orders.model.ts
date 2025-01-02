@@ -23,15 +23,14 @@ const orderSchema = new mongoose.Schema<IOrder>(
           min: 1,
           default: 1,
         },
-        // not required for now
-        // width: {
-        //   type: Number,
-        //   required: false,
-        // },
-        // height: {
-        //   type: Number,
-        //   required: false,
-        // },
+        width: {
+          type: Number,
+          required: false,
+        },
+        height: {
+          type: Number,
+          required: false,
+        },
         area: {
           type: Number,
           required: false,
