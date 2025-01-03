@@ -26,11 +26,18 @@ type CartActionType =
   | { type: "CHANGE_NOTE"; payload: string }
   | { type: "ASSIGN_WISHLIST"; payload: any }
   | { type: "REMOVE_WISHLIST"; payload: string }
+  | { type: "ASSIGN_ORDERS"; payload: any }
   | { type: "CHANGE_LOCATION"; payload: string };
 
 // =================================================================================
 
-const INITIAL_STATE = { cart: [], note: "", wishlist: [], location: "delhi" };
+const INITIAL_STATE = {
+  cart: [],
+  note: "",
+  wishlist: [],
+  location: "delhi",
+  orders: [],
+};
 
 // ==============================================================
 interface ContextProps {
@@ -121,6 +128,9 @@ const reducer = (state: InitialState, action: CartActionType) => {
         (val) => val._id !== action.payload
       );
       return { ...state, wishlist: newWishlist };
+
+    case "ASSIGN_ORDERS":
+      return { ...state, orders: action.payload };
 
     case "CHANGE_LOCATION":
       return { ...state, location: action.payload };

@@ -32,9 +32,9 @@ export default function OrderRow({ order }) {
   };
 
   return (
-    <Link href={`/orders/${order.id}`}>
+    <Link href={`/orders/${order._id}`}>
       <TableRow sx={{ gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr" }}>
-        <H5 ellipsis>#{order.id.substring(0, 18)}</H5>
+        <H5 ellipsis>#{order._id}</H5>
 
         <Box textAlign="center">
           <Chip
@@ -48,7 +48,7 @@ export default function OrderRow({ order }) {
           {format(new Date(order.createdAt), "MMM dd, yyyy")}
         </Paragraph>
 
-        <Paragraph textAlign="center">{currency(order.totalPrice)}</Paragraph>
+        <Paragraph textAlign="center">{currency(order.totalAmount)}</Paragraph>
 
         <Box display={{ sm: "inline-flex", xs: "none" }} justifyContent="end">
           <IconButton>
