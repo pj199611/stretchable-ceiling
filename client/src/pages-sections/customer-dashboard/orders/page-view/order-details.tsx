@@ -7,14 +7,8 @@ import OrderSummery from "../order-summery";
 import OrderProgress from "../order-progress";
 import OrderedProducts from "../ordered-products";
 import DashboardHeader from "../../dashboard-header";
-// CUSTOM DATA MODEL
-import Order from "models/Order.model";
 
-// =============================================================
-type Props = { order: Order };
-// =============================================================
-
-export default function OrderDetailsPageView({ order }: Props) {
+export default function OrderDetailsPageView({ order }) {
   return (
     <Fragment>
       {/* TITLE HEADER AREA */}
@@ -22,7 +16,7 @@ export default function OrderDetailsPageView({ order }: Props) {
         href="/orders"
         Icon={ShoppingBag}
         title="Order Details"
-        buttonText="Order Again"
+        buttonText=""
       />
 
       {/* ORDER PROGRESS AREA */}

@@ -4,11 +4,17 @@ import { FlexBox } from "@/components/flex-box";
 import { Paragraph } from "@/components/Typography";
 import EmptyBag from "@/images/welcome.svg";
 
+type Props = {
+  img?: any;
+  msg?: string;
+  imgProps?: any;
+};
+
 export default function Empty({
   img = EmptyBag,
   msg = "Your shopping bag is empty. Start shopping",
   imgProps,
-}) {
+}: Props) {
   return (
     <FlexBox
       alignItems="center"

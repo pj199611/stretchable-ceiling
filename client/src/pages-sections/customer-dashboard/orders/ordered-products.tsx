@@ -10,25 +10,25 @@ import { FlexBetween, FlexBox } from "@/components/flex-box";
 import { currency } from "@/lib";
 
 export default function OrderedProducts({ order }) {
-  const { id, createdAt, items, deliveredAt } = order || {};
+  const { _id, createdAt, products, deliveredAt } = order || {};
 
   return (
     <Card sx={{ p: 0, mb: "30px" }}>
       <FlexBetween px={3} py={2} flexWrap="wrap" bgcolor="grey.200">
-        <Item title="Order ID:" value={id} />
+        <Item title="Order ID:" value={_id} />
         <Item
           title="Placed on:"
           value={format(new Date(createdAt), "dd MMM, yyyy")}
         />
         <Item
-          title="Delivered on:"
+          title="Delivery on:"
           value={
             deliveredAt ? format(new Date(deliveredAt), "dd MMM, yyyy") : "None"
           }
         />
       </FlexBetween>
 
-      {items.map((item, ind) => (
+      {products.map((item, ind) => (
         <FlexBetween px={2} py={1} flexWrap="wrap" key={ind}>
           <FlexBox gap={2.5} alignItems="center">
             <Avatar
@@ -40,7 +40,7 @@ export default function OrderedProducts({ order }) {
             <div>
               <H6>{item.product_name}</H6>
               <Paragraph color="grey.600">
-                {currency(item.product_price)} x {item.product_quantity}
+                {currency(item.product_price)} x {item.quantity}
               </Paragraph>
             </div>
           </FlexBox>

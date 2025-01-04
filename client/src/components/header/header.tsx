@@ -61,6 +61,7 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {/* MEnu-List */}
       {/* <MenuList /> */}
       <Link href="/category"> Category</Link>
+      <Link href="/orders"> Orders</Link>
 
       {/* <Wishlist /> */}
       <WishlistBtn />
@@ -69,7 +70,7 @@ export default function Header({ isFixed, className, midSlot }: Props) {
         toggleDialog={toggleDialog}
         toggleSidenav={toggleSidenav}
       />
-      
+
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer
         dialogOpen={dialogOpen}

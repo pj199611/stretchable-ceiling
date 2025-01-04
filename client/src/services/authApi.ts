@@ -147,3 +147,41 @@ export const getUser = async () => {
   const response = await AxiosInstance.get("/users/user");
   return response;
 };
+
+// http://localhost:8000/api/users/orders
+export const getOrders = async () => {
+  const response = await AxiosInstance.get("/users/orders");
+  return response;
+};
+
+// http://localhost:8000/api/users/orders
+export const addToOrder = async ({
+  productId,
+  quantity = 1,
+  length = 1,
+  width = 1,
+}: {
+  productId: string;
+  quantity: number;
+  length: number;
+  width: number;
+}) => {
+  // const payload = {
+  //   products: [
+  //     {
+  //       product: productId,
+  //       quantity,
+  //       area: length * width,
+  //     },
+  //   ],
+  //   shippingAddress: {
+  //     address: "3125",
+  //     city: "delhi",
+  //     postalCode: 110008,
+  //     country: "Dubai",
+  //   },
+  // };
+  const payload = {};
+  const response = await AxiosInstance.post("/users/orders", payload);
+  return response;
+};

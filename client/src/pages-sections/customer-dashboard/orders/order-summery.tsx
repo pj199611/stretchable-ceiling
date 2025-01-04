@@ -16,6 +16,9 @@ function ListItem({ title, value }: { title: string; value: string }) {
   );
 }
 
+const AddressText = ({ address, city, country, postalCode }) =>
+  `${address}, ${city}, Pin Code - ${postalCode}, ${country} `;
+
 export default function OrderSummery({ order }) {
   return (
     <Grid container spacing={3}>
@@ -27,7 +30,7 @@ export default function OrderSummery({ order }) {
           </H5>
 
           <Paragraph fontSize={14} my={0}>
-            {order.shippingAddress}
+            {AddressText(order.shippingAddress)}
           </Paragraph>
         </Card>
       </Grid>
@@ -39,15 +42,15 @@ export default function OrderSummery({ order }) {
             Total Summary
           </H5>
 
-          <ListItem title="Subtotal:" value={currency(order.totalPrice)} />
+          {/* <ListItem title="Subtotal:" value={currency(order.totalPrice)} />
           <ListItem title="Shipping fee:" value={currency(0)} />
-          <ListItem title="Discount:" value={currency(order.discount)} />
+          <ListItem title="Discount:" value={currency(order.discount)} /> */}
 
           <Divider sx={{ mb: 1 }} />
 
           <FlexBetween mb={2}>
             <H6>Total</H6>
-            <H6>{currency(order.totalPrice)}</H6>
+            <H6>{currency(order.totalAmount)}</H6>
           </FlexBetween>
 
           <Paragraph>Paid by Credit/Debit Card</Paragraph>
