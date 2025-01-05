@@ -26,12 +26,12 @@ const orderSchema = new mongoose.Schema<IOrder>(
         width: {
           type: Number,
           required: false,
-          default:1
+          default: 1,
         },
         height: {
           type: Number,
           required: false,
-          default:1
+          default: 1,
         },
         area: {
           type: Number,
@@ -69,6 +69,11 @@ const orderSchema = new mongoose.Schema<IOrder>(
     remarks: {
       type: String,
       required: false,
+    },
+    payment_status: {
+      type: String,
+      enum: ['Successfull', 'Declined',"Not_Paid"],
+      default: 'Not_Paid',
     },
     status: {
       type: String,

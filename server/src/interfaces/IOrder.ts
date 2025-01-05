@@ -26,6 +26,7 @@ export default interface IOrder extends Document {
   totalAmount: number;
   status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled';
   isCustomized:boolean;
+  payment_status:string;
   remarks?: string;
   shippingAddress: IShippingAddress;
   createdAt?: Date;

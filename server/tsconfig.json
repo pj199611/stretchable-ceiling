@@ -3,12 +3,10 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "module": "commonjs",
-    "target": "es2015",
-    "outDir": "./dist"
+    "target": "ES2020",
+    "outDir": "./dist",
+    "rootDir": "src"
   },
-  "include": ["src/swagger-output.json", "src/**/*", "seed.ts"],
-  "exclude": ["node_modules"],
-  "lib": ["es2015"],
-  "typeRoots": ["node_modules/@types"],
-  "types": ["node", "express"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

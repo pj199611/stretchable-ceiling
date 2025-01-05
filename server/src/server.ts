@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import AuthRoutes from './routes/auth.routes';
-
+import PaymentRoutes from "./routes/payment.routes";
 import AdminRoutes from './routes/admin.routes';
 import ArchitectRoutes from './routes/architect.routes';
 import UserRoutes from './routes/users.routes';
@@ -33,6 +33,7 @@ app.use('/api/auth', AuthRoutes);
 app.use('/api/admin', AdminRoutes);
 app.use('/api/architect', ArchitectRoutes);
 app.use('/api/users', UserRoutes);
+
 
 app.get('/health', (req: Request, res: Response) => {
   res.send('server is running fine!');
