@@ -28,6 +28,7 @@ import {
   updateOrder,
   deleteOrder,
   createCustomizedOrder,
+  handlePartialPayment,
 } from '../controllers/order.controller';
 
 import {
@@ -81,6 +82,8 @@ router.get("/productsOfSubCategoryDetails", getProductsByCategoryAndSubCategoryD
 router.get('/orders', authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
+// Route to handle partial payments
+router.post('/partial-payment', handlePartialPayment);
 router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', authenticateToken, deleteOrder);
 router.post("/verifyPayment",authenticateToken,paymentVerification);

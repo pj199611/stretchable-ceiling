@@ -1,0 +1,20 @@
+1. Create Order
+   ↓
+2. User Chooses Partial Payment
+   ↓
+3. Frontend Calls /api/payments/partial-payment with Amount and Payment Info
+   ↓
+4. Backend:
+   - Validates Partial Payment
+   - Updates Payment Details
+   - Updates Total Paid & Payment Status
+   ↓
+5. Frontend Receives Updated Order Information
+   ↓
+6. Display Updated Payment Status
+   - "Partially_Paid" or "Successfull"
+   ↓
+7. User Makes Another Partial Payment (if applicable)
+   - Repeat Steps 3-6
+   ↓
+8. Full Payment Reached: Order Status is "Successful"
