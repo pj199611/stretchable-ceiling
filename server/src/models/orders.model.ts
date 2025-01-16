@@ -37,16 +37,6 @@ const orderSchema = new mongoose.Schema<IOrder>(
           type: Number,
           required: false,
         },
-        // not required for now
-        // shape: {
-        //   type: String,
-        //   enum: ['Rectangle', 'Square'],
-        //   required: false,
-        // },
-        // customShape: {
-        //   type: String,
-        //   required: false,
-        // },
         stockPhotoIds: [
           {
             type: Number,
@@ -66,13 +56,26 @@ const orderSchema = new mongoose.Schema<IOrder>(
       type: Number,
       required: false,
     },
+    totalPaid: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    paymentDetails: [
+      {
+        paymentId: { type: String, required: true },
+        amount: { type: Number, required: true },
+        status: { type: String, enum: ['Success', 'Failed'], default: 'Success' },
+        date: { type: Date, default: Date.now },
+      },
+    ],
     remarks: {
       type: String,
       required: false,
     },
     payment_status: {
       type: String,
-      enum: ['Successfull', 'Declined',"Not_Paid"],
+      enum: ['Not_Paid', 'Partially_Paid', 'Successfull'],
       default: 'Not_Paid',
     },
     status: {
@@ -92,15 +95,14 @@ const orderSchema = new mongoose.Schema<IOrder>(
 
 orderSchema.pre('save', async function (next) {
   if (
-    this.products[0].stockPhotoIds.length > 0 ||
-    this.products[0].imageUrls.length > 0 ||
-    this.products[0].customizedUrls.length > 0
+    this.products[0]?.stockPhotoIds?.length > 0 ||
+    this.products[0]?.imageUrls?.length > 0 ||
+    this.products[0]?.customizedUrls?.length > 0
   ) {
     this.isCustomized = true;
-    return;
+  } else {
+    this.isCustomized = false;
   }
-  this.isCustomized = false;
-
   next();
 });
 
@@ -111,15 +113,12 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
     let productPrice;
 
     // Fetch product details
-    const product = await Product.findById(item._id).lean();
+    const product = await Product.findById(item.product).lean();
     if (product && product.product_price) {
       productPrice = product.product_price;
     } else {
-      // Fallback to subcategory price if product price is unavailable
-      const subCategory = await SubCategory.findById(
-        product?.subCategory
-      ).lean();
-      productPrice = subCategory ? subCategory.price : 0; // Adjust `price` field as per your schema
+      const subCategory = await SubCategory.findById(product?.subCategory).lean();
+      productPrice = subCategory ? subCategory.price : 0;
     }
 
     const area = item.area;
@@ -129,19 +128,6 @@ orderSchema.methods.calculateTotalAmount = async function (location) {
     } else if (location.operator === 'subtract') {
       totalAmount += area * (productPrice - location.location_price);
     }
-
-    // Logging for debugging purposes
-    console.log({
-      area,
-      productPrice,
-      operator: location.operator,
-      locationPrice: location.location_price,
-      itemTotal:
-        area *
-        (location.operator === 'add'
-          ? productPrice + location.location_price
-          : productPrice - location.location_price),
-    });
   }
 
   this.totalAmount = totalAmount;

@@ -4,7 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import AuthRoutes from './routes/auth.routes';
-import PaymentRoutes from "./routes/payment.routes";
 import AdminRoutes from './routes/admin.routes';
 import ArchitectRoutes from './routes/architect.routes';
 import UserRoutes from './routes/users.routes';

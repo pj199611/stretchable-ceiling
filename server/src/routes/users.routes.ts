@@ -43,6 +43,7 @@ import {
   getWishList,
   clearWishlist
 } from '../controllers/users.controller';
+import { paymentVerification } from '../controllers/payment.controller';
 
 const router = express.Router();
 dotenv.config();
@@ -82,6 +83,8 @@ router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.put('/orders/:id', authenticateToken, updateOrder);
 router.delete('/orders/:id', authenticateToken, deleteOrder);
+router.post("/verifyPayment",authenticateToken,paymentVerification);
+
 router.post(
   "/customize_order",
   authenticateToken,

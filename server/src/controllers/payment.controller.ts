@@ -1,43 +1,20 @@
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import instance from '../config/razorpay';
 import dotenv from 'dotenv';
 import Payment from '../models/payment.model';
+import Order from '../models/orders.model';
 
 dotenv.config();
-
-export const createOrder = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const options = {
-      amount: Number(req.body.amount * 100),
-      currency: 'INR',
-      receipt: crypto.randomBytes(10).toString('hex'),
-    };
-
-    const order = await instance.orders.create(options);
-    res.status(200).json({
-      success: true,
-      order,
-      razorpayKeyId: process.env.RAZORPAY_KEY_ID,
-    });
-  } catch (error) {
-    res.status(404).json({
-      success: false,
-      error: error.message || 'Something went wrong',
-    });
-  }
-};
 
 export const paymentVerification = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =req.body;
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature,orderId } =req.body;
 
+    const order=await Order.findById(orderId);
+  
     const body = razorpay_order_id + '|' + razorpay_payment_id;
 
     const expectedSignature = crypto
@@ -54,6 +31,9 @@ export const paymentVerification = async (
         razorpay_signature,
       });
       await newPayment.save();
+
+      order.paymentDetails[0].status='Verified';
+      await order.save();
 
       res.redirect(
         `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
