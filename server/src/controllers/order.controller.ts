@@ -129,6 +129,7 @@ export const createOrder = async (
       date: new Date(),
     });
 
+    newOrder.payment_status="Not Verified Payment";
     await newOrder.save();
     res.status(201).json({ order: newOrder, razorpayOrder });
   } catch (error) {

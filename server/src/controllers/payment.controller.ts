@@ -11,10 +11,15 @@ export const paymentVerification = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { razorpay_payment_id, razorpay_order_id, razorpay_signature,orderId } =req.body;
+    const {
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_signature,
+      orderId,
+    } = req.body;
 
-    const order=await Order.findById(orderId);
-  
+    const order = await Order.findById(orderId);
+
     const body = razorpay_order_id + '|' + razorpay_payment_id;
 
     const expectedSignature = crypto
@@ -32,12 +37,13 @@ export const paymentVerification = async (
       });
       await newPayment.save();
 
-      order.paymentDetails[0].status='Verified';
+      order.paymentDetails[0].status = 'Verified';
+      order.payment_status = 'Payment Verified';
       await order.save();
 
-      res.redirect(
-        `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
-      );
+      res.json({
+        success: true,
+      });
     } else {
       res.status(400).json({
         success: false,
