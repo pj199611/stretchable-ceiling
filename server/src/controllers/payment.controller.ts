@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import Payment from '../models/payment.model';
 import Order from '../models/orders.model';
+import razorpayInstance from '../config/razorpay';
 
 dotenv.config();
 
@@ -55,4 +56,23 @@ export const paymentVerification = async (
       error,
     });
   }
+};
+
+export const createRazorPayOrder = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  // Create Razorpay order
+
+  const { amount } = req.body;
+
+  const receipt = crypto.randomBytes(64).toString('hex');
+
+  const razorpayOrder = await razorpayInstance.orders.create({
+    amount: amount * 100,
+    currency: 'INR',
+    receipt: receipt,
+  });
+
+  res.json(razorpayOrder);
 };

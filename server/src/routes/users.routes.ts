@@ -44,7 +44,7 @@ import {
   getWishList,
   clearWishlist
 } from '../controllers/users.controller';
-import { paymentVerification } from '../controllers/payment.controller';
+import { createRazorPayOrder, paymentVerification } from '../controllers/payment.controller';
 
 const router = express.Router();
 dotenv.config();
@@ -82,6 +82,7 @@ router.get("/productsOfSubCategoryDetails", getProductsByCategoryAndSubCategoryD
 router.get('/orders', authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
+router.post("/razorPayOrder",authenticateToken,createRazorPayOrder);
 // Route to handle partial payments
 router.post('/partial-payment', handlePartialPayment);
 router.put('/orders/:id', authenticateToken, updateOrder);

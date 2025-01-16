@@ -145,28 +145,42 @@ export const handlePartialPayment = async (
   try {
     const { orderId, amount, razorpayPaymentId } = req.body;
 
+    // Fetch the order from the database
     const order = await Order.findById(orderId);
     if (!order) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+       res.status(404).json({ error: 'Order not found' });
     }
 
+    // Verify the payment with Razorpay
+    const payment = await razorpayInstance.payments.fetch(razorpayPaymentId);
+    if (!payment || payment.status !== 'captured') {
+       res.status(400).json({ error: 'Payment verification failed' });
+    }
+
+    // Add the partial payment details to the order's paymentDetails array
     order.paymentDetails.push({
       paymentId: razorpayPaymentId,
       amount,
       status: 'Success',
     });
 
+    // Update the total paid amount
     order.totalPaid += amount;
 
+    // Update payment status based on total paid
     if (order.totalPaid >= order.totalAmount) {
-      order.payment_status = 'Successfull';
+      order.payment_status = 'Successfull'; // Mark the payment as complete
     } else {
-      order.payment_status = 'Partially_Paid';
+      order.payment_status = 'Partially_Paid'; // Mark the payment as partial
     }
 
+    // Save the updated order
     await order.save();
-    res.status(200).json({ message: 'Payment recorded successfully', order });
+
+    res.status(200).json({
+      message: 'Partial payment recorded successfully',
+      order,
+    });
   } catch (error) {
     console.error('Error handling partial payment:', error);
     res.status(500).json({ error: 'Failed to handle payment' });
