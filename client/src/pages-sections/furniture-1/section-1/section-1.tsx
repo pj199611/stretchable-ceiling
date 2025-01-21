@@ -28,7 +28,7 @@ export default async function Section1() {
       buttonLink: "#",
     },
     {
-      id: 2,
+      id: 3,
       title: "Modern Furniture.",
       subTitle: "A Beautiful House_",
       imgUrl: Img3,
