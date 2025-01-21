@@ -56,6 +56,7 @@
     "overlayscrollbars": "2.4.4",
     "overlayscrollbars-react": "0.5.3",
     "quill-color-picker-enhance": "1.1.5",
+    "razorpay": "^2.9.5",
     "rc-pagination": "3.7.0",
     "rc-progress": "3.5.1",
     "rc-table": "7.22.2",

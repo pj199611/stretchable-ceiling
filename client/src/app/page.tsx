@@ -7,6 +7,8 @@ import { Metadata } from "next";
 // import Img3 from "@/images/stretch-ceiling-1.webp";
 import FurnitureTwoPageView from "@/pages-sections/furniture-2/page-view";
 import FurnitureOnePageView from "@/pages-sections/furniture-1/section-1/section-1";
+import RazorpayButton from "@/comp/Razorpay/RazorpayButton";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Home - Nest n Nook",
@@ -45,6 +47,13 @@ export const metadata: Metadata = {
 export default function IndexPage() {
   return (
     <>
+      <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
+      <br />
+      <RazorpayButton />
+      <br />
       <FurnitureOnePageView />
       {/* <Carousal carouselData={carouselData} /> */}
       <FurnitureTwoPageView />
