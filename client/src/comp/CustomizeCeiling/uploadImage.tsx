@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Link from "next/link";
+import { addCustomOrder } from "@/services/authApi";
 
 // GLOBAL CUSTOM COMPONENTS
 import DropZone from "@/components/DropZone";
@@ -20,9 +21,9 @@ import { UploadImageBox, StyledClear } from "./style";
 
 // FORM FIELDS VALIDATION SCHEMA
 const VALIDATION_SCHEMA = yup.object().shape({
-  name: yup.string().required("Name is required!"),
-  description: yup.string().required("Description is required!"),
-  mobile: yup.number().required("Tags is required!"),
+  // name: yup.string().required("Name is required!"),
+  // description: yup.string().required("Description is required!"),
+  // mobile: yup.number().required("Tags is required!"),
 });
 
 // ================================================================
@@ -38,12 +39,44 @@ export default function ProductForm(props: Props) {
     trackingId: "",
   };
 
-  const handleFormSubmit = (values: typeof INITIAL_VALUES) => {
-    console.log(values);
-  };
-
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
   const [imageUrl, setImageUrl] = useState("");
+
+  const handleFormSubmit = async (values: typeof INITIAL_VALUES) => {
+    if (!values.url && !values.trackingId && uploadedImage?.length < 1) {
+      console.log("Insufficient Data");
+      return;
+    }
+    const formData = new FormData();
+    // Append each image to FormData
+    if (uploadedImage.length)
+      Array.from(uploadedImage).forEach((image) => {
+        formData.append("images", image); // 'images' is the key sent to the server
+      });
+    formData.append("customizedUrls", values.url.toString());
+    formData.append("stockPhotoIds", values.trackingId);
+    formData.append("remarks", values.description);
+
+    const res = await addCustomOrder(formData);
+
+    // Add key-value pairs from the object to FormData
+    // for (const key in additionalFields) {
+    //   if (additionalFields.hasOwnProperty(key)) {
+    //     formData.append(key, additionalFields[key]);
+    //   }
+    // }
+
+    // try {
+    //   setUploading(true);
+    //   setMessage("");[0]
+
+    //   setMessage(`File uploaded successfully: ${response.data.filename}`);
+    // } catch (error) {
+    //   setMessage("File upload failed");
+    // } finally {
+    //   setUploading(false);
+    // }
+  };
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
   const handleChangeDropZone = (files: File[]) => {
@@ -82,7 +115,7 @@ export default function ProductForm(props: Props) {
                   fullWidth
                   name="name"
                   label="Name"
-                 color="info"
+                  color="info"
                   size="medium"
                   placeholder="Name"
                   value={values.name}
@@ -96,7 +129,7 @@ export default function ProductForm(props: Props) {
               <Grid item sm={6} xs={12}>
                 <TextField
                   fullWidth
-                 color="info"
+                  color="info"
                   size="medium"
                   name="mobile"
                   onBlur={handleBlur}
@@ -132,7 +165,7 @@ export default function ProductForm(props: Props) {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                 color="info"
+                  color="info"
                   size="medium"
                   name="url"
                   onBlur={handleBlur}
@@ -184,7 +217,7 @@ export default function ProductForm(props: Props) {
                   fullWidth
                   name="trackingId"
                   label="Shutter Stock ID"
-                 color="info"
+                  color="info"
                   size="medium"
                   placeholder="Shutter Stock ID"
                   value={values.trackingId}

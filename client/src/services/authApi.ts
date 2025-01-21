@@ -136,6 +136,26 @@ export const delCart = async ({
   return response;
 };
 
+// http://localhost:8000/api/users/customize_order
+export const addCustomOrder = async (formData: any) => {
+  console.log("addCustomOrder FormData");
+  // Display the key/value pairs
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + ", " + pair[1]);
+  }
+  const accessToken = localStorage.getItem("access_token");
+  const response = await axios
+    .post("http://localhost:8000/api/users/customize_order", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+  return response;
+};
+
 // http://localhost:8000/api/users/cart/clear
 export const clearCart = async () => {
   const response = await AxiosInstance.delete("/users/cart/clear");

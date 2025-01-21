@@ -15,7 +15,7 @@ const allClasses = [
 ];
 
 const CustomizePage = ({}) => {
-  const [activeClass, setActiveClass] = useState(allClasses[0]);
+  // const [activeClass, setActiveClass] = useState(allClasses[0]);
 
   return (
     <>
@@ -29,11 +29,11 @@ const CustomizePage = ({}) => {
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         <H3 className="p-1" mb={2}>
-          {activeClass}
+          {allClasses[0]}
         </H3>
 
-        {activeClass === allClasses[0] && <UploadImage />}
-        {activeClass === allClasses[1] && <ChooseDesign />}
+        <UploadImage />
+        {/* {activeClass === allClasses[1] && <ChooseDesign />} */}
         {}
       </div>
     </>
