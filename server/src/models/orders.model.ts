@@ -65,7 +65,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
       {
         paymentId: { type: String, required: true },
         amount: { type: Number, required: true },
-        status: { type: String, enum: ['Success', 'Failed'], default: 'Success' },
+        status: { type: String, enum: ['Success', 'Failed','Not Verified'], default: 'Not Verified' },
         date: { type: Date, default: Date.now },
       },
     ],
@@ -75,8 +75,8 @@ const orderSchema = new mongoose.Schema<IOrder>(
     },
     payment_status: {
       type: String,
-      enum: ['Not_Paid', 'Partially_Paid', 'Successfull'],
-      default: 'Not_Paid',
+      enum: ['Not Verified', 'Partially_Paid', 'Successfull'],
+      default: 'Not Verified',
     },
     status: {
       type: String,

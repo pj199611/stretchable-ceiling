@@ -111,10 +111,12 @@ export const createOrder = async (
     });
 
     const location = await Location.findOne({ name: shippingAddress.city });
-    const totalAmount = await newOrder.calculateTotalAmount(location[0]!);
+    console.log("location",location)
+    const totalAmount = await newOrder.calculateTotalAmount(location as unknown as any);
 
     newOrder.totalAmount = totalAmount;
 
+    console.log("totalAmount",totalAmount)
     // Create Razorpay order
     const razorpayOrder = await razorpayInstance.orders.create({
       amount: totalAmount * 100,
@@ -232,6 +234,8 @@ export const createCustomizedOrder = async (
           stockPhotoIds: stockPhotoIds,
           imageUrls: imagePaths,
           quantity: req.body.quantity || 1,
+          height:req.body.height,
+          width:req.body.width
         },
       ],
     });

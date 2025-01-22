@@ -33,7 +33,7 @@ export default interface IOrder extends Document {
   totalAmount: number;
   totalPaid?: number;
   paymentDetails?: IPaymentDetails[];
-  status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled';
+  status: 'Pending' | 'Processed' | 'Shipped' | 'Delivered' | 'Cancelled' | 'Not Verified';
   isCustomized: boolean;
   payment_status: string;
   remarks?: string;
