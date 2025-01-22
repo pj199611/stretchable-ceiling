@@ -1,41 +1,31 @@
-"use client";
-
-import IconButton from "@mui/material/IconButton";
-import styled from "@mui/material/styles/styled";
-// GLOBAL CUSTOM COMPONENT
 import FlexBox from "@/components/flex-box/flex-box";
-// DATA
-import { SOCIAL_ICON_LINKS } from "../data";
+import Twitter from "@/images/icons/Twitter";
+import Youtube from "@/images/icons/Youtube";
+import Facebook from "@/images/icons/Facebook";
+import Instagram from "@/images/icons/Instagram";
+import WhatsApp from "@/images/icons/Whatsapp";
+import Gmail from "@/images/icons/Gmail";
 
-// STYLED COMPONENTS
-const StyledIconButton = styled(IconButton, {
-  shouldForwardProp: (prop) => prop !== "variant"
-})<Props>(({ variant, theme }) => ({
-  margin: 4,
-  fontSize: 12,
-  padding: "10px",
-  ...(variant === "light" && {
-    backgroundColor: "rgba(0,0,0,0.2)"
-  }),
-  ...(variant === "dark" && {
-    backgroundColor: theme.palette.grey[700],
-    ":hover": { backgroundColor: theme.palette.grey[800] }
-  }),
-  ".icon": { color: "white" }
-}));
+export const SOCIAL_ICON_LINKS = [
+  { Icon: Facebook, url: "https://www.facebook.com/" },
+  { Icon: Twitter, url: "https://wa.me/8447030606" },
+  { Icon: WhatsApp, url: "https://wa.me/8447030606" },
+  {
+    Icon: Youtube,
+    url: "https://www.youtube.com/",
+  },
+  { Icon: Instagram, url: "https://www.instagram.com/" },
+  // { Icon: Gmail, url: "support@nestandnookinterior.com" },
+];
 
-// ==============================================================
-type Props = { variant?: "light" | "dark" };
-// ==============================================================
-
-export default function SocialLinks({ variant = "light" }: Props) {
+export default function SocialLinks() {
   return (
     <FlexBox className="flex" mx={-0.625}>
       {SOCIAL_ICON_LINKS.map(({ Icon, url }, ind) => (
         <a href={url} target="_blank" rel="noreferrer noopenner" key={ind}>
-          <StyledIconButton variant={variant}>
-            <Icon fontSize="inherit" className="icon" />
-          </StyledIconButton>
+          <div style={{ padding: "0px 9px 10px 0px" }}>
+            <Icon />
+          </div>
         </a>
       ))}
     </FlexBox>

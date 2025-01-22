@@ -13,7 +13,7 @@ import { Heading } from "./styles";
 
 export default function Footer1() {
   return (
-    <Box  bgcolor="#222935">
+    <Box bgcolor="#222935">
       <Box
         component={Container}
         color="white"
@@ -54,6 +54,10 @@ export default function Footer1() {
 
             {/* SOCIAL LINKS WITH ICON */}
             <SocialLinks />
+            <Grid item>
+              <div style={{ height: 30 }} />
+            </Grid>
+            <Grid />
           </Grid>
         </Grid>
       </Box>
