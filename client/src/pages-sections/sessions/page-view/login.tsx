@@ -25,7 +25,7 @@ type Role = "user" | "designer" | "admin";
 const LoginPageView = ({ closeDialog }: Props) => {
   const Router = useRouter();
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
-  const { role, updateRole } = useRole();
+  const { role, updateRole, updateToken } = useRole();
 
   // LOGIN FORM FIELDS INITIAL VALUES
   const initialValues = { email: "", password: "" };
@@ -46,8 +46,8 @@ const LoginPageView = ({ closeDialog }: Props) => {
     const res = await login_me_axios(formData);
     const AccessToken = res?.token;
     if (AccessToken) {
+      updateToken(AccessToken);
       localStorage.setItem("access_token", AccessToken);
-
       const decoded = jwtDecode(AccessToken);
       if (decoded && decoded["role"]) {
         const newRole = decoded["role"];

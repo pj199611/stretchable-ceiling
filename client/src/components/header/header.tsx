@@ -60,8 +60,15 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {midSlot}
       {/* MEnu-List */}
       {/* <MenuList /> */}
-      <Link href="/category"> Category</Link>
-      <Link href="/orders"> Orders</Link>
+      <Link href="/">
+        <span style={{ margin: "0 4px" }}>Home</span>
+      </Link>
+      <Link href="/category">
+        <span style={{ margin: "0 4px" }}>Category</span>
+      </Link>
+      <Link href="/orders">
+        <span style={{ margin: "0 4px" }}>Orders</span>
+      </Link>
 
       {/* <Wishlist /> */}
       <WishlistBtn />

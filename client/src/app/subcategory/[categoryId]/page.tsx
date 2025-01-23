@@ -40,7 +40,10 @@ const SubCategoryPage = () => {
     >
       {data?.subCategories?.length > 0 &&
         data.subCategories.map((val, index) => (
-          <Link href={`/products/${val?._id}`}>
+          <Link
+            href={`/products/${val?._id}`}
+            key={`link-${val.name}-${index}`}
+          >
             <Card
               key={`${val.name}-${index}`}
               title={val.name}

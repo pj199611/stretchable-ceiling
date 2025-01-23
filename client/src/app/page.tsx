@@ -51,9 +51,7 @@ export default function IndexPage() {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <br />
-      <RazorpayButton />
-      <br />
+      {/* <RazorpayButton /> */}
       <FurnitureOnePageView />
       {/* <Carousal carouselData={carouselData} /> */}
       <FurnitureTwoPageView />

@@ -21,9 +21,10 @@ import { UploadImageBox, StyledClear } from "./style";
 
 // FORM FIELDS VALIDATION SCHEMA
 const VALIDATION_SCHEMA = yup.object().shape({
-  // name: yup.string().required("Name is required!"),
-  // description: yup.string().required("Description is required!"),
-  // mobile: yup.number().required("Tags is required!"),
+  length: yup.number().required("Length is required!"),
+  description: yup.string().required("Description is required!"),
+  width: yup.number().required("Width is required!"),
+  quantity: yup.number().required("Quantity is required!"),
 });
 
 // ================================================================
@@ -32,11 +33,12 @@ interface Props {}
 
 export default function ProductForm(props: Props) {
   const INITIAL_VALUES = {
-    name: "",
-    mobile: "",
+    length: 10,
+    width: 10,
     url: "",
     description: "",
     trackingId: "",
+    quantity: 1,
   };
 
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
@@ -53,9 +55,12 @@ export default function ProductForm(props: Props) {
       Array.from(uploadedImage).forEach((image) => {
         formData.append("images", image); // 'images' is the key sent to the server
       });
-    formData.append("customizedUrls", values.url.toString());
+    formData.append("customizedUrls", JSON.stringify(values.url));
     formData.append("stockPhotoIds", values.trackingId);
     formData.append("remarks", values.description);
+    formData.append("height", values.length);
+    formData.append("width", values.width);
+    formData.append("quantity", values.quantity);
 
     const res = await addCustomOrder(formData);
 
@@ -110,35 +115,6 @@ export default function ProductForm(props: Props) {
         }) => (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
-              <Grid item sm={6} xs={12}>
-                <TextField
-                  fullWidth
-                  name="name"
-                  label="Name"
-                  color="info"
-                  size="medium"
-                  placeholder="Name"
-                  value={values.name}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  helperText={touched.name && errors.name}
-                  error={Boolean(touched.name && errors.name)}
-                />
-              </Grid>
-
-              <Grid item sm={6} xs={12}>
-                <TextField
-                  fullWidth
-                  color="info"
-                  size="medium"
-                  name="mobile"
-                  onBlur={handleBlur}
-                  placeholder="Enter Mobile Number"
-                  onChange={handleChange}
-                  value={values.mobile}
-                  label="Enter Mobile Number"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <DropZone onChange={(files) => handleChangeDropZone(files)} />
 
@@ -223,6 +199,50 @@ export default function ProductForm(props: Props) {
                   value={values.trackingId}
                   onBlur={handleBlur}
                   onChange={handleChange}
+                />
+              </Grid>
+
+              <Grid item sm={6} xs={12}>
+                <TextField
+                  fullWidth
+                  name="length"
+                  label="Enter Length"
+                  color="info"
+                  size="medium"
+                  placeholder="10"
+                  value={values.length}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  helperText={touched.length && errors.length}
+                  error={Boolean(touched.length && errors.length)}
+                />
+              </Grid>
+
+              <Grid item sm={6} xs={12}>
+                <TextField
+                  fullWidth
+                  color="info"
+                  size="medium"
+                  name="width"
+                  onBlur={handleBlur}
+                  placeholder="10"
+                  onChange={handleChange}
+                  value={values.width}
+                  label="Enter Width"
+                />
+              </Grid>
+
+              <Grid item sm={6} xs={12}>
+                <TextField
+                  fullWidth
+                  color="info"
+                  size="medium"
+                  name="quantity"
+                  onBlur={handleBlur}
+                  placeholder="1"
+                  onChange={handleChange}
+                  value={values.quantity}
+                  label="Enter Quantity"
                 />
               </Grid>
 
