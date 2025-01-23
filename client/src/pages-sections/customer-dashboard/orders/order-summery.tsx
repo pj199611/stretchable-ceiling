@@ -49,11 +49,19 @@ export default function OrderSummery({ order }) {
           <Divider sx={{ mb: 1 }} />
 
           <FlexBetween mb={2}>
-            <H6>Total</H6>
+            <H6>Order Amount </H6>
             <H6>{currency(order.totalAmount)}</H6>
           </FlexBetween>
+          <FlexBetween mb={2}>
+            <H6> Amount Already Paid </H6>
+            <H6>{currency(order.totalPaid)}</H6>
+          </FlexBetween>
+          <FlexBetween mb={2}>
+            <H6> Amount to Pay </H6>
+            <H6>{currency(order.totalAmount - order.totalPaid)}</H6>
+          </FlexBetween>
 
-          <Paragraph>Paid by Credit/Debit Card</Paragraph>
+          {/* <Paragraph>Paid by Credit/Debit Card</Paragraph> */}
         </Card>
       </Grid>
     </Grid>

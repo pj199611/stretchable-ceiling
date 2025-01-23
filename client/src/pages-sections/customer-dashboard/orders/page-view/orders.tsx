@@ -4,14 +4,12 @@ import { Fragment, useState, useEffect } from "react";
 import ShoppingBag from "@mui/icons-material/ShoppingBag";
 
 import OrderRow from "../order-row";
-import Pagination from "../../pagination";
-import DashboardHeader from "../../dashboard-header";
 import { getOrders } from "@/services/authApi";
 import useCart from "@/hooks/useCart";
 import Empty from "@/comp/Empty";
 import CircularLoader from "@/comp/Loader/CircularLoader";
 import NoOrder from "@/images/noOrderFound.jpeg";
-
+import PageTitle from "@/comp/PageTitle/Title";
 export default function OrdersPageView() {
   const { state, dispatch } = useCart();
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +27,7 @@ export default function OrdersPageView() {
   return state?.orders?.length > 0 ? (
     <Fragment>
       {/* TITLE */}
-      <DashboardHeader Icon={ShoppingBag} title="My Orders" />
+      <PageTitle Icon={ShoppingBag} title="My Orders" />
 
       {/* ORDER LIST */}
       {state?.orders?.map((order) => (

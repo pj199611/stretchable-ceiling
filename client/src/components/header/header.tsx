@@ -37,21 +37,21 @@ export default function Header({ isFixed, className, midSlot }: Props) {
     <Fragment>
       {/* LEFT CONTENT - LOGO AND CATEGORY */}
       <FlexBox minWidth={100} alignItems="center">
-        <Link href="/">
-          <div style={{ display: "flex" }}>
-            <div style={{ paddingTop: 72, textAlign: "center" }}>
-              <h2>Nest and Nook </h2>
-              <h2>Interior </h2>
-            </div>
-            <Image
-              src={Logo}
-              alt="logo"
-              width={200}
-              height={200}
-              style={{ objectFit: "contain", margin: "0 -64px" }}
-            />
+        {/* <Link href="/"> */}
+        <div style={{ display: "flex" }}>
+          <div style={{ paddingTop: 72, textAlign: "center" }}>
+            <h2>Nest and Nook </h2>
+            <h2>Interior </h2>
           </div>
-        </Link>
+          <Image
+            src={Logo}
+            alt="logo"
+            width={200}
+            height={200}
+            style={{ objectFit: "contain", margin: "0 -64px" }}
+          />
+        </div>
+        {/* </Link> */}
 
         {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
         {/* {isFixed ? <CategoriesMenu /> : null} */}

@@ -1,32 +1,45 @@
 "use client";
-
-import { Fragment } from "react";
 import ShoppingBag from "@mui/icons-material/ShoppingBag";
-// Local CUSTOM COMPONENTS
+import Link from "next/link";
+import Button from "@mui/material/Button";
+
 import OrderSummery from "../order-summery";
 import OrderProgress from "../order-progress";
 import OrderedProducts from "../ordered-products";
-import DashboardHeader from "../../dashboard-header";
+import PageTitle from "@/comp/PageTitle/Title";
 
 export default function OrderDetailsPageView({ order }) {
+  if (!order)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 250,
+        }}
+      >
+        <Link href="/orders">
+          <Button variant="contained" color="orange" size="large">
+            Go to Orders
+          </Button>
+        </Link>
+      </div>
+    );
+
   return (
-    <Fragment>
+    <>
       {/* TITLE HEADER AREA */}
-      <DashboardHeader
-        href="/orders"
-        Icon={ShoppingBag}
-        title="Order Details"
-        buttonText=""
-      />
+      <PageTitle Icon={ShoppingBag} title="Order Details" />
 
       {/* ORDER PROGRESS AREA */}
-      <OrderProgress />
+      {/* <OrderProgress /> */}
 
       {/* ORDERED PRODUCT LIST */}
       <OrderedProducts order={order} />
 
       {/* SHIPPING AND ORDER SUMMERY */}
       <OrderSummery order={order} />
-    </Fragment>
+    </>
   );
 }

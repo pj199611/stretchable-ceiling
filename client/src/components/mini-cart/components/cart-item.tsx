@@ -81,9 +81,7 @@ export default function MiniCartItem({ item, handleCartAmountChange }: Props) {
           <br />
         </Link>
 
-        <Tiny color="grey.600">
-          {currency(item.price)} x {item.qty}
-        </Tiny>
+        <Tiny color="grey.600">{currency(item.price) + " per sq feet"}</Tiny>
 
         <H6 color="primary.main" mt={0.5}>
           {currency(item.qty * item.price * item.length * item.width)}
