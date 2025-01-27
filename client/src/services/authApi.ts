@@ -151,8 +151,12 @@ export const addCustomOrder = async (formData: any) => {
         Authorization: `Bearer ${accessToken}`,
       },
     })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      if (err?.response?.data?.error) return Promise.reject(err);
+    });
   return response;
 };
 

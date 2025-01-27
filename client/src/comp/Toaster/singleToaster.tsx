@@ -28,7 +28,7 @@ export default function CustomizedSnackbars({
   };
 
   return (
-    <div>
+    <div style={{ zIndex: 10000 }}>
       {/* <Button onClick={handleClick}>Open Snackbar</Button> */}
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}

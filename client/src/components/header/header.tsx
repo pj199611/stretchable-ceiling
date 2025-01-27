@@ -60,24 +60,25 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {midSlot}
       {/* MEnu-List */}
       {/* <MenuList /> */}
-      <Link href="/">
-        <span style={{ margin: "0 4px" }}>Home</span>
-      </Link>
-      <Link href="/category">
-        <span style={{ margin: "0 4px" }}>Category</span>
-      </Link>
-      <Link href="/orders">
-        <span style={{ margin: "0 4px" }}>Orders</span>
-      </Link>
+      <FlexBox minWidth={100} alignItems="center">
+        <Link href="/">
+          <span style={{ margin: "0 4px" }}>Home</span>
+        </Link>
+        <Link href="/category">
+          <span style={{ margin: "0 4px" }}>Category</span>
+        </Link>
+        <Link href="/orders">
+          <span style={{ margin: "0 4px" }}>Orders</span>
+        </Link>
 
-      {/* <Wishlist /> */}
-      <WishlistBtn />
-      {/* LOGIN AND CART BUTTON */}
-      <LoginCartButtons
-        toggleDialog={toggleDialog}
-        toggleSidenav={toggleSidenav}
-      />
-
+        {/* <Wishlist /> */}
+        <WishlistBtn />
+        {/* LOGIN AND CART BUTTON */}
+        <LoginCartButtons
+          toggleDialog={toggleDialog}
+          toggleSidenav={toggleSidenav}
+        />
+      </FlexBox>
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer
         dialogOpen={dialogOpen}

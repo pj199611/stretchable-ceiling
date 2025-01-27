@@ -63,6 +63,7 @@ const SubCategoryPage = () => {
           imageUrl={
             "https://t4.ftcdn.net/jpg/03/29/52/67/360_F_329526704_4cfLIedQdh8wSEdGAM4NZWkeeHNSrakl.jpg"
           }
+          additionalDetails={`₹ 850+ per sq feet`}
         />
       </Link>
     </div>
