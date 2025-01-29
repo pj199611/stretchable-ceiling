@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
@@ -46,6 +46,15 @@ export default function CustomizeForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (toaster.open) {
+      const timer = setTimeout(() => {
+        setToaster({ open: false, msg: "", severity: "success" });
+      }, 3000);
+      return () => clearTimeout(timer); // Cleanup on component unmount or toaster change
+    }
+  }, [toaster]);
+
   const handleFormSubmit = async (values: typeof INITIAL_VALUES) => {
     if (!values.url && !values.trackingId && uploadedImage?.length < 1) {
       console.log("Insufficient Data");
@@ -54,13 +63,7 @@ export default function CustomizeForm() {
         msg: "Add an image, URL or an ShutterStock ID",
         severity: "warning",
       });
-      setTimeout(() => {
-        setToaster({
-          open: false,
-          msg: "Welcome!",
-          severity: "success",
-        });
-      }, 3000);
+
       return;
     }
     const formData = new FormData();
@@ -93,13 +96,6 @@ export default function CustomizeForm() {
         });
       })
       .finally(() => {
-        setTimeout(() => {
-          setToaster({
-            open: false,
-            msg: "Welcome!",
-            severity: "success",
-          });
-        }, 3000);
         setLoading(false);
       });
 
@@ -343,6 +339,7 @@ export default function CustomizeForm() {
       </Card>
       {toaster.open && (
         <SingleToaster
+          key={Date.now()}
           openNow={toaster.open}
           msg={toaster.msg}
           severity={toaster.severity}
