@@ -4,25 +4,25 @@ import { H2 } from "@/components/Typography";
 import FlexBox from "@/components/flex-box/flex-box";
 
 // STYLED COMPONENT
-const StyledBox = styled("div")(({ theme }) => ({
-  display: "flex",
-  marginTop: theme.spacing(-2),
-  marginBottom: theme.spacing(3),
-  "& .headerHold": {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-}));
+// const StyledBox = styled("div")(({ theme }) => ({
+//   display: "flex",
+//   marginTop: theme.spacing(-2),
+//   marginBottom: theme.spacing(3),
+//   "& .headerHold": {
+//     flexGrow: 1,
+//     alignItems: "center",
+//     justifyContent: "space-between",
+//   },
+// }));
 
 type Props = {
   title: string;
-  Icon: SvgIconComponent;
+  Icon?: SvgIconComponent;
 };
 
 export default function DashboardHeader({ title, Icon }: Props) {
   return (
-    <StyledBox>
+    <>
       <FlexBox mx={5} my={5} mt={5} className="headerHold">
         <FlexBox alignItems="center" gap={1.5}>
           {Icon && <Icon color="primary" />}
@@ -32,6 +32,6 @@ export default function DashboardHeader({ title, Icon }: Props) {
           </H2>
         </FlexBox>
       </FlexBox>
-    </StyledBox>
+    </>
   );
 }
