@@ -20,23 +20,24 @@ import { addCustomOrder } from "@/services/authApi";
 
 import { UploadImageBox, StyledClear } from "./style";
 
+const INITIAL_VALUES = {
+  length: 10,
+  width: 10,
+  url: "",
+  description: "",
+  trackingId: "",
+  quantity: 1,
+};
+
 const VALIDATION_SCHEMA = yup.object().shape({
   length: yup.number().required("Length is required!"),
   description: yup.string().required("Description is required!"),
   width: yup.number().required("Width is required!"),
   quantity: yup.number().required("Quantity is required!"),
+  trackingId: yup.number(),
 });
 
 export default function CustomizeForm() {
-  const INITIAL_VALUES = {
-    length: 10,
-    width: 10,
-    url: "",
-    description: "",
-    trackingId: "",
-    quantity: 1,
-  };
-
   const [toaster, setToaster] = useState({
     open: false,
     msg: "Welcome!",
@@ -253,6 +254,8 @@ export default function CustomizeForm() {
                     value={values.trackingId}
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    helperText={touched.trackingId && errors.trackingId}
+                    error={Boolean(touched.trackingId && errors.trackingId)}
                   />
                 </Grid>
 
@@ -323,14 +326,22 @@ export default function CustomizeForm() {
                 </Grid>
 
                 <Grid item sm={6} xs={12}>
-                  <Button
-                    disabled={loading}
-                    variant="contained"
-                    color="orange"
-                    type="submit"
-                  >
-                    Send Customize Ceiling Details
-                  </Button>
+                  {localStorage.getItem("access_token") ? (
+                    <Button
+                      disabled={loading}
+                      variant="contained"
+                      color="orange"
+                      type="submit"
+                    >
+                      Send Customize Ceiling Details
+                    </Button>
+                  ) : (
+                    <Link href="/login">
+                      <Button variant="contained" color="orange" type="submit">
+                        Please Login
+                      </Button>
+                    </Link>
+                  )}
                 </Grid>
               </Grid>
             </form>

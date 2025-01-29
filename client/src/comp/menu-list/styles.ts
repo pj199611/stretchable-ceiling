@@ -51,7 +51,7 @@ export const NavBarWrapper = styled(BazaarCard, {
   borderRadius: "0px",
   position: "relative",
   ...(border && { borderBottom: `1px solid ${theme.palette.grey[200]}` }),
-  [theme.breakpoints.down(1150)]: { display: "none" }
+  [theme.breakpoints.down(900)]: { display: "none" }
 }));
 
 export const InnerContainer = styled(Container)({

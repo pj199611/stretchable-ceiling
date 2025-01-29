@@ -10,6 +10,7 @@ import Section6 from "../section-6";
 import Section7 from "../section-7";
 import Section8 from "../section-8";
 import Section9 from "../section-9";
+import WhatsApp from "@/images/icons/Whatsapp";
 
 export default function FurnitureTwoPageView() {
   return (
@@ -39,6 +40,29 @@ export default function FurnitureTwoPageView() {
       <Section7 />
       {/* NEWSLETTER BANNER SECTION */}
       {/* <Section8 /> */}
+      {/*  */}
+
+      <a
+        href={"https://wa.me/8447030606"}
+        target="_blank"
+        rel="noreferrer noopenner"
+        key={"whatsapp-Icon"}
+      >
+        <div
+          style={{
+            position: "fixed",
+            bottom: 0,
+            right: 0,
+            zIndex: 5,
+            // borderRadius: 50,
+            // backgroundColor: "#00d7186b",
+            // padding: "0.5em 0.6em",
+            margin: "1em",
+          }}
+        >
+          <WhatsApp style={{ width: "2.25em", height: "2.25em" }} />
+        </div>
+      </a>
     </div>
   );
 }

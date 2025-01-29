@@ -30,7 +30,7 @@ interface Props {
 
 export default function Header({ isFixed, className, midSlot }: Props) {
   const theme = useTheme();
-  const downMd = useMediaQuery(theme.breakpoints.down(1150));
+  const downMd = useMediaQuery(theme.breakpoints.down(900));
   const { dialogOpen, sidenavOpen, toggleDialog, toggleSidenav } = useHeader();
 
   const CONTENT_FOR_LARGE_DEVICE = (
