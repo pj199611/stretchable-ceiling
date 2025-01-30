@@ -83,6 +83,7 @@ router.get('/orders', authenticateToken, getAllOrdersForUsers);
 router.get('/orders/:id', authenticateToken, getOrderById);
 router.post('/orders', authenticateToken, createOrder);
 router.post("/razorPayOrder",authenticateToken,createRazorPayOrder);
+
 // Route to handle partial payments
 router.post('/partial-payment', handlePartialPayment);
 router.put('/orders/:id', authenticateToken, updateOrder);

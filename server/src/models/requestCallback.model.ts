@@ -17,6 +17,11 @@ const IRequestSchema: Schema = new Schema<IRequestCallback>(
       type: String,
       required: false,
     },
+    mail: {
+      type: String,
+      required: false,
+      unique:true
+    },
   },
   { timestamps: true }
 );
