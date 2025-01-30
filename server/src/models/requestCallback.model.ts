@@ -6,7 +6,6 @@ const IRequestSchema: Schema = new Schema<IRequestCallback>(
     name: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
