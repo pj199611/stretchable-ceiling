@@ -8,34 +8,55 @@ export default async function Carousal() {
   const mainCarouselData = [
     {
       id: 1,
-      title: "Modern Furniture.",
-      subTitle: "A Beautiful House_",
+      title: "",
+      subTitle: "",
       imgUrl:
-        "https://i0.wp.com/picjumbo.com/wp-content/uploads/beautiful-fall-waterfall-free-image.jpeg?w=600&quality=80",
-      description:
-        "How employees, surely the a said drops. Bathroom expected that systems let place. Her safely been little. Enterprises flows films it a fly the of wasn't designer the her thought. Enterprises flows films it a fly the of wasn't designer.",
-      buttonText: "Check Category",
-      buttonLink: "/category",
+        "https://www.nakshatratrades.com/images/newbanner/clipso-ceiling-designer-banner4.png",
+      description: "",
+      buttonLink: "",
     },
     {
       id: 2,
-      title: "Modern Furniture.",
-      subTitle: "A Beautiful House_",
-      imgUrl: Img2,
-      description:
-        "How employees, surely the a said drops. Bathroom expected that systems let place. Her safely been little. Enterprises flows films it a fly the of wasn't designer the her thought. Enterprises flows films it a fly the of wasn't designer.",
-      buttonText: "Shop Now",
-      buttonLink: "#",
+      title: "",
+      subTitle: "",
+      imgUrl:
+        "https://arendlighting.com/wp-content/uploads/2020/01/sqf-khshsn.jpg",
+      description: "",
+      buttonText: "",
+      buttonLink: "",
     },
+
     {
       id: 3,
       title: "Modern Furniture.",
-      subTitle: "A Beautiful House_",
-      imgUrl: Img3,
+      subTitle: "A Beautiful House",
+      imgUrl: "https://www.definedesign.co.in/images/slider//1.jpg",
       description:
         "How employees, surely the a said drops. Bathroom expected that systems let place. Her safely been little. Enterprises flows films it a fly the of wasn't designer the her thought. Enterprises flows films it a fly the of wasn't designer.",
-      buttonText: "Shop Now",
-      buttonLink: "#",
+      buttonText: "",
+      buttonLink: "",
+    },
+    {
+      id: 4,
+      title: "Modern Furniture.",
+      subTitle: "A Beautiful House",
+      imgUrl:
+        "https://5.imimg.com/data5/SELLER/Default/2024/11/468471579/XR/RF/BV/150438258/pvc-top-stretch-ceiling-1000x1000.jpeg",
+      description:
+        "How employees, surely the a said drops. Bathroom expected that systems let place. Her safely been little. Enterprises flows films it a fly the of wasn't designer the her thought. Enterprises flows films it a fly the of wasn't designer.",
+      buttonText: "",
+      buttonLink: "",
+    },
+    {
+      id: 5,
+      title: "Modern Furniture.",
+      subTitle: "A Beautiful House",
+      imgUrl:
+        "https://5.imimg.com/data5/SELLER/Default/2023/6/315776636/DF/OQ/HZ/25161696/pvc-stretch-ceiling.jpeg",
+      description:
+        "How employees, surely the a said drops. Bathroom expected that systems let place. Her safely been little. Enterprises flows films it a fly the of wasn't designer the her thought. Enterprises flows films it a fly the of wasn't designer.",
+      buttonText: "",
+      buttonLink: "",
     },
   ];
 

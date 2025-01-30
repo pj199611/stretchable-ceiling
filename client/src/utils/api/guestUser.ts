@@ -82,3 +82,17 @@ export const getLocation = cache(async () => {
   console.log(response);
   return response;
 });
+
+// http://localhost:8000/api/users/requestcallback
+export const postCallbackRequest = cache(
+  async (payload: {
+    name: string;
+    phoneNumber: number;
+    comment: string;
+    mail: string;
+  }) => {
+    const response = await axios.post("/users/requestcallback", payload);
+    console.log(response);
+    return response;
+  }
+);

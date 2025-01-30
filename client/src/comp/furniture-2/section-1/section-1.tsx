@@ -8,6 +8,7 @@ import { RootStyle } from "./styles";
 // IMPORT IMAGES
 import headerImg from "@/images/3d-stretchable-fabric-ceiling-work.jpg";
 import { currency } from "@/lib";
+import Link from "next/link";
 
 export default function Section1() {
   return (
@@ -23,7 +24,6 @@ export default function Section1() {
           <Paragraph fontSize={28} fontWeight={600}>
             Check out multiple
           </Paragraph>
-
           <H2
             lineHeight={1}
             textTransform="uppercase"
@@ -31,14 +31,14 @@ export default function Section1() {
           >
             Stretchable Ceiling
           </H2>
-
           <Paragraph fontSize={18} mt={1} mb={3}>
             Start from <Span fontWeight={700}>{currency(599)}</Span>
           </Paragraph>
-
-          <Button variant="contained" color="orange" size="large">
-            Check Categories
-          </Button>
+          <Link href="/category">
+            <Button variant="contained" color="orange" size="large">
+              Check Categories
+            </Button>
+          </Link>
         </div>
       </RootStyle>
     </Container>

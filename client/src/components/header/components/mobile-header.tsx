@@ -16,7 +16,7 @@ import DialogDrawer from "./dialog-drawer";
 // GLOBAL CUSTOM COMPONENTS
 // import Image from "@/components/BazaarImage";
 import { Paragraph } from "@/components/Typography";
-import { SearchInput } from "@/components/search-box";
+// import { SearchInput } from "@/components/search-box";
 import { MobileMenu } from "@/components/navbar/mobile-menu";
 import { FlexBetween, FlexBox } from "@/components/flex-box";
 // GLOBAL CUSTOM HOOK
@@ -87,7 +87,7 @@ export default function MobileHeader() {
           </FlexBetween>
 
           {/* CATEGORY BASED SEARCH FORM */}
-          <SearchInput />
+          {/* <SearchInput /> */}
         </Box>
       </Drawer>
 

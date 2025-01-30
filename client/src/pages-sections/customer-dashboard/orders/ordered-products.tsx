@@ -1,6 +1,6 @@
-import { FC } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import { format } from "date-fns";
 // GLOBAL CUSTOM COMPONENTS
@@ -8,8 +8,6 @@ import { H6, Paragraph } from "@/components/Typography";
 import { FlexBetween, FlexBox } from "@/components/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
 import { currency } from "@/lib";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function OrderedProducts({ order }) {
   console.log(order);
@@ -18,7 +16,7 @@ export default function OrderedProducts({ order }) {
 
   if (isCustomized)
     return (
-      <Card sx={{ p: 0, mb: "30px" }}>
+      <Card sx={{ p: 0, mb: "30px" }} key={`key-${_id}`}>
         <FlexBetween px={6} py={2} flexWrap="wrap" bgcolor="grey.200">
           <Item title="Order ID:" value={_id} />
           <Item
@@ -55,7 +53,10 @@ export default function OrderedProducts({ order }) {
               >
                 <FlexBox gap={2.5} alignItems="center">
                   {hasCustomizedImage && (
-                    <Link href={customizedUrls[0] || imageUrls[0]}>
+                    <Link
+                      href={customizedUrls[0] || imageUrls[0]}
+                      target="_blank"
+                    >
                       <Avatar
                         alt={"Customized Image"}
                         src={customizedUrls[0] || imageUrls[0]}
@@ -87,18 +88,20 @@ export default function OrderedProducts({ order }) {
                 )}
                 <div style={{ marginTop: 8 }} />
                 {customizedUrls.length > 0 && (
-                  <Image
-                    src={customizedUrls[0]}
-                    alt={"image"}
-                    height={180}
-                    width={200}
-                    style={{ margin: "0 8px" }}
-                    loading="lazy"
-                  />
+                  <Link href={customizedUrls[0]} key="url" target="_blank">
+                    <Image
+                      src={customizedUrls[0]}
+                      alt={"image"}
+                      height={180}
+                      width={200}
+                      style={{ margin: "0 8px" }}
+                      loading="lazy"
+                    />
+                  </Link>
                 )}
                 {imageUrls.length > 0 &&
                   imageUrls.map((val: string, i: number) => (
-                    <Link href={val} key={i}>
+                    <Link href={val} key={i} target="_blank">
                       <Image
                         src={val}
                         alt={"image"}

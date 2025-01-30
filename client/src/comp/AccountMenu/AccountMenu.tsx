@@ -13,9 +13,15 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import PersonOutline from "@mui/icons-material/PersonOutline";
 import useRole from "@/hooks/hooks/useRole";
+import SingleToaster from "@/comp/Toaster/singleToaster";
 
 export default function AccountMenu() {
   const { updateToken } = useRole();
+  const [toaster, setToaster] = React.useState({
+    open: false,
+    msg: "Welcome!",
+    severity: "success",
+  });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,6 +34,18 @@ export default function AccountMenu() {
     console.log("Logged Out!");
     localStorage.removeItem("access_token");
     updateToken(null);
+    setToaster({
+      open: true,
+      msg: "Logged Out Successfully!",
+      severity: "success",
+    });
+    setTimeout(() => {
+      setToaster({
+        open: false,
+        msg: "",
+        severity: "success",
+      });
+    }, 3000);
   };
   return (
     <React.Fragment>
@@ -110,6 +128,14 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
+      {toaster.open && (
+        <SingleToaster
+          key={Date.now()}
+          openNow={toaster.open}
+          msg={toaster.msg}
+          severity={toaster.severity}
+        />
+      )}
     </React.Fragment>
   );
 }

@@ -53,6 +53,9 @@ export default function Register() {
       toast.success(data.message);
       setTimeout(() => {
         router.push("/login");
+        // TODO
+        // HARD Reload as cart not updated
+        // window.location.reload(true);
       }, 2000);
     } else {
       setLoding(false);

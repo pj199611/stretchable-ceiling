@@ -19,9 +19,9 @@ const Youtube = createSvgIcon(
       y2="41.301"
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="#f44f5a"></stop>
-      <stop offset=".443" stop-color="#ee3d4a"></stop>
-      <stop offset="1" stop-color="#e52030"></stop>
+      <stop offset="0" stopColor="#f44f5a"></stop>
+      <stop offset=".443" stopColor="#ee3d4a"></stop>
+      <stop offset="1" stopColor="#e52030"></stop>
     </linearGradient>
     <path
       fill="url(#PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1)"

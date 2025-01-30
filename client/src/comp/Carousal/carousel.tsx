@@ -40,11 +40,13 @@ export default function HeroCarousel({ mainCarouselData }: Props) {
                   {item.description}
                 </Paragraph>
 
-                <Link href={item.buttonLink}>
-                  <StyledButton color="primary" variant="contained">
-                    {item.buttonText}
-                  </StyledButton>
-                </Link>
+                {item.buttonText && (
+                  <Link href={item.buttonLink}>
+                    <StyledButton color="primary" variant="contained">
+                      {item.buttonText}
+                    </StyledButton>
+                  </Link>
+                )}
               </div>
             </Container>
           </div>
@@ -56,6 +58,8 @@ export default function HeroCarousel({ mainCarouselData }: Props) {
               src={item.imgUrl}
               width={2000}
               height={450}
+              // fill={false}
+              style={{ objectFit: "cover" }}
             />
             {/* <Image
                 src={item.imgUrl}

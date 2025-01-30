@@ -10,7 +10,7 @@ import {
 import Sticky from "@/components/sticky";
 import { Footer1 } from "@/components/footer";
 import Header from "@/components/header/header";
-import { SearchInputWithCategory } from "@/components/search-box";
+// import { SearchInputWithCategory } from "@/components/search-box";
 import { MobileNavigationBar } from "@/components/mobile-navigation";
 import useCart from "@/hooks/useCart";
 import useUser from "@/hooks/useUser";
