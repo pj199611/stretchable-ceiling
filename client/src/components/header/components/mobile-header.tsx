@@ -41,9 +41,9 @@ export default function MobileHeader() {
     <Fragment>
       <FlexBetween width="100%">
         {/* LEFT CONTENT - NAVIGATION ICON BUTTON */}
-        <Box flex={1}>
+        {/* <Box flex={1}>
           <MobileMenu />
-        </Box>
+        </Box> */}
 
         {/* MIDDLE CONTENT - LOGO */}
         <FlexBox justifyContent="center" flex={2}>
@@ -53,7 +53,7 @@ export default function MobileHeader() {
         </FlexBox>
 
         {/* RIGHT CONTENT - LOGIN, CART, SEARCH BUTTON */}
-        <FlexBox justifyContent="end" flex={1}>
+        {/* <FlexBox justifyContent="end" flex={1}>
           <IconButton onClick={toggleSearchBar}>
             <Icon.Search sx={ICON_STYLE} />
           </IconButton>
@@ -67,7 +67,7 @@ export default function MobileHeader() {
               <Icon.CartBag sx={ICON_STYLE} />
             </IconButton>
           </Badge>
-        </FlexBox>
+        </FlexBox> */}
       </FlexBetween>
 
       {/* SEARCH FORM DRAWER */}

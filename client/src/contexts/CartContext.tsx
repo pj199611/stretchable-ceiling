@@ -82,7 +82,7 @@ const reducer = (state: InitialState, action: CartActionType) => {
     case "CHANGE_CART_AMOUNT":
       let cartList = state.cart;
       let cartItem = action.payload;
-      let exist = cartList.find((item) => checkItem(item, cartItem));
+      let exist = cartList?.find((item) => checkItem(item, cartItem));
 
       // remove item
       if (cartItem.qty < 1) {
@@ -118,7 +118,10 @@ const reducer = (state: InitialState, action: CartActionType) => {
         length: cartItem.length,
         width: cartItem.width,
       });
-      return { ...state, cart: [...cartList, cartItem] };
+      return {
+        ...state,
+        cart: cartList?.length ? [...cartList, cartItem] : [cartItem],
+      };
 
     case "ASSIGN_WISHLIST":
       return { ...state, wishlist: action.payload };

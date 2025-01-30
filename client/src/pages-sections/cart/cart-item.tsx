@@ -29,6 +29,7 @@ type Props = {
 };
 // =========================================================
 
+// CART PAGE
 export default function CartItem({
   id, // productId,
   name,
@@ -78,25 +79,26 @@ export default function CartItem({
         <Delete fontSize="small" />
       </IconButton>
 
-      <FlexBox p={2} rowGap={2} width="100%" flexDirection="column">
+      <FlexBox p={2} rowGap={0.25} width="100%" flexDirection="column">
         <Link href={`/product-details/${id}`}>
           <Span ellipsis fontWeight="600" fontSize={18}>
             {name}
           </Span>
-          <br />
-          {`${length} sq feet X ${width} sq feet`}
         </Link>
 
         {/* PRODUCT PRICE SECTION */}
-        <FlexBox gap={1} flexWrap="wrap" alignItems="center">
-          <Span color="grey.600">
-            {currency(price)} x {qty}
-          </Span>
+        {/* <FlexBox gap={1} flexWrap="wrap" flexDirection="column"> */}
+        {`${length} sq feet X ${width} sq feet`}
+        <Span color="grey.600">{currency(price) + " per sq feet"}</Span>
 
-          <Span fontWeight={600} color="primary.main">
-            {currency(price * qty * length * width)}
-          </Span>
-        </FlexBox>
+        <Span
+          fontWeight={600}
+          color="primary.main"
+          style={{ margin: "4px 0px" }}
+        >
+          {currency(price * qty * length * width)}
+        </Span>
+        {/* </FlexBox> */}
 
         {/* PRODUCT QUANTITY INC/DEC BUTTONS */}
         <FlexBox alignItems="center">

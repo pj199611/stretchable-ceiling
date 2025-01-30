@@ -6,6 +6,9 @@ import PersonOutline from "@mui/icons-material/PersonOutline";
 import ShoppingBagOutlined from "@/icons/ShoppingBagOutlined";
 // GLOBAL CUSTOM HOOK
 import useCart from "@/hooks/useCart";
+import { Button } from "@mui/material";
+import AccountMenu from "@/comp/AccountMenu/AccountMenu";
+import useRole from "@/hooks/hooks/useRole";
 
 // ==============================================================
 interface Props {
@@ -19,14 +22,17 @@ export default function LoginCartButtons({
   toggleSidenav,
 }: Props) {
   const { state } = useCart();
+  const { token } = useRole();
 
   const ICON_COLOR = { color: "grey.600" };
 
   return (
     <div>
-      <IconButton onClick={toggleDialog}>
-        <PersonOutline sx={ICON_COLOR} />
-      </IconButton>
+      {token || localStorage.getItem("access_token") ? (
+        <AccountMenu />
+      ) : (
+        <Button onClick={toggleDialog}> LOGIN</Button>
+      )}
 
       <Badge badgeContent={state.cart?.length} color="primary">
         <IconButton onClick={toggleSidenav}>

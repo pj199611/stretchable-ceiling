@@ -9,6 +9,7 @@ import useProduct from "@/hooks/useProduct";
 import Empty from "@/comp/Empty";
 import NoProducts from "@/images/no-product-found.png";
 import CircularLoader from "@/comp/Loader/CircularLoader";
+import Title from "@/comp/PageTitle/Title";
 
 const ProductsPage = ({ params }) => {
   const { subcategoryId } = use(params);
@@ -44,9 +45,10 @@ const ProductsPage = ({ params }) => {
   };
 
   if (isDataLoading) return <CircularLoader />;
-  
+
   return (
     <>
+      <Title title="Select your Product" />
       {allClasses.length > 0 && (
         <Tabs
           allClasses={allClasses}
@@ -56,7 +58,7 @@ const ProductsPage = ({ params }) => {
       )}
       {data.length > 0 ? (
         <div
-          className="m-4"
+          className="m-2"
           style={{ display: "flex", flexWrap: "wrap", justifyContent: "left" }}
         >
           {data.map((val) => (

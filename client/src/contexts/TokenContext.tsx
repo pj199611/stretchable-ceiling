@@ -1,24 +1,22 @@
 "use client";
 
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+// NOT USED NOW
 
-// ============================================================
-export type TokenOptions = { access_token: string; role: string };
-// ============================================================
+import { createContext, PropsWithChildren, useState } from "react";
 
-// SET "rtl" OR "ltr" HERE
-// THEN GOTO BROWSER CONSOLE AND RUN localStorage.clear() TO CLEAR LOCAL STORAGE
-const initialToken = { access_token: "", role: "user" };
+export type TokenOptions = { access_token: string | null; role: string };
+
+const initialToken = { access_token: null, role: "user" };
 
 export const TokenContext = createContext({
-  token: initialToken,
-  updateToken: (arg: TokenOptions) => {},
+  tokenAndRole: initialToken,
+  updateTokenAndRole: (arg: TokenOptions) => {},
 });
 
 export default function TokenProvider({ children }: PropsWithChildren) {
-  const [token, setToken] = useState(initialToken);
+  const [tokenAndRole, setToken] = useState(initialToken);
 
-  const updateToken = (updatedToken: TokenOptions) => {
+  const updateTokenAndRole = (updatedToken: TokenOptions) => {
     setToken({
       access_token: updatedToken?.access_token,
       role: updatedToken?.role,
@@ -30,15 +28,8 @@ export default function TokenProvider({ children }: PropsWithChildren) {
     window.localStorage.setItem("role", JSON.stringify(updatedToken?.role));
   };
 
-  //   useEffect(() => {
-  //     if (!window) return;
-  //     const getItem = window.localStorage.getItem("settings");
-  //     if (getItem) setSettings(JSON.parse(getItem));
-  //     else setSettings(initialSettings);
-  //   }, []);
-
   return (
-    <TokenContext.Provider value={{ token, updateToken }}>
+    <TokenContext.Provider value={{ tokenAndRole, updateTokenAndRole }}>
       {children}
     </TokenContext.Provider>
   );

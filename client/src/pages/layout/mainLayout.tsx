@@ -53,7 +53,8 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
   return (
     <Fragment>
       <Sticky fixedOn={0} onSticky={toggleIsFixed} scrollDistance={300}>
-        <Header isFixed={isFixed} midSlot={<SearchInputWithCategory />} />
+        {/* <Header isFixed={isFixed} midSlot={<SearchInputWithCategory />} /> */}
+        <Header isFixed={isFixed} midSlot={null} />
       </Sticky>
 
       {children}

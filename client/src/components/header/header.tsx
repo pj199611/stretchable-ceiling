@@ -30,28 +30,28 @@ interface Props {
 
 export default function Header({ isFixed, className, midSlot }: Props) {
   const theme = useTheme();
-  const downMd = useMediaQuery(theme.breakpoints.down(1150));
+  const downMd = useMediaQuery(theme.breakpoints.down(900));
   const { dialogOpen, sidenavOpen, toggleDialog, toggleSidenav } = useHeader();
 
   const CONTENT_FOR_LARGE_DEVICE = (
     <Fragment>
       {/* LEFT CONTENT - LOGO AND CATEGORY */}
       <FlexBox minWidth={100} alignItems="center">
-        <Link href="/">
-          <div style={{ display: "flex" }}>
-            <div style={{ paddingTop: 72, textAlign: "center" }}>
-              <h2>Nest and Nook </h2>
-              <h2>Interior </h2>
-            </div>
-            <Image
-              src={Logo}
-              alt="logo"
-              width={200}
-              height={200}
-              style={{ objectFit: "contain", margin: "0 -64px" }}
-            />
+        {/* <Link href="/"> */}
+        <div style={{ display: "flex" }}>
+          <div style={{ paddingTop: 72, textAlign: "center" }}>
+            <h2>Nest and Nook </h2>
+            <h2>Interior </h2>
           </div>
-        </Link>
+          <Image
+            src={Logo}
+            alt="logo"
+            width={200}
+            height={200}
+            style={{ objectFit: "contain", margin: "0 -64px" }}
+          />
+        </div>
+        {/* </Link> */}
 
         {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
         {/* {isFixed ? <CategoriesMenu /> : null} */}
@@ -60,17 +60,25 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {midSlot}
       {/* MEnu-List */}
       {/* <MenuList /> */}
-      <Link href="/category"> Category</Link>
-      <Link href="/orders"> Orders</Link>
+      <FlexBox minWidth={100} alignItems="center">
+        <Link href="/">
+          <span style={{ margin: "0 4px" }}>Home</span>
+        </Link>
+        <Link href="/category">
+          <span style={{ margin: "0 4px" }}>Category</span>
+        </Link>
+        <Link href="/orders">
+          <span style={{ margin: "0 4px" }}>Orders</span>
+        </Link>
 
-      {/* <Wishlist /> */}
-      <WishlistBtn />
-      {/* LOGIN AND CART BUTTON */}
-      <LoginCartButtons
-        toggleDialog={toggleDialog}
-        toggleSidenav={toggleSidenav}
-      />
-
+        {/* <Wishlist /> */}
+        <WishlistBtn />
+        {/* LOGIN AND CART BUTTON */}
+        <LoginCartButtons
+          toggleDialog={toggleDialog}
+          toggleSidenav={toggleSidenav}
+        />
+      </FlexBox>
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer
         dialogOpen={dialogOpen}

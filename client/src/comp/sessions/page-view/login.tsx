@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -13,6 +14,7 @@ import { jwtDecode } from "jwt-decode";
 import { login_me_axios } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import useRole from "@/hooks/hooks/useRole";
+import SingleToaster from "@/comp/Toaster/singleToaster";
 
 // ==============================================================
 interface Props {
@@ -25,7 +27,12 @@ type Role = "user" | "designer" | "admin";
 const LoginPageView = ({ closeDialog }: Props) => {
   const Router = useRouter();
   const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
-  const { role, updateRole } = useRole();
+  const { role, updateRole, updateToken } = useRole();
+  const [toaster, setToaster] = useState({
+    open: false,
+    msg: "",
+    severity: "success",
+  });
 
   // LOGIN FORM FIELDS INITIAL VALUES
   const initialValues = { email: "", password: "" };
@@ -46,9 +53,22 @@ const LoginPageView = ({ closeDialog }: Props) => {
     const res = await login_me_axios(formData);
     const AccessToken = res?.token;
     if (AccessToken) {
+      setToaster({
+        open: true,
+        msg: "Logged in!",
+        severity: "success",
+      });
+      setTimeout(() => {
+        setToaster({
+          open: false,
+          msg: "",
+          severity: "success",
+        });
+      }, 3000);
+      updateToken(AccessToken);
       localStorage.setItem("access_token", AccessToken);
-
       const decoded = jwtDecode(AccessToken);
+
       if (decoded && decoded["role"]) {
         const newRole = decoded["role"];
         updateRole(newRole);
@@ -70,58 +90,68 @@ const LoginPageView = ({ closeDialog }: Props) => {
     });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <BazaarTextField
-        mb={1.5}
-        fullWidth
-        name="email"
-        size="small"
-        type="email"
-        variant="outlined"
-        onBlur={handleBlur}
-        value={values.email}
-        onChange={handleChange}
-        label="Email"
-        placeholder="exmple@mail.com"
-        helperText={touched.email && errors.email}
-        error={Boolean(touched.email && errors.email)}
-      />
+    <>
+      <form onSubmit={handleSubmit}>
+        <BazaarTextField
+          mb={1.5}
+          fullWidth
+          name="email"
+          size="small"
+          type="email"
+          variant="outlined"
+          onBlur={handleBlur}
+          value={values.email}
+          onChange={handleChange}
+          label="Email"
+          placeholder="exmple@mail.com"
+          helperText={touched.email && errors.email}
+          error={Boolean(touched.email && errors.email)}
+        />
 
-      <BazaarTextField
-        mb={2}
-        fullWidth
-        size="small"
-        name="password"
-        label="Password"
-        autoComplete="on"
-        variant="outlined"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.password}
-        placeholder="*********"
-        type={visiblePassword ? "text" : "password"}
-        helperText={touched.password && errors.password}
-        error={Boolean(touched.password && errors.password)}
-        InputProps={{
-          endAdornment: (
-            <EyeToggleButton
-              show={visiblePassword}
-              click={togglePasswordVisible}
-            />
-          ),
-        }}
-      />
+        <BazaarTextField
+          mb={2}
+          fullWidth
+          size="small"
+          name="password"
+          label="Password"
+          autoComplete="on"
+          variant="outlined"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.password}
+          placeholder="*********"
+          type={visiblePassword ? "text" : "password"}
+          helperText={touched.password && errors.password}
+          error={Boolean(touched.password && errors.password)}
+          InputProps={{
+            endAdornment: (
+              <EyeToggleButton
+                show={visiblePassword}
+                click={togglePasswordVisible}
+              />
+            ),
+          }}
+        />
 
-      <Button
-        fullWidth
-        type="submit"
-        color="primary"
-        variant="contained"
-        size="large"
-      >
-        Login
-      </Button>
-    </form>
+        <Button
+          fullWidth
+          type="submit"
+          color="primary"
+          variant="contained"
+          size="large"
+        >
+          Login
+        </Button>
+      </form>
+      {toaster.open && (
+        <SingleToaster
+          key={Date.now()}
+          openNow={toaster.open}
+          msg={toaster.msg}
+          severity={toaster.severity}
+        />
+      )}
+    </>
   );
 };
 
