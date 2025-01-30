@@ -24,5 +24,4 @@ export default function IndexPage() {
       <HomeContents />
     </>
   );
-  // return <IndexPageView />;
 }

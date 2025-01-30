@@ -31,9 +31,6 @@ export default function FurnitureTwoPageView() {
             bottom: 0,
             right: 0,
             zIndex: 5,
-            // borderRadius: 50,
-            // backgroundColor: "#00d7186b",
-            // padding: "0.5em 0.6em",
             margin: "1em",
           }}
         >
