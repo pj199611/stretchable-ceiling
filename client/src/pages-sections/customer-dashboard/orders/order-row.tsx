@@ -48,7 +48,13 @@ export default function OrderRow({ order }) {
           {format(new Date(order.createdAt), "MMM dd, yyyy")}
         </Paragraph>
 
-        <Paragraph textAlign="center">{currency(order.totalAmount)}</Paragraph>
+        {order.isCustomized ? (
+          <Paragraph textAlign="center">{"Customized Order"}</Paragraph>
+        ) : (
+          <Paragraph textAlign="center">
+            {currency(order.totalAmount)}
+          </Paragraph>
+        )}
 
         <Box display={{ sm: "inline-flex", xs: "none" }} justifyContent="end">
           <IconButton>
