@@ -1,4 +1,3 @@
-import currencyJs from "currency.js";
 import { formatDistanceStrict } from "date-fns";
 
 /**

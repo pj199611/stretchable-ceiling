@@ -11,7 +11,6 @@ import UserContext from "@/contexts/UserContext";
 import SettingsProvider from "@/contexts/SettingContext";
 import TokenContext from "@/contexts/TokenContext";
 import ProductProvider from "@/contexts/ProductContext";
-import ProgressBar from "@/components/progress";
 import Script from "next/script";
 
 // IMPORT i18n SUPPORT FILE
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <SettingsProvider>
                 <TokenContext>
                   <ThemeProvider>
-                    <ProgressBar />
                     <Layout>{children}</Layout>
                   </ThemeProvider>
                 </TokenContext>
