@@ -1,7 +1,7 @@
 export const ABOUT_LINKS = [
-  "Careers",
-  "Our Stores",
-  "Our Cares",
+  // "Careers",
+  // "Our Stores",
+  // "Our Cares",
   "Terms & Conditions",
   "Privacy Policy",
 ];
