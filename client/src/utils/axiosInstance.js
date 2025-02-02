@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // Axios Interceptor Instance
+console.log("process.env.BASE_URL",process.env.BASE_URL)
 const AxiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
   headers: {
