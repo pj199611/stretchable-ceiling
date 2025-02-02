@@ -4,14 +4,14 @@ import Drawer from "@mui/material/Drawer";
 import { Theme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // LOGIN FORM
-import { LoginPageView } from "@/pages-sections/sessions/page-view";
+import { LoginPageView } from "@/comp/sessions/page-view";
 // GLOBAL CUSTOM COMPONENTS
 import { MiniCart } from "@/components/mini-cart";
 // LOGIN PAGE SECTIONS
-import { Wrapper } from "@/pages-sections/sessions/styles";
-import LogoWithTitle from "@/pages-sections/sessions/components/logo-title";
-import LoginBottom from "@/pages-sections/sessions/components/login-bottom";
-import SocialButtons from "@/pages-sections/sessions/components/social-buttons";
+import { Wrapper } from "@/comp/sessions/styles";
+import LogoWithTitle from "@/comp/sessions/components/logo-title";
+import LoginBottom from "@/comp/sessions/components/login-bottom";
+import SocialButtons from "@/comp/sessions/components/social-buttons";
 
 // ==============================================================
 interface Props {

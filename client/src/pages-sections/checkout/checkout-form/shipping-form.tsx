@@ -62,26 +62,12 @@ export default function ShippingForm({
             }
           />
         </Grid>
-        <Grid item sm={6} xs={12}>
-          <TextField
-            fullWidth
-            sx={{ mb: 2 }}
-            onBlur={handleBlur}
-            label="Phone Number"
-            onChange={handleChange}
-            name="shipping_contact"
-            value={values.shipping_contact}
-            error={!!touched.shipping_contact && !!errors.shipping_contact}
-            helperText={
-              (touched.shipping_contact && errors.shipping_contact) as string
-            }
-          />
-        </Grid>
 
         <Grid item sm={6} xs={12}>
           <TextField
             fullWidth
             label="Address 1"
+            sx={{ mb: 2 }}
             onBlur={handleBlur}
             onChange={handleChange}
             name="shipping_address1"
@@ -97,6 +83,7 @@ export default function ShippingForm({
           <TextField
             fullWidth
             label="Address 2"
+            sx={{ mb: 2 }}
             onBlur={handleBlur}
             onChange={handleChange}
             name="shipping_address2"
@@ -120,6 +107,22 @@ export default function ShippingForm({
             value={values.shipping_pin}
             error={!!touched.shipping_pin && !!errors.shipping_pin}
             helperText={(touched.shipping_pin && errors.shipping_pin) as string}
+          />
+        </Grid>
+
+        <Grid item sm={6} xs={12}>
+          <TextField
+            fullWidth
+            onBlur={handleBlur}
+            sx={{ mb: 2 }}
+            label="Phone Number"
+            onChange={handleChange}
+            name="shipping_contact"
+            value={values.shipping_contact}
+            error={!!touched.shipping_contact && !!errors.shipping_contact}
+            helperText={
+              (touched.shipping_contact && errors.shipping_contact) as string
+            }
           />
         </Grid>
 

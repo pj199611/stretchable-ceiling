@@ -17,7 +17,7 @@ export const CardMedia = styled("div")(({ theme }) => ({
   aspectRatio: "1/1",
   maxHeight: 300,
   borderRadius: 4,
-  cursor: "pointer",
+  // cursor: "pointer",
   overflow: "hidden",
   position: "relative",
   backgroundColor: theme.palette.grey[300],

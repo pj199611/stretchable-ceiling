@@ -18,25 +18,29 @@ export default function Footer1() {
         component={Container}
         color="white"
         overflow="hidden"
-        py={{ sm: 10, xs: 4 }}
+        py={{ sm: 8, xs: 4, md: 2 }}
+        my={{ xs: 2, sm: 0 }}
       >
         <Grid container spacing={3}>
-          <Grid item lg={3} md={6} sm={6} xs={12}>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <LogoSection />
           </Grid>
 
           {/* ABOUT US LINKS */}
-          <Grid item lg={3} md={6} sm={6} xs={12}>
+          <Grid item lg={4} md={4} sm={6} xs={12}>
             <AboutLinks />
+            <div style={{ height: 16 }} />
+            {/* SOCIAL LINKS WITH ICON */}
+            <SocialLinks />
           </Grid>
 
           {/* CUSTOMER CARE LINKS */}
-          <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* <Grid item lg={3} md={6} sm={6} xs={12}>
             <CustomerCareLinks />
-          </Grid>
+          </Grid> */}
 
           {/* CONTACT & SOCIAL LINKS */}
-          <Grid item lg={3} md={6} sm={6} xs={12}>
+          <Grid item lg={4} md={4} sm={6} xs={12}>
             {/* CONTACT INFORMATION */}
             <Heading>Contact Us</Heading>
 
@@ -52,11 +56,6 @@ export default function Footer1() {
               Phone: 844-703-0606
             </Paragraph>
 
-            {/* SOCIAL LINKS WITH ICON */}
-            <SocialLinks />
-            <Grid item>
-              <div style={{ height: 30 }} />
-            </Grid>
             <Grid />
           </Grid>
         </Grid>
