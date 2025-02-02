@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 // MUI ICON COMPONENT
@@ -24,11 +26,21 @@ export default function LoginCartButtons({
   const { state } = useCart();
   const { token } = useRole();
 
+  const [isLogin, setIsLogin] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Only access localStorage in the client (browser)
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("access_token");
+      setIsLogin(storedData);
+    }
+  }, []);
+
   const ICON_COLOR = { color: "grey.600" };
 
   return (
     <div>
-      {token || localStorage.getItem("access_token") ? (
+      {isLogin ? (
         <AccountMenu />
       ) : (
         <Button onClick={toggleDialog}> LOGIN</Button>

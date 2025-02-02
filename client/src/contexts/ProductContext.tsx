@@ -2,7 +2,12 @@
 
 import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
 
-type InitialState = any;
+type InitialState = {
+  categoryId: string;
+  subcategoryId: string;
+  productId: string;
+  class: string;
+};
 
 type ActionType = {
   type: string;
@@ -16,7 +21,12 @@ const INITIAL_STATE = {
   class: "",
 };
 
-export const ProductContext = createContext({});
+interface ContextProps {
+  state: InitialState;
+  dispatch: (args: ActionType) => void;
+}
+
+export const ProductContext = createContext<ContextProps>({} as ContextProps);
 
 const reducer = (state: InitialState, action: ActionType) => {
   switch (action.type) {

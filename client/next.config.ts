@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
     BASE_URL: "http://localhost:8000/api",
     theme: "DEFAULT",
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {

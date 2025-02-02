@@ -8,6 +8,7 @@ type InitialState = {
   note: string;
   wishlist: any;
   location: string;
+  orders: any;
 };
 
 export type CartItem = {

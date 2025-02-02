@@ -1,41 +1,40 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
-import { notFound } from "next/navigation";
-import ProductDetailsPageView from "@/comp/ProductDetails/ProductDetailsCard";
 import { getProductDetails } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
 import CircularLoader from "@/comp/Loader/CircularLoader";
+import ProductDetailsPageView from "@/comp/ProductDetails/ProductDetailsCard";
 
-// export const metadata = {
-//   title: "Product Details - Nest and Nook",
-//   description: `Product Details`,
-//   authors: [{ name: "Aman", url: "" }],
-//   keywords: ["Product Details", " - Nest and Nook"],
-// };
+interface ProductDetailsParams {
+  productId: string;
+}
 
-const ProductDetails = ({ params }: any) => {
-  const { productId } = use(params);
-  // const productId = Params.productId;
+const ProductDetails = ({ params }: { params: ProductDetailsParams }) => {
+  const { productId } = params;
+
   const { state, dispatch } = useProduct();
-  const [data, setData] = useState({});
+  const [data, setData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (!productId) return; // Guard clause in case productId is not available
     setIsLoading(true);
     dispatch({ type: "updateProductId", payload: productId });
     getProductDetails({
       categoryId: state.categoryId,
       subCategoryId: state.subcategoryId,
       productId: productId,
-    }).then((res) => {
-      if (res.length > 0) setData(res[0]);
-    });
-    setIsLoading(false);
-  }, []);
+    })
+      .then((res: any) => {
+        if (res.length > 0) setData(res[0]);
+      })
+      .finally(() => setIsLoading(false)); // Always stop loading
+  }, [productId, state.categoryId, state.subcategoryId]);
 
   if (isLoading) return <CircularLoader />;
-  if (data.name)
+
+  if (data.name) {
     return (
       <Container className="mt-2 mb-2">
         <ProductDetailsPageView
@@ -48,9 +47,11 @@ const ProductDetails = ({ params }: any) => {
           Class={data.class}
           data={data}
         />
-        {/* ---------------ADD---------------- */}
-        {/* Description & Reviews */}
       </Container>
     );
+  }
+
+  return null; // Add a fallback if no data is returned
 };
+
 export default ProductDetails;

@@ -1,4 +1,5 @@
-import { openSans } from "@/app/layout";
+import { Open_Sans } from "next/font/google";
+export const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const fontSize = 14;
 
