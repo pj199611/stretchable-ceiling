@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath:"http://localhost:8000/api",
+  env: {
+    BASE_URL: process.env.BASE_URL,
+    theme: "DEFAULT",
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

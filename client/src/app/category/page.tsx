@@ -26,7 +26,7 @@ const CategoryPage = async () => {
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         {data?.categories.map((val: Category) => (
-          <Link href={`/subcategory/${val?._id}`}>
+          <Link href={`/subcategory/${val?._id}`} key={val?._id}>
             <Card
               title={val.name}
               description={val.description}
