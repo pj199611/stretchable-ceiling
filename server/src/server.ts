@@ -22,7 +22,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(mongoSanitize()); 
 
-app.use(cors());
+app.use(
+  cors({
+    origin: '*', // Allow access from any origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow common HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+  })
+);
+
 setupSwagger(app);
 
 const port = parseInt(process.env.PORT as unknown as string) || 3000;
