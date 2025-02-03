@@ -46,6 +46,15 @@ export default function CustomizeForm() {
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Only access localStorage in the client (browser)
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("access_token");
+      setIsLogin(storedData);
+    }
+  }, []);
 
   useEffect(() => {
     if (toaster.open) {
@@ -326,7 +335,7 @@ export default function CustomizeForm() {
                 </Grid>
 
                 <Grid item sm={6} xs={12}>
-                  {localStorage.getItem("access_token") ? (
+                  {isLogin ? (
                     <Button
                       disabled={loading}
                       variant="contained"

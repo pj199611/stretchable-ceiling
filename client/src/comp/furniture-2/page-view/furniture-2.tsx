@@ -28,7 +28,7 @@ export default function FurnitureTwoPageView() {
         <div
           style={{
             position: "fixed",
-            bottom: 0,
+            bottom: 100,
             right: 0,
             zIndex: 5,
             margin: "1em",

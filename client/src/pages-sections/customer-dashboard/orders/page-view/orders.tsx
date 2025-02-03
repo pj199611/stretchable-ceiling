@@ -16,7 +16,7 @@ export default function OrdersPageView() {
 
   useEffect(() => {
     getOrders()
-      .then((res) => {
+      .then((res: any) => {
         dispatch({ type: "ASSIGN_ORDERS", payload: res?.orders });
       })
       .finally(() => setIsLoading(false));

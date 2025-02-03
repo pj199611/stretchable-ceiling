@@ -130,7 +130,7 @@ export const delCart = async ({
     Authorization: `Bearer ${accessToken}`,
   };
   const response = await axios
-    .delete("http://localhost:8000/api/users/cart/remove", { headers, data })
+    .delete(process.env.BASE_URL + "/users/cart/remove", { headers, data })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
   return response;
@@ -138,14 +138,9 @@ export const delCart = async ({
 
 // http://localhost:8000/api/users/customize_order
 export const addCustomOrder = async (formData: any) => {
-  console.log("addCustomOrder FormData");
-  // Display the key/value pairs
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
   const accessToken = localStorage.getItem("access_token");
   const response = await axios
-    .post("http://localhost:8000/api/users/customize_order", formData, {
+    .post(process.env.BASE_URL + "/users/customize_order", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${accessToken}`,

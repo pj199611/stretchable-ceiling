@@ -17,14 +17,13 @@ const SubCategoryPage = () => {
   const { dispatch } = useProduct();
   const categoryId: string = pathname?.split("/subcategory/")?.[1] || "";
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     getSubCategoryList(categoryId)
-      .then((res) => {
-        console.log(res);
+      .then((res: any) => {
         setData(res);
       })
       .catch((err) => setData([]))
@@ -74,4 +73,3 @@ const SubCategoryPage = () => {
   );
 };
 export default SubCategoryPage;
-

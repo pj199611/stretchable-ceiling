@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import AuthLayout from "@/pages-sections/sessions/layout";
+import AuthLayout from "@/comp/sessions/layout";
 
 export default function Layout({ children }: PropsWithChildren) {
   return <AuthLayout>{children}</AuthLayout>;

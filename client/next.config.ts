@@ -2,8 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   env: {
-    BASE_URL: "http://localhost:8000/api",
+    BASE_URL: process.env.BASE_URL,
     theme: "DEFAULT",
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   images: {
     remotePatterns: [

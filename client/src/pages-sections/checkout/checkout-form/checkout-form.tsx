@@ -51,7 +51,7 @@ export default function CheckoutForm() {
               setFieldValue={setFieldValue}
             />
 
-            <BillingAddressForm
+            {/* <BillingAddressForm
               errors={errors}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -60,7 +60,7 @@ export default function CheckoutForm() {
               setFieldValue={setFieldValue}
               touched={touched}
               values={values}
-            />
+            /> */}
 
             <Grid container spacing={6}>
               <Grid item sm={6} xs={12}>

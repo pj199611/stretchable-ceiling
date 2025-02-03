@@ -13,11 +13,13 @@ import useCart from "@/hooks/useCart";
 //   keywords: ["e-commerce", "e-commerce template", "next.js", "react"],
 // };
 
-export default async function OrderDetails({ params }) {
+export default async function OrderDetails() {
   const { state } = useCart();
 
   const pathname = usePathname();
   const orderId: string = pathname?.split("/orders/")?.[1] || "";
-  const currentOrder = state.orders.filter((val) => val._id === orderId)?.[0];
+  const currentOrder = state.orders.filter(
+    (val: any) => val._id === orderId
+  )?.[0];
   return <OrderDetailsPageView order={currentOrder} />;
 }

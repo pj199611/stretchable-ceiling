@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Open_Sans } from "next/font/google";
 import Layout from "@/pages/layout/mainLayout";
-export const openSans = Open_Sans({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["latin"] });
 
 import ThemeProvider from "@/theme/theme-provider";
 // PRODUCT CART PROVIDER
