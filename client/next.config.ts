@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  basePath:"http://localhost:8000/api",
   typescript: {
     ignoreBuildErrors: true,
   },
