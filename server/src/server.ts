@@ -22,7 +22,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(mongoSanitize()); 
 
-app.use(cors());
+
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow all HTTP methods
+  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization', // Allow all common headers
+  credentials: true, // Allow credentials (cookies, authorization headers)
+}));
+
 setupSwagger(app);
 
 const port = parseInt(process.env.PORT as unknown as string) || 3000;
@@ -32,7 +39,6 @@ app.use('/api/auth', AuthRoutes);
 app.use('/api/admin', AdminRoutes);
 app.use('/api/architect', ArchitectRoutes);
 app.use('/api/users', UserRoutes);
-
 
 app.get('/health', (req: Request, res: Response) => {
   res.send('server is running fine!');
