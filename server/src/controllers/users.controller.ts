@@ -46,6 +46,11 @@ export const requestCallback = async (
       comment,
       mail,
     });
+
+    if(RequestCallback.exists({mail})){
+       res.json({message:'callback already arranged!'});
+       return
+    }
     await requestCallback.save();
     res.json({ message: 'callback is arranged' });
   } catch (error) {
