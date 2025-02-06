@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import CallMeBackModal from "./CallMeBackModal";
-import { WhatsApp } from "@mui/icons-material";
+import PhoneCallback from "@mui/icons-material/LocalPhoneRounded";
 
 const CallMeBack = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,16 @@ const CallMeBack = () => {
           margin: "1em",
         }}
       >
-        <WhatsApp style={{ width: "2.25em", height: "2.25em" }} />
+        <PhoneCallback
+          style={{
+            width: "2.25em",
+            height: "2.25em",
+            backgroundColor: "black",
+            color: "white",
+            borderRadius: "50%",
+            padding: 8,
+          }}
+        />
       </div>
       {isModalOpen && (
         <CallMeBackModal isOpen={isModalOpen} onClose={closeModal} />

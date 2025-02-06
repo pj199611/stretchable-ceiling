@@ -20,35 +20,41 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
   const { dispatch } = useCart();
   const { dispatch: userDispatch } = useUser();
   useEffect(() => {
-    getUser().then((res: any) => {
-      const newUser = {
-        username: res.userName,
-        avatar: "",
-        mobile: "",
-        mail: res.email,
-        location: "",
-      };
-      userDispatch({ type: "ASSIGN_USER", payload: newUser });
-    });
-    getWishlist().then((res: any) => {
-      dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
-    });
-    getCart().then((res: any) => {
-      if (res?.cart) {
-        const newCart = res?.cart?.map((val) => ({
-          id: val.product._id,
-          qty: val.quantity,
-          price: val.price,
-          length: val.length,
-          width: val.width,
-          name: val.name,
-          imgUrl: val.imgUrl,
-        }));
-        dispatch({ type: "ASSIGN_CART", payload: newCart });
-      } else {
-        console.error("Cart data is missing:", res);
+    // Only access localStorage in the client (browser)
+    if (typeof window !== "undefined") {
+      const AccessToken = localStorage.getItem("access_token");
+      if (AccessToken) {
+        getUser().then((res: any) => {
+          const newUser = {
+            username: res.userName,
+            avatar: "",
+            mobile: "",
+            mail: res.email,
+            location: "",
+          };
+          userDispatch({ type: "ASSIGN_USER", payload: newUser });
+        });
+        getWishlist().then((res: any) => {
+          dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
+        });
+        getCart().then((res: any) => {
+          if (res?.cart) {
+            const newCart = res?.cart?.map((val) => ({
+              id: val.product._id,
+              qty: val.quantity,
+              price: val.price,
+              length: val.length,
+              width: val.width,
+              name: val.name,
+              imgUrl: val.imgUrl,
+            }));
+            dispatch({ type: "ASSIGN_CART", payload: newCart });
+          } else {
+            console.error("Cart data is missing:", res);
+          }
+        });
       }
-    });
+    }
   }, []);
 
   const toggleIsFixed = useCallback((fixed: boolean) => setIsFixed(fixed), []);
