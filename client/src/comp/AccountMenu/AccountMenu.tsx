@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -14,6 +15,7 @@ import Logout from "@mui/icons-material/Logout";
 import PersonOutline from "@mui/icons-material/PersonOutline";
 import useRole from "@/hooks/hooks/useRole";
 import SingleToaster from "@/comp/Toaster/singleToaster";
+import Link from "next/link";
 
 export default function AccountMenu() {
   const { updateToken } = useRole();
@@ -33,6 +35,7 @@ export default function AccountMenu() {
   const handleLogout = () => {
     console.log("Logged Out!");
     localStorage.removeItem("access_token");
+    localStorage.removeItem("role");
     updateToken(null);
     setToaster({
       open: true,
@@ -121,12 +124,14 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem> */}
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        <Link href="/">
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Link>
       </Menu>
       {toaster.open && (
         <SingleToaster

@@ -18,7 +18,7 @@ interface Props {
 
 export default function DropZone({
   onChange,
-  imageSize = "Upload 280*280 image",
+  imageSize = "Upload an image",
   title = "Drag & drop product image here"
 }: Props) {
   const onDrop = useCallback((acceptedFiles: File[]) => onChange(acceptedFiles), [onChange]);

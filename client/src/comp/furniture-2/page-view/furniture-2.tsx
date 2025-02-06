@@ -3,6 +3,7 @@ import Section2 from "../section-2";
 import Section7 from "../section-7";
 import Section9 from "../section-9";
 import WhatsApp from "@/images/icons/Whatsapp";
+import CallMeBackModal from "@/comp/CallMeBack";
 
 export default function FurnitureTwoPageView() {
   return (
@@ -18,6 +19,8 @@ export default function FurnitureTwoPageView() {
 
       {/* TESTIMONIAL SECTION */}
       <Section7 />
+
+      <CallMeBackModal />
 
       <a
         href={"https://wa.me/8447030606"}

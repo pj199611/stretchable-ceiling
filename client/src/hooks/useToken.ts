@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { TokenContext } from "@/contexts/TokenContext";
+// import { useContext } from "react";
+// import { TokenContext } from "@/contexts/TokenContext";
 
-const useToken = () => useContext(TokenContext);
-export default useToken;
+// const useToken = () => useContext(TokenContext);
+// export default useToken;

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 export default function useRole() {
-  const [role, setRole] = useState(<string>"user");
+  const [role, setRole] = useState<string>("user");
   const [token, setToken] = useState<string | null>(null);
 
   const updateRole = useCallback((newRole: string) => {
