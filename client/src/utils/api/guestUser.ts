@@ -81,7 +81,7 @@ export const getLocation = async () => {
 // http://localhost:8000/api/users/requestcallback
 export const postCallbackRequest = async (payload: {
   name: string;
-  phoneNumber: number;
+  phoneNumber: string | number;
   comment: string;
   mail: string;
 }) => {

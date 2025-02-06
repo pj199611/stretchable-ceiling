@@ -9,7 +9,7 @@ import CartProvider from "@/contexts/CartContext";
 import UserContext from "@/contexts/UserContext";
 // SITE SETTINGS PROVIDER
 import SettingsProvider from "@/contexts/SettingContext";
-import TokenContext from "@/contexts/TokenContext";
+// import TokenContext from "@/contexts/TokenContext";
 import ProductProvider from "@/contexts/ProductContext";
 import Script from "next/script";
 
@@ -40,11 +40,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <CartProvider>
             <ProductProvider>
               <SettingsProvider>
-                <TokenContext>
-                  <ThemeProvider>
-                    <Layout>{children}</Layout>
-                  </ThemeProvider>
-                </TokenContext>
+                <ThemeProvider>
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
               </SettingsProvider>
             </ProductProvider>
           </CartProvider>

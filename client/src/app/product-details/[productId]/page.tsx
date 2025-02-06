@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { getProductDetails } from "@/utils/api/guestUser";
 import useProduct from "@/hooks/useProduct";
@@ -7,11 +7,11 @@ import CircularLoader from "@/comp/Loader/CircularLoader";
 import ProductDetailsPageView from "@/comp/ProductDetails/ProductDetailsCard";
 
 interface ProductDetailsParams {
-  productId: string;
+  productId: any;
 }
 
-const ProductDetails = ({ params }: { params: ProductDetailsParams }) => {
-  const { productId } = params;
+const ProductDetails = ({ params }: { params: any }) => {
+  const { productId }: { productId: any } = use(params);
 
   const { state, dispatch } = useProduct();
   const [data, setData] = useState<any>({});

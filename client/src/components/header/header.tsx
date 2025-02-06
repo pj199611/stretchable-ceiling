@@ -70,6 +70,9 @@ export default function Header({ isFixed, className, midSlot }: Props) {
         <Link href="/orders">
           <span style={{ margin: "0 4px" }}>Orders</span>
         </Link>
+        <Link href="/admin/create-product">
+          <span style={{ margin: "0 4px" }}>Create</span>
+        </Link>
 
         {/* <Wishlist /> */}
         <WishlistBtn />
