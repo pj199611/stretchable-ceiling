@@ -2,6 +2,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -16,6 +18,8 @@ import PersonOutline from "@mui/icons-material/PersonOutline";
 import useRole from "@/hooks/hooks/useRole";
 import SingleToaster from "@/comp/Toaster/singleToaster";
 import Link from "next/link";
+import AdminLayout from "@/comp/AdminLayout";
+import useUser from "@/hooks/useUser";
 
 export default function AccountMenu() {
   const { updateToken } = useRole();
@@ -24,6 +28,7 @@ export default function AccountMenu() {
     msg: "Welcome!",
     severity: "success",
   });
+  const { state } = useUser();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -127,9 +132,32 @@ export default function AccountMenu() {
         </MenuItem> */}
         <Link href="/profile">
           <MenuItem>
-            <Avatar /> Profile
+            <Avatar /> {state?.user?.username}
+            <br />
+            {state?.user?.mail}
+            {state?.user?.role === "user" ? null : (
+              <>
+                <br />
+                {state?.user?.role}
+              </>
+            )}
           </MenuItem>
         </Link>
+        <Link href="/orders">
+          <MenuItem>
+            <WorkOutlineIcon style={{ marginRight: 8, color: "grey" }} /> My
+            Orders
+          </MenuItem>
+        </Link>
+
+        <AdminLayout>
+          <Link href="/admin/create-product">
+            <MenuItem>
+              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
+              Create Product
+            </MenuItem>
+          </Link>
+        </AdminLayout>
 
         <Link href="/">
           <MenuItem onClick={handleLogout}>
