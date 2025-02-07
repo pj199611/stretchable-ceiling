@@ -48,6 +48,7 @@ export default function AccountMenu() {
         msg: "",
         severity: "success",
       });
+      window.location.reload();
     }, 3000);
   };
   return (

@@ -47,10 +47,14 @@ const LoginPageView = ({ closeDialog }: Props) => {
     if (role === "user") Router.push("/");
     if (role === "designer") Router.push("/");
     if (role === "admin") Router.push("/");
+    window.location.reload();
   };
 
   const handleLogin = async (formData: any) => {
     const res = await login_me_axios(formData);
+    // .then((res) => {})
+    // .catch((err) => {})
+    // .finally(() => {});
     const AccessToken = res?.token;
     if (AccessToken) {
       setToaster({
