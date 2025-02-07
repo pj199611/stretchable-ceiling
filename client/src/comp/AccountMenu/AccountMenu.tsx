@@ -124,6 +124,12 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem> */}
+        <Link href="/profile">
+          <MenuItem>
+            <Avatar /> Profile
+          </MenuItem>
+        </Link>
+
         <Link href="/">
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
