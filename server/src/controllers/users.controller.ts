@@ -47,12 +47,16 @@ export const requestCallback = async (
       mail,
     });
 
-    if(RequestCallback.exists({mail})){
-       res.json({message:'callback already arranged!'});
-       return
+    const requestedCallbacksEmails=(await RequestCallback.find()).map((d)=>d.mail);
+
+
+    if (requestedCallbacksEmails.includes(mail)) {
+      res.json({ message: 'callback already arranged!' });
+      return;
+    } else {
+      await requestCallback.save();
+      res.json({ message: 'callback is arranged' });
     }
-    await requestCallback.save();
-    res.json({ message: 'callback is arranged' });
   } catch (error) {
     console.log(error);
     res.json({ error: 'An error occurred' });
@@ -113,7 +117,7 @@ export const removeFromWishlist = async (
     const { productId } = req.query;
 
     if (!productId) {
-       return res.status(400).json({ error: 'Product ID is required' });
+      return res.status(400).json({ error: 'Product ID is required' });
     }
 
     const user = await User.findByIdAndUpdate(
@@ -125,7 +129,7 @@ export const removeFromWishlist = async (
     );
 
     if (!user) {
-       return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     return res.json({
@@ -137,7 +141,6 @@ export const removeFromWishlist = async (
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
 
 export const clearWishlist = async (
   req: IRequest,
@@ -154,7 +157,6 @@ export const clearWishlist = async (
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
 
 // Add product to cart
 export const addToCart = async (
@@ -230,7 +232,6 @@ export const addToCart = async (
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
 
 export const removeFromCart = async (
   req: IRequest,

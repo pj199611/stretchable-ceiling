@@ -7,6 +7,7 @@ import Client from '../models/clients.model';
 import Category from '../models/category.model';
 import Location from '../models/location.model';
 import SubCategory from '../models/subCategory.model';
+import RequestCallback from '../models/requestCallback.model';
 
 // User management controllers
 export const getAllUsers = async (
@@ -527,12 +528,11 @@ export const getAllUsersWhoNeedsCallback = async (
   res: Response
 ): Promise<void> => {
   try {
-    const users = (await User.find()).filter((user) => {
-      return user.requestCallback;
-    });
-
-    res.json(users);
+    const users = await RequestCallback.find();
+    // Respond with the filtered users
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
+

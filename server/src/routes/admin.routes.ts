@@ -63,7 +63,7 @@ router.get('/users', authenticateToken, checkAdminRole, getAllUsers);
 router.get('/users/:id', authenticateToken, checkAdminRole, getUser);
 router.delete('/users/:id', authenticateToken, checkAdminRole, deleteUser);
 router.put('/users/:id', authenticateToken, checkAdminRole, updateUser);
-router.put('/requestCallback', authenticateToken, checkAdminRole, getAllUsersWhoNeedsCallback);
+router.get('/requestCallback', authenticateToken, checkAdminRole, getAllUsersWhoNeedsCallback);
 
 // Clients Routes
 router.get('/clients', authenticateToken, getClients);
