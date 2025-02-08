@@ -8,6 +8,7 @@ export default interface IUser extends Document {
   role: string;
   cart:Record<any,any>[];
   wishlist:any[];
-  requestCallback:Boolean
+  requestCallback:Boolean;
+  phoneNumber:Number;
   isPasswordValid(password: string): Promise<boolean>;
 }
