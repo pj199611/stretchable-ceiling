@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"test\",\r\n    \"password\":\"test\"\r\n}",
+							"raw": "{\r\n    \"email\":\"test1996@gmail.com\",\r\n    \"password\":\"test\",\r\n    \"userName\":\"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -56,7 +56,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"user@gmail.com\",\r\n    \"password\":\"user\"\r\n}",
+							"raw": "{\r\n    \"email\":\"test1996@gmail.com\",\r\n    \"password\":\"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,7 +135,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiMGUxNDk1MDM4NWZmNTE3Y2ZiNGYiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMDg3NDkwMywiZXhwIjoxNzMxNDc5NzAzfQ.qyEFwNZ6gOUuJmpSKY6RfMUREZ1WKTVWJsvKogKfbTs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzg5OTE5MzcsImV4cCI6MTczOTU5NjczN30.SL6BKPZ2F_mHhaqGpBN5guVa-ZTlM5x0j--aKbsDViM",
 									"type": "string"
 								}
 							]
@@ -143,13 +143,47 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"flowers\",\r\n    \"description\": \"A high-quality flowers-shaped product.\",\r\n    \"customShape\": \"flowers shaped\",\r\n    \"price\": 100,\r\n    \"stock\": 50,\r\n    \"imageUrl\": \"dqwdwq\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Dummy Product",
+									"type": "text"
+								},
+								{
+									"key": "Dummy Product",
+									"value": "This is a dummy product",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "675c3281910beeb25b774771",
+									"type": "text"
+								},
+								{
+									"key": "subCategory",
+									"value": "675c3281910beeb25b774776",
+									"type": "text"
+								},
+								{
+									"key": "product_price",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "class",
+									"value": "optics",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"postman-cloud:///1efb86bb-6f44-4d10-b577-789a2c25fdca",
+										"postman-cloud:///1efe5dbe-acfa-4510-93a8-90826e656f80"
+									]
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/admin/products",
@@ -234,10 +268,30 @@
 				{
 					"name": "users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzg5OTE5MzcsImV4cCI6MTczOTU5NjczN30.SL6BKPZ2F_mHhaqGpBN5guVa-ZTlM5x0j--aKbsDViM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"users"
+							]
 						}
 					},
 					"response": []
@@ -314,6 +368,37 @@
 						"header": [],
 						"url": {
 							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "callbacks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzg5OTE5MzcsImV4cCI6MTczOTU5NjczN30.SL6BKPZ2F_mHhaqGpBN5guVa-ZTlM5x0j--aKbsDViM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/admin/requestCallback",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"requestCallback"
+							]
 						}
 					},
 					"response": []
@@ -658,7 +743,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/users/productsOfSubCategory?categoryId=675ab13f256dd74b073a6692&subCategoryId=675ab13f256dd74b073a669c",
+									"raw": "http://localhost:8000/api/users/productsOfSubCategory?categoryId=675c3281910beeb25b774775&subCategoryId=675c3281910beeb25b77477c",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -672,11 +757,16 @@
 									"query": [
 										{
 											"key": "categoryId",
-											"value": "675ab13f256dd74b073a6692"
+											"value": "675c3281910beeb25b774775"
 										},
 										{
 											"key": "subCategoryId",
-											"value": "675ab13f256dd74b073a669c"
+											"value": "675c3281910beeb25b77477c"
+										},
+										{
+											"key": "class",
+											"value": "optics",
+											"disabled": true
 										}
 									]
 								}
@@ -699,7 +789,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/users/subcategories/675ab13f256dd74b073a6690",
+									"raw": "http://localhost:8000/api/users/subcategories/675c3281910beeb25b774771",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -709,7 +799,7 @@
 										"api",
 										"users",
 										"subcategories",
-										"675ab13f256dd74b073a6690"
+										"675c3281910beeb25b774771"
 									]
 								}
 							},
@@ -721,7 +811,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/users/productsOfSubCategoryDetails?categoryId=64a7f6c5d5b5b14bc9d1a8b3&subCategoryId=64a7f6c5d5b5b14bc9d1a8b3&productId=675aa3d07fb0a9c65b3cc153",
+									"raw": "http://localhost:8000/api/users/productsOfSubCategoryDetails?categoryId=675ab13f256dd74b073a6691&subCategoryId=675ab13f256dd74b073a669b&productId=675aa3d07fb0a9c65b3cc153",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -735,11 +825,11 @@
 									"query": [
 										{
 											"key": "categoryId",
-											"value": "64a7f6c5d5b5b14bc9d1a8b3"
+											"value": "675ab13f256dd74b073a6691"
 										},
 										{
 											"key": "subCategoryId",
-											"value": "64a7f6c5d5b5b14bc9d1a8b3"
+											"value": "675ab13f256dd74b073a669b"
 										},
 										{
 											"key": "productId",
@@ -852,7 +942,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNzU2NzMxMSwiZXhwIjoxNzM4MTcyMTExfQ.iB3fDO8XMlHTJ_DojeCFqlk0jU6pkwjk-mzzcMlG8OY",
 											"type": "string"
 										}
 									]
@@ -883,7 +973,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhYWFmMzIyNWY3ZGFhZjczNjVmNTEiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDA3MzE4NCwiZXhwIjoxNzM0Njc3OTg0fQ.bzhFnP7o9pAJWpU8Ilk8ox8RFWW1abYfWA_hxY4xS3g",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNzU2NzMxMSwiZXhwIjoxNzM4MTcyMTExfQ.iB3fDO8XMlHTJ_DojeCFqlk0jU6pkwjk-mzzcMlG8OY",
 											"type": "string"
 										}
 									]
@@ -892,7 +982,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"products\": [\n        {\n            \"product\": \"675ab13f256dd74b073a66a0\",\n            \"quantity\": 2,\n            \"area\": 1\n        },\n        {\n            \"product\": \"675ab13f256dd74b073a66e3\",\n            \"quantity\": 2,\n            \"area\": 1000\n        }\n    ],\n    \"shippingAddress\": {\n        \"address\": \"3125\",\n        \"city\": \"delhi\",\n        \"postalCode\": 110008,\n        \"country\": \"india\"\n    }\n}",
+									"raw": "{\n    \"products\": [\n        {\n            \"product\": \"675c3281910beeb25b774785\",\n            \"quantity\": 2,\n            \"height\": 5,\n            \"width\": 5,\n            \"area\": 25\n        },\n        {\n            \"product\": \"675c3281910beeb25b774789\",\n            \"quantity\": 2,\n            \"height\": 5,\n            \"width\": 5,\n            \"area\": 25\n        }\n    ],\n    \"shippingAddress\": {\n        \"address\": \"3125\",\n        \"city\": \"delhi\",\n        \"postalCode\": 110008,\n        \"country\": \"india\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -923,7 +1013,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZjNDUxZTIwOWViMzYxNTNlYTAyZTMiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNTE0ODg1NSwiZXhwIjoxNzM1NzUzNjU1fQ.10HyTIG6cEo-yVxuX45HACeTT8mZE4osChCb_948HJk",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkxMmM0NTAzYWE1MTM0OGQxNGY1MjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTczNzU2NzMxMSwiZXhwIjoxNzM4MTcyMTExfQ.iB3fDO8XMlHTJ_DojeCFqlk0jU6pkwjk-mzzcMlG8OY",
 											"type": "string"
 										}
 									]
@@ -972,6 +1062,16 @@
 											"key": "customizedUrls",
 											"value": "[\"test.com\"]",
 											"type": "text"
+										},
+										{
+											"key": "width",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "height",
+											"value": "2",
+											"type": "text"
 										}
 									]
 								},
@@ -988,6 +1088,19 @@
 										"customize_order"
 									]
 								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}
@@ -1114,7 +1227,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"testing23\",\r\n    \"phoneNumber\":12345,\r\n    \"comment\":\"helloworldfewqf\",\r\n    \"mail\":\"test@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"name\":\"testing23242\",\r\n    \"phoneNumber\":1234554,\r\n    \"comment\":\"helloworldfewqfd\",\r\n    \"mail\":\"test124412@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
