@@ -7,31 +7,19 @@ import Person from "@mui/icons-material/Person";
 import ProfileEditForm from "../edit-form";
 import ProfilePicUpload from "../profile-pic-upload";
 import DashboardHeader from "../../dashboard-header";
-// CUSTOM DATA MODEL
-import User from "models/User.model";
+import useUser from "@/hooks/useUser";
 
-// ===========================================================
-type Props = { user: User };
-// ===========================================================
+export default function ProfileEditPageView() {
+  const { state: userState }: any = useUser();
+  const { avatar, mail, mobile, role, username } = userState.user;
 
-export default function ProfileEditPageView({ user }: Props) {
   return (
-    <Fragment>
-      {/* TITLE HEADER AREA */}
-      <DashboardHeader
-        Icon={Person}
-        href="/profile"
-        title="Edit Profile"
-        buttonText="Back to Profile"
-      />
+    <>
+      {/* USER PROFILE PIC */}
+      {/* <ProfilePicUpload /> */}
 
-      <Card sx={{ p: 3 }}>
-        {/* USER PROFILE PIC */}
-        <ProfilePicUpload />
-
-        {/* PROFILE EDITOR FORM */}
-        <ProfileEditForm user={user} />
-      </Card>
-    </Fragment>
+      {/* PROFILE EDITOR FORM */}
+      <ProfileEditForm user={userState.user} />
+    </>
   );
 }

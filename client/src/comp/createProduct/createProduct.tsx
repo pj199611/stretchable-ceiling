@@ -14,6 +14,7 @@ import Title from "@/comp/PageTitle/Title";
 import SingleToaster from "@/comp/Toaster/singleToaster";
 import { UploadImageBox, StyledClear } from "./style";
 import AdminLayout from "@/comp/AdminLayout";
+import { FlexRowCenter } from "@/components/flex-box";
 
 const VALIDATION_SCHEMA = yup.object().shape({
   name: yup.string().required("Name is required!"),
@@ -100,7 +101,13 @@ export default function ProductForm(props: Props) {
 
   return (
     <>
-      <AdminLayout>
+      <AdminLayout
+        comp={
+          <FlexRowCenter style={{ height: 300 }}>
+            <h1>Please Login via Admin Creds</h1>
+          </FlexRowCenter>
+        }
+      >
         <Title title="Create Product" />
         <Card className="p-3">
           <Formik

@@ -8,6 +8,7 @@ import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
 //     "https://media.istockphoto.com/id/1416797815/photo/golden-number-one.jpg?s=612x612&w=0&k=20&c=A1AOP7RZK8Rkk2yxEumTlWmhQE-0nGfxVz3Ef39Dzxc=",
 //   mobile: 7890654321,
 //   mail: "abc@gmial.com",
+//   role: "",
 //   location: "bangalore",
 // };
 const INITIAL_STATE = { user: {}, location: "bangalore" };

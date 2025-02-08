@@ -2,6 +2,7 @@ import { styled } from "@mui/material/styles";
 import { SvgIconComponent } from "@mui/icons-material";
 import { H2 } from "@/components/Typography";
 import FlexBox from "@/components/flex-box/flex-box";
+import { FlexBetween } from "@/components/flex-box";
 
 // STYLED COMPONENT
 // const StyledBox = styled("div")(({ theme }) => ({
@@ -18,20 +19,26 @@ import FlexBox from "@/components/flex-box/flex-box";
 type Props = {
   title: string;
   Icon?: SvgIconComponent;
+  rightComp?: any;
 };
 
-export default function DashboardHeader({ title, Icon }: Props) {
+export default function DashboardHeader({ title, Icon, rightComp }: Props) {
   return (
     <>
-      <FlexBox mx={5} my={5} mt={5} className="headerHold">
-        <FlexBox alignItems="center" gap={1.5}>
-          {Icon && <Icon color="primary" />}
+      <FlexBetween>
+        <FlexBox mx={5} my={5} mt={5} className="headerHold">
+          <FlexBox alignItems="center" gap={1.5}>
+            {Icon && <Icon color="primary" />}
 
-          <H2 my={0} lineHeight={1} ellipsis>
-            {title}
-          </H2>
+            <H2 my={0} lineHeight={1} ellipsis>
+              {title}
+            </H2>
+          </FlexBox>
         </FlexBox>
-      </FlexBox>
+        <FlexBox mx={5} my={5} mt={5}>
+          {rightComp}
+        </FlexBox>
+      </FlexBetween>
     </>
   );
 }

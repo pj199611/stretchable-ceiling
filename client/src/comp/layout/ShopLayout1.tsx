@@ -30,6 +30,7 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
             avatar: "",
             mobile: "",
             mail: res.email,
+            role: res.role,
             location: "",
           };
           userDispatch({ type: "ASSIGN_USER", payload: newUser });
