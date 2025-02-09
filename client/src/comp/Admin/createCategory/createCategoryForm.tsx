@@ -48,8 +48,8 @@ export default function CategoryForm(props: Props) {
       .catch((err) => setCategories([]));
   }, []);
 
-  const handleFormSubmit = () => {
-    console.log("sub");
+  const handleFormSubmit = (values) => {
+    console.log(values, categories);
   };
   return (
     <Card className="p-3">
@@ -106,7 +106,7 @@ export default function CategoryForm(props: Props) {
                     error={Boolean(touched.parent && errors.parent)}
                   >
                     {categories?.map((val: any, i) => (
-                      <MenuItem key={`category-${i}`} value={val.name}>
+                      <MenuItem key={`category-${i}`} value={val._id}>
                         {val.name}
                       </MenuItem>
                     ))}

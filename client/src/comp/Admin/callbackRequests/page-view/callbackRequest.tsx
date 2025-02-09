@@ -1,7 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
-import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRowsProp,
+  GridActionsCellItem,
+} from "@mui/x-data-grid";
+import { Box, Typography, Button, Card } from "@mui/material";
 
 import PageWrapper from "@/comp/pageWrapper";
 import AdminLayout from "@/comp/AdminLayout";
@@ -16,6 +20,14 @@ export default function CallbackRequestPageView() {
       setCallBackList(res);
     });
   }, []);
+
+  const handleEdit = (id: number) => {
+    alert(`Edit action triggered for row with id: ${id}`);
+  };
+
+  const handleDelete = (id: number) => {
+    alert(`Delete action triggered for row with id: ${id}`);
+  };
 
   // Define columns with flex properties for auto-resizing
   const columns = [
@@ -34,12 +46,32 @@ export default function CallbackRequestPageView() {
       flex: 0.3,
       disableColumnMenu: true,
     },
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   type: "actions",
+    //   width: 150,
+    //   getActions: (params) => [
+    //     <GridActionsCellItem
+    //       key="edit"
+    //       icon={<Button>Edit</Button>}
+    //       label="Edit"
+    //       onClick={() => handleEdit(params.row._id as number)}
+    //     />,
+    //     <GridActionsCellItem
+    //       key="delete"
+    //       icon={<Button color="error">Delete</Button>}
+    //       label="Delete"
+    //       onClick={() => handleDelete(params.row._id as number)}
+    //     />,
+    //   ],
+    // },
   ];
 
   //   // Define rows with type GridRowsProp
   const rows: GridRowsProp = callbackList?.map((val, i) => ({
     id: i + 1,
-    // _id: vaisFinitel._id,
+    _id: val._id,
     name: val.name,
     phoneNumber: val.phoneNumber,
     mail: val.mail,
