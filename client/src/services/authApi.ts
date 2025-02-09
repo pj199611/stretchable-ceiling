@@ -204,3 +204,9 @@ export const addToOrder = async ({
   const response = await AxiosInstance.post("/users/orders", payload);
   return response;
 };
+
+// http://localhost:8000/api/admin/requestCallback
+export const getAdminCallbackRequests = async () => {
+  const response = await AxiosInstance.get("/admin/requestCallback");
+  return response;
+};
