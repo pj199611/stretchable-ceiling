@@ -157,6 +157,18 @@ export default function AccountMenu() {
               Create Product
             </MenuItem>
           </Link>
+          <Link href="/admin/callback-requests">
+            <MenuItem>
+              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
+              Callback Requests
+            </MenuItem>
+          </Link>
+          <Link href="/admin/create-category">
+            <MenuItem>
+              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
+              Create Category
+            </MenuItem>
+          </Link>
         </AdminLayout>
 
         <Link href="/">
