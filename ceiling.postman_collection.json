@@ -353,10 +353,39 @@
 				{
 					"name": "category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FhM2M5MTE1NzIyYjNhZWY5ZGViMWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzkyMTAwODIsImV4cCI6MTczOTgxNDg4Mn0.xHitosxuEH_jBHmbwUfTdU0tq28lYYX8nqUs1498iYU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Stretchable Ceiling\",\r\n    \"description\":\"A flexible and durable fabric, often PVC or polyester-based, which is stretched across a frame installed on the perimeter of a room. The material is stretched tightly to create a smooth, even surface, offering a sleek, contemporary look.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/admin/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"categories"
+							]
 						}
 					},
 					"response": []
@@ -398,6 +427,119 @@
 								"api",
 								"admin",
 								"requestCallback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSubCat",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FhM2M5MTE1NzIyYjNhZWY5ZGViMWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzkyMTAwODIsImV4cCI6MTczOTgxNDg4Mn0.xHitosxuEH_jBHmbwUfTdU0tq28lYYX8nqUs1498iYU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryIds\": [\r\n        \"67aa3e6c15722b3aef9deb1e\"\r\n    ],\r\n    \"name\": \"Translucent or White\",\r\n    \"description\": \"It is a kind of suspended ceiling system, composed with 2parts: pvc stretch ceiling and Aluminum / PVC profile. The stretch ceiling is lightweight,easy to clean and maintain. It can be opened and closed by spatulas.\",\r\n    \"price\": 800\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/admin/subcategories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"subcategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delSubCat",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FhM2M5MTE1NzIyYjNhZWY5ZGViMWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzkyMTAwODIsImV4cCI6MTczOTgxNDg4Mn0.xHitosxuEH_jBHmbwUfTdU0tq28lYYX8nqUs1498iYU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/admin/subcategories/67aa41bb9ae4e36f0037debd ",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"subcategories",
+								"67aa41bb9ae4e36f0037debd "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubCat",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FhM2M5MTE1NzIyYjNhZWY5ZGViMWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzkyMTAwODIsImV4cCI6MTczOTgxNDg4Mn0.xHitosxuEH_jBHmbwUfTdU0tq28lYYX8nqUs1498iYU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryIds\": [\r\n        \"67aa3e6c15722b3aef9deb1e\"\r\n    ],\r\n    \"name\": \"Translucent or White\",\r\n    \"description\": \"It is a kind of suspended ceiling system, composed with 2parts: pvc stretch ceiling and Aluminum / PVC profile. The stretch ceiling is lightweight,easy to clean and maintain. It can be opened and closed by spatulas.\",\r\n    \"price\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/admin/subcategories/67aa41d39ae4e36f0037dec1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"subcategories",
+								"67aa41d39ae4e36f0037dec1"
 							]
 						}
 					},
