@@ -8,6 +8,7 @@ import Category from '../models/category.model';
 import Location from '../models/location.model';
 import SubCategory from '../models/subCategory.model';
 import RequestCallback from '../models/requestCallback.model';
+import mongoose from 'mongoose';
 
 // User management controllers
 export const getAllUsers = async (
@@ -263,7 +264,7 @@ export const createSubCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, description, categoryIds } = req.body;
+    const { name, description, categoryIds,price } = req.body;
 
     // Ensure all categoryIds exist
     const categories = await Category.find({ _id: { $in: categoryIds } });
@@ -276,7 +277,8 @@ export const createSubCategory = async (
     const subCategory = new SubCategory({
       name,
       description,
-      category: categoryIds, // Set as array of category IDs
+      category: categoryIds,
+      price // Set as array of category IDs
     });
 
     await subCategory.save();
@@ -406,21 +408,38 @@ export const getSubCategoriesByCategoryId = async (
   }
 };
 
+
 export const deleteSubCategory = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    // Trim and validate the ID
+    const trimmedId = id.trim();
+
+    if (!mongoose.Types.ObjectId.isValid(trimmedId)) {
+      res.status(400).json({ message: 'Invalid SubCategory ID' });
+      return;
+    }
+
+    // Convert to ObjectId
+    const objectId = new mongoose.Types.ObjectId(trimmedId);
+
+    const subCategory = await SubCategory.findByIdAndDelete(objectId);
+
     if (!subCategory) {
       res.status(404).json({ message: 'SubCategory not found' });
       return;
     }
+
     res.status(200).json({ message: 'SubCategory deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete subcategory', error });
   }
 };
+
 
 // locations management controller
 
