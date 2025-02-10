@@ -3,7 +3,10 @@ import axios from "axios";
 // Axios Interceptor Instance
 const AxiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    "Cache-Control": "no-store",
+  },
   timeout: 20000, // request timeout
 });
 
