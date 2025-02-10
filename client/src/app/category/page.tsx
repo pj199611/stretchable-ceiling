@@ -40,3 +40,5 @@ const CategoryPage = async () => {
 };
 
 export default CategoryPage;
+
+export const dynamic = "force-dynamic";

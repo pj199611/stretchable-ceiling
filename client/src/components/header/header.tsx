@@ -28,8 +28,6 @@ interface Props {
 }
 // ==============================================================
 
-export const dynamic = "force-dynamic";
-
 export default function Header({ isFixed, className, midSlot }: Props) {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down(900));
