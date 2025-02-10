@@ -5,7 +5,6 @@ const AxiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    "Cache-Control": "no-store",
     // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
   },
   timeout: 20000, // request timeout

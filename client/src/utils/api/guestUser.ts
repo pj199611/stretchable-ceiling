@@ -5,7 +5,9 @@ import axios from "@/utils/publicAxiosInstance";
 
 // http://localhost:8000/api/users/categories
 export const getCategoryList = async () => {
-  const response = await axios.get("/users/categories");
+  const response = await axios.get("/users/categories", {
+    headers: { "Cache-Control": "no-store" },
+  });
   console.log(response);
   return response;
 };
