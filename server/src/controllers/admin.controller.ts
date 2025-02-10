@@ -48,7 +48,7 @@ export const deleteUser = async (
 };
 
 export const getUser = async (req: IRequest, res: Response): Promise<void> => {
-  const id = req.user.id;
+  const id = req.user?.id;
   try {
     const user = await User.findById(id);
     if (!user) {

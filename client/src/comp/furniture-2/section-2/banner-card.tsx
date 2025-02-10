@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { H6, Paragraph, Span } from "@/components/Typography";
 // STYLED COMPONENTS
 import { BannerCardWrapper } from "./styles";
+import { currency } from "@/lib";
 
 // ==============================================================
 interface Props {
@@ -22,8 +23,9 @@ export default function BannerCard({ ImageComponent, tag, title }: Props) {
       <div className="content">
         <Paragraph
           fontWeight={600}
-          textTransform="uppercase"
+          // textTransform="uppercase"
           fontSize={{ sm: 24, xs: 20 }}
+          color={"white"}
         >
           {tag}
         </Paragraph>
@@ -31,16 +33,17 @@ export default function BannerCard({ ImageComponent, tag, title }: Props) {
         <H6
           lineHeight={1}
           fontWeight={700}
-          textTransform="uppercase"
+          // textTransform="uppercase"
           fontSize={{ sm: 36, xs: 32 }}
+          color={"white"}
         >
           {title}
         </H6>
 
-        <Paragraph color="grey.600" mb={2}>
+        <Paragraph fontSize={18} mt={1} mb={3} color={"white"}>
           Start from{" "}
           <Span color="error.main" fontWeight={700}>
-            $40.45
+            {currency(599)}
           </Span>
         </Paragraph>
 

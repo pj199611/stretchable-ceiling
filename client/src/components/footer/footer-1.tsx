@@ -49,11 +49,13 @@ export default function Footer1() {
             </Paragraph>
 
             <Paragraph py={0.6} color="grey.500">
-              Email: support@nestandnookinterior.com
+              <a href="mailto:support@nestandnookinterior.com?subject=Hello%20There&body=I%20hope%20this%20message%20finds%20you%20well.">
+                Email: support@nestandnookinterior.com
+              </a>
             </Paragraph>
 
             <Paragraph py={0.6} mb={2} color="grey.500">
-              Phone: 844-704-1309
+              <a href="tel:844-704-1309"> Phone: 844-704-1309</a>
             </Paragraph>
 
             <Grid />

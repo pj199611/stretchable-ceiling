@@ -12,6 +12,25 @@ import Title from "@/comp/PageTitle/Title";
 const img =
   "https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/aluminum-pvc-fabric-stretch-ceiling-fabric-light-box-t20231128105948.png";
 
+const subCategoryImageDictionary = {
+  Printed:
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Printed.jpg?updatedAt=1739197761842",
+  Translucent:
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Translucent.jpg",
+  "Lacquer Ceiling":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Lacquer%20Ceiling.jpg",
+  "SC Tiles":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/SC%20Tiles.jpg",
+  "Fibre optics":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Fibre%20Optics.jpg",
+  "3D": "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/3D.jpg",
+  "3D Virtual Window":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/3D%20Virtual%20Window.png",
+  "SC on Pillars":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/SC%20on%20Pillars.jpg",
+  "Dome Shaped":
+    "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Dome%20Shaped.png",
+};
 const SubCategoryPage = () => {
   const pathname = usePathname();
   const { dispatch } = useProduct();
@@ -36,7 +55,7 @@ const SubCategoryPage = () => {
 
   return (
     <>
-      <Title title=" Different Types of Ceilings" />
+      <Title title="Types of Ceilings" />
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
@@ -50,7 +69,7 @@ const SubCategoryPage = () => {
                 key={`${val.name}-${index}`}
                 title={val.name}
                 description={val.description}
-                imageUrl={img || ""}
+                imageUrl={subCategoryImageDictionary[val.name] || img}
                 additionalDetails={
                   val?.price ? `₹ ${val?.price} per sq feet` : undefined
                 }
@@ -61,7 +80,9 @@ const SubCategoryPage = () => {
           <Card
             key="customize"
             title={"Customize"}
-            description={"Customize your ceiling"}
+            description={
+              "Customizing your Ceiling is an effective way to set the mood and design style for a room. Whether opting for a bold statement ceiling or a subtle, textured finish, your ceiling is a great way to elevate the entire look of your space."
+            }
             imageUrl={
               "https://t4.ftcdn.net/jpg/03/29/52/67/360_F_329526704_4cfLIedQdh8wSEdGAM4NZWkeeHNSrakl.jpg"
             }

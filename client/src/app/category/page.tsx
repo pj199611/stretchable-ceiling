@@ -15,7 +15,7 @@ interface Category {
 }
 
 const CategoryPage = async () => {
-  const data: any = await getCategoryList();
+  const data: any = await getCategoryList(true);
   // if (!data || !data.categories) return notFound();
   const img =
     "https://files.cdn-files-a.com/uploads/1230204/2000_5bc1b582eadf9.jpg";

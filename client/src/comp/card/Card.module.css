@@ -7,7 +7,21 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
   min-width: 300px;
-  max-width: 320px;
+  max-width: 400px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.cardCategory {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  min-width: 40%;
+  max-width: 650px;
   margin: 10px;
   cursor: pointer;
 }
@@ -16,11 +30,24 @@
   transform: translateY(-10px);
   box-shadow: 0 12px 16px rgba(0, 0, 0, 0.15);
 }
+.cardCategory:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.15);
+}
 
 .cardImage {
   width: 100%;
-  height: 200px;
+  height: auto;
+  max-height: 200px;
+
   object-fit: cover;
+}
+
+.cardImageCategory {
+  width: 100%; /* Set a specific width for the image */
+  height: auto; /* Keep the image's aspect ratio */
+  max-height: 400px;
+  object-fit: cover; /* Optionally, make sure the image fills the box if needed */
 }
 
 .cardContent {
@@ -44,6 +71,16 @@
   font-size: 1rem;
   color: #555;
   margin-bottom: 20px;
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis;
+  max-height: 200px;
+}
+
+.card:hover .cardDescription {
+  white-space: normal; /* Allow text to wrap normally */
+  overflow: visible; /* Show any overflowing content */
+  text-overflow: clip; /* Remove ellipsis */
+  max-height: 500px;
 }
 
 .cardLink {
