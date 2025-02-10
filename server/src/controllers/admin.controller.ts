@@ -264,7 +264,7 @@ export const createSubCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, description, categoryIds,price } = req.body;
+    const { name, description, categoryIds, price } = req.body;
 
     // Ensure all categoryIds exist
     const categories = await Category.find({ _id: { $in: categoryIds } });
@@ -278,7 +278,7 @@ export const createSubCategory = async (
       name,
       description,
       category: categoryIds,
-      price // Set as array of category IDs
+      price, // Set as array of category IDs
     });
 
     await subCategory.save();
@@ -295,7 +295,19 @@ export const updateSubCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, description, categoryIds } = req.body;
+    const { name, description, categoryIds,price } = req.body;
+    const { id } = req.params;
+
+    // Trim and validate the ID
+    const trimmedId = id.trim();
+
+    if (!mongoose.Types.ObjectId.isValid(trimmedId)) {
+      res.status(400).json({ message: 'Invalid SubCategory ID' });
+      return;
+    }
+
+    // Convert to ObjectId
+    const objectId = new mongoose.Types.ObjectId(trimmedId);
 
     // If new category IDs are provided, verify that all exist
     if (categoryIds) {
@@ -308,8 +320,8 @@ export const updateSubCategory = async (
 
     // Update subcategory, setting category as an array of IDs
     const subCategory = await SubCategory.findByIdAndUpdate(
-      req.params.id,
-      { name, description, category: categoryIds },
+      objectId,
+      { name, description, category: categoryIds,price },
       { new: true }
     ).populate('category');
 
@@ -319,7 +331,7 @@ export const updateSubCategory = async (
     }
     res
       .status(200)
-      .json({ message: 'SubCategory updated successfully', subCategory });
+      .json({ message: 'SubCategory updated successfully',subCategory });
   } catch (error) {
     res.status(500).json({ message: 'Failed to update subcategory', error });
   }
@@ -408,7 +420,6 @@ export const getSubCategoriesByCategoryId = async (
   }
 };
 
-
 export const deleteSubCategory = async (
   req: Request,
   res: Response
@@ -439,7 +450,6 @@ export const deleteSubCategory = async (
     res.status(500).json({ message: 'Failed to delete subcategory', error });
   }
 };
-
 
 // locations management controller
 
@@ -473,7 +483,7 @@ export const getLocations = async (
   res: Response
 ): Promise<void> => {
   try {
-    const locations = (await Location.find()).map((location)=>location.name);
+    const locations = (await Location.find()).map((location) => location.name);
     res.status(200).json(locations);
   } catch (error) {
     res
@@ -554,4 +564,3 @@ export const getAllUsersWhoNeedsCallback = async (
     res.status(500).json({ message: error.message });
   }
 };
-
