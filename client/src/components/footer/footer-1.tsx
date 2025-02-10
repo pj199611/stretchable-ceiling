@@ -53,7 +53,7 @@ export default function Footer1() {
             </Paragraph>
 
             <Paragraph py={0.6} mb={2} color="grey.500">
-              Phone: 844-703-0606
+              Phone: 844-704-1309
             </Paragraph>
 
             <Grid />

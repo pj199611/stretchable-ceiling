@@ -23,7 +23,7 @@ export default function FurnitureTwoPageView() {
       <CallMeBackModal />
 
       <a
-        href={"https://wa.me/8447030606"}
+        href={"https://wa.me/8447041309"}
         target="_blank"
         rel="noreferrer noopenner"
         key={"whatsapp-Icon"}
