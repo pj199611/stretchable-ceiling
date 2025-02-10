@@ -74,7 +74,7 @@ const RegisterPageView = () => {
           userName: values.name,
           email: values.email,
           password: values.password,
-          mobile: values.mobile,
+          phoneNumber: values.mobile,
         })
           .then((res) => {
             console.log({ res });

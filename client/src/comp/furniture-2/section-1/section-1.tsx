@@ -6,7 +6,6 @@ import { H2, Paragraph, Span } from "@/components/Typography";
 // STYLED COMPONENT
 import { RootStyle } from "./styles";
 // IMPORT IMAGES
-import headerImg from "@/images/3d-stretchable-fabric-ceiling-work.jpg";
 import { currency } from "@/lib";
 import Link from "next/link";
 
@@ -17,7 +16,9 @@ export default function Section1() {
         <LazyImage
           className="banner"
           alt="Stretchable-Ceiling"
-          src={headerImg}
+          src="https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/SC%20on%20Pillars.jpg?updatedAt=1739197654327"
+          width={2000}
+          height={450}
         />
 
         <div className="content">

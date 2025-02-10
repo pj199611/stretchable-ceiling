@@ -8,13 +8,16 @@ import Gmail from "@/images/icons/Gmail";
 
 export const SOCIAL_ICON_LINKS = [
   { Icon: Facebook, url: "https://www.facebook.com/" },
-  { Icon: Twitter, url: "https://wa.me/8447030606" },
-  { Icon: WhatsApp, url: "https://wa.me/8447030606" },
+  { Icon: Twitter, url: "https://wa.me/8447041309" },
+  { Icon: WhatsApp, url: "https://wa.me/8447041309" },
   {
     Icon: Youtube,
     url: "https://www.youtube.com/",
   },
-  { Icon: Instagram, url: "https://www.instagram.com/" },
+  {
+    Icon: Instagram,
+    url: "https://www.instagram.com/nestandnookinterior/",
+  },
   // { Icon: Gmail, url: "support@nestandnookinterior.com" },
 ];
 

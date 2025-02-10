@@ -57,7 +57,7 @@ export default function HeroCarousel({ mainCarouselData }: Props) {
               alt="Stretchable-Ceiling"
               src={item.imgUrl}
               width={2000}
-              height={450}
+              height={600}
               // fill={false}
               style={{ objectFit: "cover" }}
             />

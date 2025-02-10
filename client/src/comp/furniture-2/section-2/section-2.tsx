@@ -5,8 +5,6 @@ import BannerCard from "./banner-card";
 // GLOBAL CUSTOM COMPONENT
 import LazyImage from "@/components/LazyImage";
 // IMPORT IMAGES
-import bannerOne from "@/images/Page-1234-scaled-700x466.jpg";
-import bannerTwo from "@/images/Page-1234-scaled-700x466.jpg";
 
 export default function Section2() {
   return (
@@ -16,7 +14,14 @@ export default function Section2() {
           <BannerCard
             tag="Modern"
             title="Furniture"
-            ImageComponent={<LazyImage alt="Banner" src={bannerOne} />}
+            ImageComponent={
+              <LazyImage
+                alt="Banner"
+                src="https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Lacquer%20Ceiling.jpg"
+                width={2000}
+                height={450}
+              />
+            }
           />
         </Grid>
 
@@ -24,7 +29,14 @@ export default function Section2() {
           <BannerCard
             tag="New"
             title="Lighting"
-            ImageComponent={<LazyImage alt="Banner" src={bannerTwo} />}
+            ImageComponent={
+              <LazyImage
+                alt="Banner"
+                src="https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/3D%20Virtual%20Window.png?updatedAt=1739197741390"
+                width={2000}
+                height={450}
+              />
+            }
           />
         </Grid>
       </Grid>

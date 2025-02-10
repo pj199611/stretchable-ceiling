@@ -29,7 +29,7 @@ const VALIDATION_SCHEMA = yup.object().shape({
     .matches(/^[0-9]{10,}$/, "Phone number must be at least 10 digits")
     .required("Phone Number is required!"),
   comment: yup.string().required("Remark is required!"),
-  mail: yup.string().required("Mail is required!"),
+  mail: yup.string().email("Invalid email").required("Email is required"),
 });
 
 const CallMeBackModal: React.FC<CallMeBackModalProps> = ({

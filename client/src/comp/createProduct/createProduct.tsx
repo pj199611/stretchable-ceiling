@@ -15,6 +15,7 @@ import SingleToaster from "@/comp/Toaster/singleToaster";
 import { UploadImageBox, StyledClear } from "./style";
 import AdminLayout from "@/comp/AdminLayout";
 import { FlexRowCenter } from "@/components/flex-box";
+import { getCategoryList } from "@/utils/api/guestUser";
 
 const VALIDATION_SCHEMA = yup.object().shape({
   name: yup.string().required("Name is required!"),
@@ -52,6 +53,15 @@ export default function ProductForm(props: Props) {
   });
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategoryList()
+      .then((res: any) => {
+        if (res?.categories) setCategories(res.categories);
+      })
+      .catch((err) => setCategories([]));
+  }, []);
 
   useEffect(() => {
     if (toaster.open) {
@@ -143,8 +153,11 @@ export default function ProductForm(props: Props) {
                         (touched.category && errors.category) as string
                       }
                     >
-                      <MenuItem value="electronics">Electronics</MenuItem>
-                      <MenuItem value="fashion">Fashion</MenuItem>
+                      {categories?.map((val: any, i) => (
+                        <MenuItem key={`category-${i}`} value={val._id}>
+                          {val.name}
+                        </MenuItem>
+                      ))}
                     </TextField>
                   </Grid>
 
