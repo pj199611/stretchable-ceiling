@@ -36,16 +36,20 @@ const VALIDATION_SCHEMA2 = yup.object().shape({
 interface Props {}
 // ================================================================
 
-export default function CategoryForm(props: Props) {
+const CategoryForm = (props: Props) => {
   const [categories, setCategories] = useState([]);
   const [isSubCategory, setIsSubCategory] = useState(false);
 
   useEffect(() => {
-    getCategoryList()
-      .then((res: any) => {
-        if (res?.categories) setCategories(res.categories);
-      })
-      .catch((err) => setCategories([]));
+    const fetchCategoryList = async () => {
+      await getCategoryList()
+        .then((res: any) => {
+          if (res?.categories) setCategories(res.categories);
+        })
+        .catch((err) => setCategories([]));
+    };
+
+    fetchCategoryList();
   }, []);
 
   const handleFormSubmit = (values) => {
@@ -160,4 +164,6 @@ export default function CategoryForm(props: Props) {
       </Formik>
     </Card>
   );
-}
+};
+
+export default CategoryForm;

@@ -71,7 +71,7 @@ export const getWishList = async (
 ): Promise<void> => {
   try {
     // Fetch the user by their ID
-    const user = await User.findById(req.user._id).populate('wishlist');
+    const user = await User.findById(req.user?._id).populate('wishlist');
 
     if (!user) {
       res.status(404).json({ error: 'User not found' });

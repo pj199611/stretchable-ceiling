@@ -4,10 +4,9 @@ import axios from "@/utils/publicAxiosInstance";
 // import Address from "models/Address.model";
 
 // http://localhost:8000/api/users/categories
-export const getCategoryList = async () => {
-  const response = await axios.get("/users/categories", {
-    headers: { "Cache-Control": "no-store" },
-  });
+export const getCategoryList = async (noStore = false) => {
+  const headers = noStore ? { "Cache-Control": "no-store" } : {};
+  const response = await axios.get("/users/categories", { headers });
   console.log(response);
   return response;
 };

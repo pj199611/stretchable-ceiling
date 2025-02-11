@@ -9,8 +9,8 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, description, imageUrl }: CategoryCardProps) => {
   return (
-    <div className={styles.card}>
-      <img className={styles.cardImage} src={imageUrl} alt={title} />
+    <div className={styles.cardCategory}>
+      <img className={styles.cardImageCategory} src={imageUrl} alt={title} />
       {/* <Image
         src={imageUrl}
         width={"30vw"}

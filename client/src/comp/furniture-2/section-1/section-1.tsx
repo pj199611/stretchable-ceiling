@@ -27,7 +27,7 @@ export default function Section1() {
           </Paragraph>
           <H2
             lineHeight={1}
-            textTransform="uppercase"
+            // textTransform="uppercase"
             fontSize={{ sm: 60, xs: 48 }}
           >
             Stretchable Ceiling

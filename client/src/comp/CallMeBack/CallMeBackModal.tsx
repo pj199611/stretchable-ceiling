@@ -81,6 +81,18 @@ const CallMeBackModal: React.FC<CallMeBackModalProps> = ({
         <FlexRowCenter
           style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}
         >
+          <a href="tel:844-704-1309"> Call me at 844-704-1309</a>
+        </FlexRowCenter>
+
+        <FlexRowCenter
+          style={{ fontSize: 14, fontWeight: 400, marginBottom: 16 }}
+        >
+          OR
+        </FlexRowCenter>
+
+        <FlexRowCenter
+          style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}
+        >
           Request a Call Back
         </FlexRowCenter>
 

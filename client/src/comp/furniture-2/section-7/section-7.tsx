@@ -11,7 +11,8 @@ export default async function Section7() {
   const testimonials = [
     {
       id: "1",
-      comment: "Lorem ipsum dolor sit amet, cot at amet.",
+      comment:
+        "We recently had a stretchable ceiling installed in our living room, and it’s transformed the entire space! The installation process was quick and easy, and the result is sleek and modern. The fabric material has a beautiful matte finish, and it has completely enhanced the aesthetics of the room. The ceiling is also really durable and easy to clean. Highly recommend for anyone looking to add a contemporary touch to their home!",
       name: "User 1",
       designation: "Designer",
       avatar:
@@ -20,7 +21,7 @@ export default async function Section7() {
     {
       id: "2",
       comment:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida. Sit diam duis mauris nulla cursus. Erat et lectus vel ut sollicitudin elit at amet.",
+        "I couldn't be happier with our new stretchable ceiling! Not only does it look fantastic, but it also helped with soundproofing in our home theater room. The flexibility of the design allowed us to customize it to fit the space perfectly. The installation was seamless, and the ceiling has held up beautifully. If you're considering a modern, stylish upgrade for your space, this is definitely the way to go!",
       name: "User 2",
       designation: "Designer",
       avatar:
@@ -29,21 +30,13 @@ export default async function Section7() {
     {
       id: "3",
       comment:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida. Sit diam duis mauris nulla cursus. Erat et lectus vel ut sollicitudin elit at amet.",
+        "I’ve always wanted a ceiling that would make my bathroom look sleek and modern. After installing a stretchable ceiling, it’s exactly what I hoped for—stylish, smooth, and water-resistant. The glossy finish reflects the light beautifully, and the ceiling looks flawless. It’s also been really easy to clean, which is a huge plus for a bathroom environment. I’m so pleased with the results!",
+
       name: "User 3",
       designation: "Designer",
       avatar:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp-VJxaFIy3CEl9egxp5FJ1Qgk5jrPM03s4A&s",
     },
-    // {
-    //   id: "4",
-    //   comment:
-    //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida. Sit diam duis mauris nulla cursus. Erat et lectus vel ut sollicitudin elit at amet.",
-    //   name: "User 4",
-    //   designation: "Designer",
-    //   avatar:
-    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp-VJxaFIy3CEl9egxp5FJ1Qgk5jrPM03s4A&s",
-    // },
   ];
 
   return (
