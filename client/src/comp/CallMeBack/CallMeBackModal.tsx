@@ -85,9 +85,9 @@ const CallMeBackModal: React.FC<CallMeBackModalProps> = ({
         </FlexRowCenter>
 
         <FlexRowCenter
-          style={{ fontSize: 14, fontWeight: 400, marginBottom: 16 }}
+          style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}
         >
-          OR
+          ---------------------- OR ----------------------
         </FlexRowCenter>
 
         <FlexRowCenter
