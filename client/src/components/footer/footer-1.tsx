@@ -49,8 +49,8 @@ export default function Footer1() {
             </Paragraph>
 
             <Paragraph py={0.6} color="grey.500">
-              <a href="mailto:support@nestandnookinterior.com?subject=Hello%20There&body=I%20hope%20this%20message%20finds%20you%20well.">
-                Email: support@nestandnookinterior.com
+              <a href="mailto:contact@nestandnookinterior.com?subject=Hello%20There&body=I%20hope%20this%20message%20finds%20you%20well.">
+                Email: contact@nestandnookinterior.com
               </a>
             </Paragraph>
 

@@ -24,7 +24,13 @@ export default function TestimonialCard({ testimonial }: Props) {
     <Wrapper>
       <FlexBox mb={2} gap={2}>
         <ImageWrapper>
-          <LazyImage src={avatar} width={240} height={240} alt="User" />
+          <LazyImage
+            src={avatar}
+            width={240}
+            height={240}
+            alt="User"
+            objectFit="contain"
+          />
         </ImageWrapper>
 
         <div>

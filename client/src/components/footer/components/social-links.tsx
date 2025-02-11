@@ -18,7 +18,7 @@ export const SOCIAL_ICON_LINKS = [
     Icon: Instagram,
     url: "https://www.instagram.com/nestandnookinterior/",
   },
-  // { Icon: Gmail, url: "support@nestandnookinterior.com" },
+  // { Icon: Gmail, url: "contact@nestandnookinterior.com" },
 ];
 
 export default function SocialLinks() {
