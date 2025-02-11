@@ -11,12 +11,12 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
   }
   
   try {
-    const { email, password,userName } = req.body;
+    const { email, password,userName,phoneNumber } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-    const newUser = new User({ email, password,userName });
+    const newUser = new User({ email, password,userName,phoneNumber });
     await newUser.save();
 
     return res.status(201).json({ message: 'User registered successfully' });
