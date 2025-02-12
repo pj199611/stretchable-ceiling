@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  PropsWithChildren,
-  useCallback,
-  useState,
-  useEffect,
-} from "react";
+import { PropsWithChildren, useCallback, useState, useEffect } from "react";
 import Sticky from "@/components/sticky";
 import { Footer1 } from "@/components/footer";
 import Header from "@/components/header/header";
@@ -18,7 +12,7 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
   const [isFixed, setIsFixed] = useState(false);
 
   const { dispatch } = useCart();
-  const { dispatch: userDispatch } = useUser();
+  const { dispatch: userDispatch }: any = useUser();
   useEffect(() => {
     // Only access localStorage in the client (browser)
     if (typeof window !== "undefined") {
@@ -60,20 +54,21 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
 
   const toggleIsFixed = useCallback((fixed: boolean) => setIsFixed(fixed), []);
   return (
-    <Fragment>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Sticky fixedOn={0} onSticky={toggleIsFixed} scrollDistance={300}>
         {/* <Header isFixed={isFixed} midSlot={<SearchInputWithCategory />} /> */}
         <Header isFixed={isFixed} midSlot={null} />
       </Sticky>
+      <div style={{ flexGrow: 1 }}>
+        {children}
 
-      {children}
+        {/* Mobile Bottom Tabs */}
+        <MobileNavigationBar />
+      </div>
 
-      {/* Mobile Bottom Tabs */}
-      <MobileNavigationBar />
-
-      <div style={{ position: "absolute", width: "100%" }}>
+      <div style={{ position: "relative", width: "100%" }}>
         <Footer1 />
       </div>
-    </Fragment>
+    </div>
   );
 }

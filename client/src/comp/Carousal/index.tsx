@@ -5,10 +5,10 @@ export default async function Carousal() {
   const mainCarouselData = [
     {
       id: 1,
-      title: "Multi D",
+      title: "Printed",
       subTitle: "Stretchable Ceiling",
-      imgUrl: "https://www.definedesign.co.in/images/slider//1.jpg",
-
+      imgUrl:
+        "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Printed.jpg",
       description: "",
       buttonLink: "",
     },
@@ -24,10 +24,9 @@ export default async function Carousal() {
     },
     {
       id: 3,
-      title: "Printed",
+      title: "Multi Dimension",
       subTitle: "Stretchable Ceiling",
-      imgUrl:
-        "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Printed.jpg",
+      imgUrl: "https://www.definedesign.co.in/images/slider//1.jpg",
       description: "",
       buttonText: "",
       buttonLink: "",

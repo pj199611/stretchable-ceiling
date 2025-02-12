@@ -81,8 +81,8 @@ export const ArrowButton = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   transform: "translate(0, -50%)",
   transition: "all 0.2s ease-in-out",
-  color: theme.palette.secondary.contrastText,
-  backgroundColor: theme.palette.secondary.main,
+  color: "white",
+  backgroundColor: "orange",
   boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)",
 
   ...(theme.direction === "rtl" && {

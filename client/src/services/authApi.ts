@@ -205,8 +205,22 @@ export const addToOrder = async ({
   return response;
 };
 
+// -------------------------------------------------------------
+// ------    ADMIN    ------------------------------------------
+// -------------------- -----------   ADMIN    -----------------
+// -------------------    ADMIN    -----------------------------
+// ----------------------- --------   ADMIN    -----------------
+// -------    ADMIN    -----------------------------------------
+// -------------------------------------------------------------
+
 // http://localhost:8000/api/admin/requestCallback
 export const getAdminCallbackRequests = async () => {
   const response = await AxiosInstance.get("/admin/requestCallback");
+  return response;
+};
+
+// http://localhost:8000/api/admin/users
+export const getAdminUserList = async () => {
+  const response = await AxiosInstance.get("/admin/users");
   return response;
 };

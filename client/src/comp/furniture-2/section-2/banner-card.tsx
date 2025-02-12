@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 import Button from "@mui/material/Button";
-// GLOBAL CUSTOM COMPONENTS
+
 import { H6, Paragraph, Span } from "@/components/Typography";
-// STYLED COMPONENTS
-import { BannerCardWrapper } from "./styles";
 import { currency } from "@/lib";
+
+import { BannerCardWrapper } from "./styles";
 
 // ==============================================================
 interface Props {
@@ -41,15 +42,14 @@ export default function BannerCard({ ImageComponent, tag, title }: Props) {
         </H6>
 
         <Paragraph fontSize={18} mt={1} mb={3} color={"white"}>
-          Start from{" "}
-          <Span color="error.main" fontWeight={700}>
-            {currency(599)}
-          </Span>
+          Start from <Span fontWeight={700}>{currency(599)}</Span>
         </Paragraph>
 
-        <Button variant="contained" color="orange">
-          Shop Now
-        </Button>
+        <Link href="/category">
+          <Button variant="contained" color="orange">
+            Check Categories
+          </Button>
+        </Link>
       </div>
     </BannerCardWrapper>
   );

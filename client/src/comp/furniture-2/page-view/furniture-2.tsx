@@ -4,18 +4,29 @@ import Section7 from "../section-7";
 import Section9 from "../section-9";
 import WhatsApp from "@/images/icons/Whatsapp";
 import CallMeBackModal from "@/comp/CallMeBack";
+import { FlexRowCenter } from "@/components/flex-box";
+import VideoSection from "../VideoSection";
+import IconsDisplay from "../IconsDisplay";
 
 export default function FurnitureTwoPageView() {
   return (
     <div className="bg-white pt-2">
+      {/* Icons Display */}
+      <IconsDisplay />
+
       {/* TOP BANNER SECTION */}
       <Section1 />
 
       {/* BANNER GRID SECTION */}
       <Section2 />
 
+      {/* <div className="bg-white pt-2"></div> */}
+
       {/* SERVICES SECTION */}
       <Section9 />
+
+      {/* <VideoSection /> */}
+      <VideoSection />
 
       {/* TESTIMONIAL SECTION */}
       <Section7 />

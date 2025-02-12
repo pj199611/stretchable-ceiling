@@ -12,6 +12,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
+import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import PeopleIcon from "@mui/icons-material/People";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import PersonOutline from "@mui/icons-material/PersonOutline";
@@ -153,13 +156,13 @@ export default function AccountMenu() {
         <AdminLayout>
           <Link href="/admin/create-product">
             <MenuItem>
-              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
+              <AddCircleIcon style={{ marginRight: 8, color: "grey" }} />
               Create Product
             </MenuItem>
           </Link>
           <Link href="/admin/callback-requests">
             <MenuItem>
-              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
+              <PhoneCallbackIcon style={{ marginRight: 8, color: "grey" }} />
               Callback Requests
             </MenuItem>
           </Link>
@@ -167,6 +170,12 @@ export default function AccountMenu() {
             <MenuItem>
               <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
               Create Category
+            </MenuItem>
+          </Link>
+          <Link href="/admin/user-list">
+            <MenuItem>
+              <PeopleIcon style={{ marginRight: 8, color: "grey" }} />
+              User List
             </MenuItem>
           </Link>
         </AdminLayout>

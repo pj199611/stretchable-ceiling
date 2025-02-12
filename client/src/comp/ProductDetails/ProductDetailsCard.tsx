@@ -138,7 +138,7 @@ export default function ProductDetailsCard({
 
           <FlexBox alignItems="center" mb={1}>
             <div>Product Class: </div>
-            <H6>{Class}</H6>
+            <H6 style={{ textTransform: "capitalize" }}>{Class}</H6>
           </FlexBox>
 
           {/* <FlexBox alignItems="center" mb={1}>
@@ -148,15 +148,15 @@ export default function ProductDetailsCard({
 
           <FlexBox alignItems="center" mb={1}>
             <div>Description: </div>
-            <H6>{description}</H6>
+            <H6 style={{ textTransform: "capitalize" }}>{description}</H6>
           </FlexBox>
 
           {/* PRODUCT RATING */}
-          <FlexBox alignItems="center" gap={1} mb={2}>
-            <Box lineHeight="1">Rating:</Box>
-            {/* <Rating color="warn" value={rating} readOnly /> */}
-            {/* <H6 lineHeight="1">({totalNoOfReviews})</H6> */}
-          </FlexBox>
+          {/* <FlexBox alignItems="center" gap={1} mb={2}>
+            <Box lineHeight="1">Rating:</Box> */}
+          {/* <Rating color="warn" value={rating} readOnly /> */}
+          {/* <H6 lineHeight="1">({totalNoOfReviews})</H6> */}
+          {/* </FlexBox> */}
 
           {/* PRODUCT VARIANTS */}
           {/* {productVariants.map((variant) => (
