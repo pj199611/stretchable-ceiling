@@ -20,7 +20,7 @@ export default function HeroCarousel({ mainCarouselData }: Props) {
   return (
     <Carousel
       dots
-      arrows={false}
+      arrows={true}
       slidesToShow={1}
       spaceBetween={0}
       dotStyles={COMMON_DOT_STYLES}

@@ -8,25 +8,25 @@ export default async function Section9() {
       id: "5f9bd366-9583-4e6d-9b11-abe74b9c5d96",
       icon: "Truck",
       title: "Nation Wide Delivery",
-      description: "We offer competitive prices on",
+      description: "We deliver our products across India",
     },
     {
       id: "121cffea-6972-41f8-8094-98dca22d17bb",
       icon: "CreditCardVerified",
       title: "Safe Payment",
-      description: "We offer competitive prices on",
+      description: "Make your payment without a worry",
     },
     {
       id: "5b94f5d8-71ec-40a6-b5b8-401286deba24",
       icon: "Shield",
       title: "Shop With Confidence",
-      description: "We offer competitive prices on",
+      description: "We Deliver best products available",
     },
     {
       id: "8c4bb18f-d914-4269-9c7c-3c6728ba33e9",
       icon: "CustomerService",
       title: "24/7 Support",
-      description: "We offer competitive prices on",
+      description: "We provide support for any queries",
     },
   ];
 

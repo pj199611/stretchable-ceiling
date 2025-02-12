@@ -6,10 +6,14 @@ import WhatsApp from "@/images/icons/Whatsapp";
 import CallMeBackModal from "@/comp/CallMeBack";
 import { FlexRowCenter } from "@/components/flex-box";
 import VideoSection from "../VideoSection";
+import IconsDisplay from "../IconsDisplay";
 
 export default function FurnitureTwoPageView() {
   return (
     <div className="bg-white pt-2">
+      {/* Icons Display */}
+      <IconsDisplay />
+
       {/* TOP BANNER SECTION */}
       <Section1 />
 
