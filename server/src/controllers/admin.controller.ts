@@ -463,7 +463,7 @@ export const createLocation = async (
 
     // Create location instance
     const location = new Location({
-      name,
+      name:name.toLowerCase(),
       location_price,
       operator,
     });

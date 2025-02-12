@@ -306,7 +306,7 @@ export const calculateEstimatedAmount = async (
   try {
     const { products, locationName } = req.body;
     let totalAmount = 0;
-    const location = await Location.findOne({ name: locationName });
+    const location = await Location.findOne({ name: locationName.toLowerCase() });
 
     for (const item of products) {
       let productPrice;
