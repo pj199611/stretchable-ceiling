@@ -323,9 +323,9 @@ export const calculateEstimatedAmount = async (
       const area = item.area;
 
       let itemTotal;
-      if (location.operator === 'add') {
+      if (location.operator.toLowerCase() === 'add') {
         itemTotal = area * (productPrice + location.location_price);
-      } else if (location.operator === 'subtract') {
+      } else if (location.operator.toLowerCase() === 'subtract') {
         itemTotal = area * (productPrice - location.location_price);
       }
       totalAmount += itemTotal;
