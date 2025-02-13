@@ -1,5 +1,6 @@
 import Link from "next/link";
 import WhatsApp from "@/images/icons/Whatsapp";
+import "../style.css";
 
 const FixedWhatsappIcon = () => (
   <>
@@ -9,16 +10,14 @@ const FixedWhatsappIcon = () => (
       rel="noreferrer noopenner"
       key={"whatsapp-Icon"}
     >
-      <div
-        style={{
-          position: "fixed",
-          bottom: 100,
-          right: 0,
-          zIndex: 5,
-          margin: "1em",
-        }}
-      >
-        <WhatsApp style={{ width: "2.25em", height: "2.25em" }} />
+      <div className="animation-icon" style={{ bottom: 100, right: 0 }}>
+        <WhatsApp
+          style={{
+            width: "2.25em",
+            height: "2.25em",
+            transition: "transform 0.3s ease" /* Smooth transition */,
+          }}
+        />
       </div>
     </Link>
   </>

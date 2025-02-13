@@ -51,7 +51,6 @@ export default function ServiceCard({ service }: Props) {
           flex: 1, // Ensures all boxes grow and fill available space equally
           overflowY: "auto",
           scrollbarWidth: "thin", // Firefox custom scrollbar width (thin)
-          scrollbarColor: "#888 #eff2f5", // Firefox custom scrollbar color (thumb & track)
         }}
       >
         {description?.map((val, i) => (

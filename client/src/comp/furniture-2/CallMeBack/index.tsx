@@ -13,13 +13,8 @@ const CallMeBack = () => {
     <>
       <div
         onClick={openModal}
-        style={{
-          position: "fixed",
-          bottom: 104,
-          left: 0,
-          zIndex: 5,
-          margin: "1em",
-        }}
+        className="animation-icon"
+        style={{ bottom: 104, left: 0 }}
       >
         <PhoneCallback
           style={{

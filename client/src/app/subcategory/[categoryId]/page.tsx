@@ -81,7 +81,7 @@ const SubCategoryPage = () => {
             key="customize"
             title={"Customize"}
             description={
-              "Customizing your Ceiling is an effective way to set the mood and design style for a room. Whether opting for a bold statement ceiling or a subtle, textured finish, your ceiling is a great way to elevate the entire look of your space."
+              "Customizing your Ceiling is an effective way to set the mood and design style for a room and to elevate the entire look of your space."
             }
             imageUrl={
               "https://t4.ftcdn.net/jpg/03/29/52/67/360_F_329526704_4cfLIedQdh8wSEdGAM4NZWkeeHNSrakl.jpg"

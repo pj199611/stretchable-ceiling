@@ -39,7 +39,17 @@ export default function TestimonialCard({ testimonial }: Props) {
         </div>
       </FlexBox>
 
-      <Paragraph>{comment}</Paragraph>
+      <Paragraph
+        style={{
+          minHeight: 200, // Set a minimum height
+          height: 200, // Same height for all boxes
+          flex: 1, // Ensures all boxes grow and fill available space equally
+          overflowY: "auto",
+          scrollbarWidth: "thin", // Firefox custom scrollbar width (thin)
+        }}
+      >
+        {comment}
+      </Paragraph>
     </Wrapper>
   );
 }

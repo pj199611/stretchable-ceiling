@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
+import "./flipAnimationIcon.css";
 
 const iconsObj = [
   "https://dreamsolfactory.com/wp-content/uploads/elementor/thumbs/360_F_882389887_PWiFW0VpbBC1KGhd21LMRrQ3Y1aAm9eT-removebg-preview-qzxzzs3gmfnjk4akjo81ox3hkb0g1auhz2pcuml7nk.png",
@@ -25,7 +26,7 @@ export default async function IconsDisplay() {
         <Grid container spacing={3} pt={3}>
           {iconsObj.map((val, i) => {
             return (
-              <Grid item lg={2} md={3} sm={4} xs={6}>
+              <Grid item lg={2} md={3} sm={4} xs={6} className="animated-icon">
                 <Image
                   key={`icons-${i}`}
                   src={val}

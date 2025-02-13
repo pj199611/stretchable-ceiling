@@ -1,0 +1,21 @@
+/* Flip animation */
+.animated-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px; /* Add perspective to create depth for the flip */
+  cursor: pointer;
+}
+
+.animated-icon:hover {
+  animation: flip 1.5s forwards; /* Flip animation */
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg); /* Start at normal position */
+  }
+  100% {
+    transform: rotateY(360deg); /* Flip 360 degrees */
+  }
+}

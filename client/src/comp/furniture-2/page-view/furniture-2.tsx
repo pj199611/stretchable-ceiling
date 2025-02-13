@@ -2,7 +2,7 @@ import Section1 from "../section-1";
 import Section2 from "../section-2";
 import Section7 from "../section-7";
 import Section9 from "../section-9";
-import CallMeBackModal from "@/comp/CallMeBack";
+import CallMeBackModal from "../CallMeBack";
 import FixedWhatsappIcon from "../WhatsappIcon";
 import VideoSection from "../VideoSection";
 import IconsDisplay from "../IconsDisplay";
