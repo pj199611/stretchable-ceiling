@@ -7,7 +7,7 @@ import FixedWhatsappIcon from "../WhatsappIcon";
 import VideoSection from "../VideoSection";
 import IconsDisplay from "../IconsDisplay";
 import WhatWeOffer from "../WhatWeOffer";
-
+import NumbersSection from "../NumbersSection";
 export default function FurnitureTwoPageView() {
   return (
     <div className="bg-white pt-2">
@@ -29,6 +29,8 @@ export default function FurnitureTwoPageView() {
       <VideoSection />
 
       <WhatWeOffer />
+
+      <NumbersSection />
 
       {/* TESTIMONIAL SECTION */}
       <Section7 />
