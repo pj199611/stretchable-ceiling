@@ -230,7 +230,7 @@ export default function ProductDetailsCard({
           {estimateCost > 0 && (
             <Box pt={1} mb={3}>
               <H2 color="primary.main" mb={0.5} lineHeight="1">
-                Estimated Cost : {estimateCost}
+                Estimated Cost = {currency(estimateCost)}
                 {/* {values.length * values.width * product_price} */}
               </H2>
             </Box>

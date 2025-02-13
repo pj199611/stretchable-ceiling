@@ -19,18 +19,20 @@ export default function ShopLayout1({ children }: PropsWithChildren) {
       const AccessToken = localStorage.getItem("access_token");
       if (AccessToken) {
         getUser().then((res: any) => {
-          const newUser = {
-            username: res.userName,
-            avatar: "",
-            mobile: "",
-            mail: res.email,
-            role: res.role,
-            location: "",
-          };
-          userDispatch({ type: "ASSIGN_USER", payload: newUser });
+          if (res) {
+            const newUser = {
+              username: res.userName || "-",
+              avatar: res.avatar || "",
+              mobile: res.phoneNumber || "-",
+              mail: res.email || "",
+              role: res.role || "user",
+            };
+            userDispatch({ type: "ASSIGN_USER", payload: newUser });
+          }
         });
         getWishlist().then((res: any) => {
-          dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
+          if (res?.wishlist)
+            dispatch({ type: "ASSIGN_WISHLIST", payload: res?.wishlist });
         });
         getCart().then((res: any) => {
           if (res?.cart) {

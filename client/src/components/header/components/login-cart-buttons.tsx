@@ -43,7 +43,12 @@ export default function LoginCartButtons({
       {isLogin ? (
         <AccountMenu />
       ) : (
-        <Button onClick={toggleDialog}> LOGIN</Button>
+        <Button
+          onClick={toggleDialog}
+          style={{ textDecoration: "underline", fontSize: 16 }}
+        >
+          Login
+        </Button>
       )}
 
       <Badge badgeContent={state.cart?.length} color="primary">

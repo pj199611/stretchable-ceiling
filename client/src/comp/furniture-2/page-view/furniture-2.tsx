@@ -2,11 +2,11 @@ import Section1 from "../section-1";
 import Section2 from "../section-2";
 import Section7 from "../section-7";
 import Section9 from "../section-9";
-import WhatsApp from "@/images/icons/Whatsapp";
 import CallMeBackModal from "@/comp/CallMeBack";
-import { FlexRowCenter } from "@/components/flex-box";
+import FixedWhatsappIcon from "../WhatsappIcon";
 import VideoSection from "../VideoSection";
 import IconsDisplay from "../IconsDisplay";
+import WhatWeOffer from "../WhatWeOffer";
 
 export default function FurnitureTwoPageView() {
   return (
@@ -28,29 +28,14 @@ export default function FurnitureTwoPageView() {
       {/* <VideoSection /> */}
       <VideoSection />
 
+      <WhatWeOffer />
+
       {/* TESTIMONIAL SECTION */}
       <Section7 />
 
+      {/* Fixed Icons */}
       <CallMeBackModal />
-
-      <a
-        href={"https://wa.me/8447041309"}
-        target="_blank"
-        rel="noreferrer noopenner"
-        key={"whatsapp-Icon"}
-      >
-        <div
-          style={{
-            position: "fixed",
-            bottom: 100,
-            right: 0,
-            zIndex: 5,
-            margin: "1em",
-          }}
-        >
-          <WhatsApp style={{ width: "2.25em", height: "2.25em" }} />
-        </div>
-      </a>
+      <FixedWhatsappIcon />
     </div>
   );
 }

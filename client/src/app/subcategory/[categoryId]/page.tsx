@@ -19,9 +19,9 @@ const subCategoryImageDictionary = {
     "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Translucent.jpg",
   "Lacquer Ceiling":
     "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Lacquer%20Ceiling.jpg",
-  "SC Tiles":
+  "Stretchable Tiles":
     "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/SC%20Tiles.jpg",
-  "Fibre optics":
+  "Fibre Optics":
     "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/Fibre%20Optics.jpg",
   "3D": "https://ik.imagekit.io/nestandnookinterior/Stretchable%20Ceiling/3D.jpg",
   "3D Virtual Window":

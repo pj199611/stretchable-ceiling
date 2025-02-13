@@ -9,9 +9,9 @@ import { createContext, PropsWithChildren, useMemo, useReducer } from "react";
 //   mobile: 7890654321,
 //   mail: "abc@gmial.com",
 //   role: "",
-//   location: "bangalore",
+//   location: "bangalore", // removed
 // };
-const INITIAL_STATE = { user: {}, location: "bangalore" };
+const INITIAL_STATE = { user: {} };
 
 export const UserContext = createContext({});
 

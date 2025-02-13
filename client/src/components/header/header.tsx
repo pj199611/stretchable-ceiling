@@ -28,6 +28,12 @@ interface Props {
 }
 // ==============================================================
 
+const HeaderLinks = [
+  { url: "/", name: "Home" },
+  { url: "/category", name: "Category" },
+  { url: "/our_projects", name: "Our Projects" },
+];
+
 export default function Header({ isFixed, className, midSlot }: Props) {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down(900));
@@ -61,12 +67,20 @@ export default function Header({ isFixed, className, midSlot }: Props) {
       {/* MEnu-List */}
       {/* <MenuList /> */}
       <FlexBox minWidth={100} alignItems="center">
-        <Link href="/">
-          <span style={{ margin: "0 4px" }}>Home</span>
-        </Link>
-        <Link href="/category">
-          <span style={{ margin: "0 4px" }}>Category</span>
-        </Link>
+        {HeaderLinks?.map((val, i) => (
+          <Link href={val.url} key={`links-${i}`}>
+            <span
+              style={{
+                margin: "0 4px",
+                textDecoration: "underline",
+                fontWeight: 600,
+                fontSize: 16,
+              }}
+            >
+              {val.name}
+            </span>
+          </Link>
+        ))}
 
         {/* <Wishlist /> */}
         <WishlistBtn />

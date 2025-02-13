@@ -15,7 +15,7 @@ const CallMeBack = () => {
         onClick={openModal}
         style={{
           position: "fixed",
-          bottom: 100,
+          bottom: 104,
           left: 0,
           zIndex: 5,
           margin: "1em",
@@ -23,12 +23,12 @@ const CallMeBack = () => {
       >
         <PhoneCallback
           style={{
-            width: "2.25em",
-            height: "2.25em",
+            width: "1.9em",
+            height: "1.9em",
             backgroundColor: "black",
             color: "white",
             borderRadius: "50%",
-            padding: 8,
+            padding: 9,
           }}
         />
       </div>
