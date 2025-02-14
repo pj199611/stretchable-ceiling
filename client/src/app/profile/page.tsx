@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import Person from "@mui/icons-material/Person";
+import { useState } from "react";
+import Button from "@mui/material/Button";
 
 import Profile from "@/pages-sections/customer-dashboard/profile/page-view/profile";
 import EditProfile from "@/pages-sections/customer-dashboard/profile/page-view/profile-edit";
 import Title from "@/comp/PageTitle/Title";
-import Person from "@mui/icons-material/Person";
-import { useState } from "react";
-import Button from "@mui/material/Button";
 
 const ProfilePage = async () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -20,6 +19,15 @@ const ProfilePage = async () => {
       {isEdit ? "Back to Profile" : "Edit Profile"}
     </Button>
   );
+
+  if (!localStorage.getItem("access_token"))
+    return (
+      <Link href="/login">
+        <Button variant="contained" color="orange" type="submit">
+          Please Login
+        </Button>
+      </Link>
+    );
 
   return (
     <>
