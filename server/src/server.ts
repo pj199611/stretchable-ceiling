@@ -39,10 +39,12 @@ app.use('/api', limiter);
 
 app.use(
   cors({
-    origin: '*', // Allow all origins
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow all HTTP methods
-    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization', // Allow all common headers
-    credentials: true, // Allow credentials (cookies, authorization headers)
+    origin: (origin, callback) => {
+      callback(null, true); // Allow all origins
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+    credentials: true, // Allow credentials
   })
 );
 
