@@ -7,70 +7,70 @@ import { IRequest } from '../interfaces/IReq';
 export const getClients = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const architectId = req.user?._id;
     const clients = await Client.find({ architectId });
-    res.status(200).json(clients);
+    return res.status(200).json(clients);
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving clients', error });
+    return res.status(500).json({ message: 'Error retrieving clients', error });
   }
 };
 
 export const getClientById = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const client = await Client.findById(req.params.id);
-    if (client) res.status(200).json(client);
-    else res.status(404).json({ message: 'Client not found' });
+    if (client) return res.status(200).json(client);
+    else return res.status(404).json({ message: 'Client not found' });
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving client', error });
+    return res.status(500).json({ message: 'Error retrieving client', error });
   }
 };
 
 export const createClient = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const newClient = new Client(req.body);
     const savedClient = await newClient.save();
-    res.status(201).json(savedClient);
+    return res.status(201).json(savedClient);
   } catch (error) {
-    res.status(500).json({ message: 'Error creating client', error });
+    return res.status(500).json({ message: 'Error creating client', error });
   }
 };
 
 export const updateClient = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const updatedClient = await Client.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (updatedClient) res.status(200).json(updatedClient);
-    else res.status(404).json({ message: 'Client not found' });
+    if (updatedClient) return res.status(200).json(updatedClient);
+    else return res.status(404).json({ message: 'Client not found' });
   } catch (error) {
-    res.status(500).json({ message: 'Error updating client', error });
+    return res.status(500).json({ message: 'Error updating client', error });
   }
 };
 
 export const deleteClient = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const deletedClient = await Client.findByIdAndDelete(req.params.id);
     if (deletedClient)
-      res.status(200).json({ message: 'Client deleted successfully' });
-    else res.status(404).json({ message: 'Client not found' });
+      return res.status(200).json({ message: 'Client deleted successfully' });
+    else return res.status(404).json({ message: 'Client not found' });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting client', error });
+    return res.status(500).json({ message: 'Error deleting client', error });
   }
 };
 
@@ -79,15 +79,15 @@ export const deleteClient = async (
 export const getAllOrdersForUsers = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const clientId = req.params.clientId;
     const orders: IClientOrder[] = await ClientOrder.find({ client: clientId })
       .populate('client')
       .populate('products.product');
-    res.status(200).json(orders);
+    return res.status(200).json(orders);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch orders' });
+    return res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
@@ -95,7 +95,7 @@ export const getAllOrdersForUsers = async (
 export const getOrderById = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const order: IClientOrder | null = await ClientOrder.findOne({
       _id: req.params.id,
@@ -104,13 +104,12 @@ export const getOrderById = async (
       .populate('products.product');
 
     if (!order) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    res.status(200).json(order);
+    return res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch order' });
+    return res.status(500).json({ error: 'Failed to fetch order' });
   }
 };
 
@@ -118,7 +117,7 @@ export const getOrderById = async (
 export const createOrder = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const {
       clientId,
@@ -144,9 +143,9 @@ export const createOrder = async (
     });
 
     const savedOrder = await newOrder.save();
-    res.status(201).json(savedOrder);
+    return res.status(201).json(savedOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create order' });
+    return res.status(500).json({ error: 'Failed to create order' });
   }
 };
 
@@ -154,7 +153,7 @@ export const createOrder = async (
 export const updateOrder = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const {
       clientId,
@@ -188,12 +187,11 @@ export const updateOrder = async (
       .populate('products.product');
 
     if (!updatedOrder) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
-    res.status(200).json(updatedOrder);
+    return res.status(200).json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update order' });
+    return res.status(500).json({ error: 'Failed to update order' });
   }
 };
 
@@ -201,15 +199,14 @@ export const updateOrder = async (
 export const deleteOrder = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const deletedOrder = await ClientOrder.findByIdAndDelete(req.params.id);
     if (!deletedOrder) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
-    res.status(200).json({ message: 'Order deleted successfully' });
+    return res.status(200).json({ message: 'Order deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete order' });
+    return res.status(500).json({ error: 'Failed to delete order' });
   }
 };

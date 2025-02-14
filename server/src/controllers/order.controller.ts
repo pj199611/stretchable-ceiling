@@ -8,7 +8,7 @@ import razorpayInstance from '../config/razorpay';
 export const getAllOrdersForUsers = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const userId = req.user?._id;
     console.log('userId:', userId);
@@ -18,10 +18,10 @@ export const getAllOrdersForUsers = async (
       .populate('products.product');
 
     console.log('Orders fetched:', orders);
-    res.status(200).json({ orders });
+    return res.status(200).json({ orders });
   } catch (error) {
     console.error('Error fetching orders:', error);
-    res.status(500).json({ error: 'Failed to fetch orders' });
+    return res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
@@ -29,7 +29,7 @@ export const getAllOrdersForUsers = async (
 export const getOrderById = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const userId = req.user?._id;
     const order: IOrder | null = await Order.findOne({
@@ -40,11 +40,10 @@ export const getOrderById = async (
       .populate('products.product');
 
     if (!order) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    res.status(200).json(order);
+    return res.status(200).json(order);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch order' });
   }
@@ -54,7 +53,7 @@ export const getOrderById = async (
 export const updateOrder = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const {
       clientId,
@@ -88,19 +87,18 @@ export const updateOrder = async (
       .populate('products.product');
 
     if (!updatedOrder) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
-    res.status(200).json(updatedOrder);
+    return res.status(200).json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update order' });
+    return res.status(500).json({ error: 'Failed to update order' });
   }
 };
 // Create a new order
 export const createOrder = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { products, shippingAddress } = req.body;
 
@@ -133,30 +131,30 @@ export const createOrder = async (
 
     newOrder.payment_status="Not Verified";
     await newOrder.save();
-    res.status(201).json({ order: newOrder, razorpayOrder });
+    return res.status(201).json({ order: newOrder, razorpayOrder });
   } catch (error) {
     console.error('Error creating order:', error);
-    res.status(500).json({ error: 'Failed to create order' });
+    return res.status(500).json({ error: 'Failed to create order' });
   }
 };
 
 export const handlePartialPayment = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { orderId, amount, razorpayPaymentId } = req.body;
 
     // Fetch the order from the database
     const order = await Order.findById(orderId);
     if (!order) {
-       res.status(404).json({ error: 'Order not found' });
+      return res.status(404).json({ error: 'Order not found' });
     }
 
     // Verify the payment with Razorpay
     const payment = await razorpayInstance.payments.fetch(razorpayPaymentId);
     if (!payment || payment.status !== 'captured') {
-       res.status(400).json({ error: 'Payment verification failed' });
+      return res.status(400).json({ error: 'Payment verification failed' });
     }
 
     // Add the partial payment details to the order's paymentDetails array
@@ -179,13 +177,13 @@ export const handlePartialPayment = async (
     // Save the updated order
     await order.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Partial payment recorded successfully',
       order,
     });
   } catch (error) {
     console.error('Error handling partial payment:', error);
-    res.status(500).json({ error: 'Failed to handle payment' });
+    return res.status(500).json({ error: 'Failed to handle payment' });
   }
 };
 
@@ -193,23 +191,22 @@ export const handlePartialPayment = async (
 export const deleteOrder = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);
     if (!deletedOrder) {
-      res.status(404).json({ error: 'Order not found' });
-      return;
+      return res.status(404).json({ error: 'Order not found' });
     }
-    res.status(200).json({ message: 'Order deleted successfully' });
+    return res.status(200).json({ message: 'Order deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete order' });
+    return  res.status(500).json({ error: 'Failed to delete order' });
   }
 };
 
 export const createCustomizedOrder = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     console.log('Req.body:', req.body);
 
@@ -250,9 +247,9 @@ export const createCustomizedOrder = async (
     // Save the order to the database
     const savedOrder = await newOrder.save();
 
-    res.status(201).json(savedOrder);
+    return res.status(201).json(savedOrder);
   } catch (error) {
     console.error('Error creating customized order:', error);
-    res.status(500).json({ error: 'Failed to create order' });
+    return res.status(500).json({ error: 'Failed to create order' });
   }
 };

@@ -6,7 +6,7 @@ import Order from '../models/orders.model';
 export const getAllProductsClass = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const products: IProduct[] = await Product.find();
     const productsClass = [];
@@ -16,16 +16,16 @@ export const getAllProductsClass = async (
       }
     }
 
-    res.json(productsClass);
+    return res.json(productsClass);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
+    return res.status(500).json({ error: 'Failed to fetch products' });
   }
 };
 
 export const getProductsOfOneClass = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const products: IProduct[] = await Product.find();
     const productsClass = [];
@@ -34,16 +34,16 @@ export const getProductsOfOneClass = async (
         productsClass.push(products[i]);
       }
     }
-    res.json(productsClass);
+    return res.json(productsClass);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
+    return res.status(500).json({ error: 'Failed to fetch products' });
   }
 };
 
 export const getAllProducts = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
@@ -53,7 +53,7 @@ export const getAllProducts = async (
 
     const totalProducts = await Product.countDocuments();
 
-    res.status(200).json({
+    return res.status(200).json({
       products,
       pagination: {
         totalProducts,
@@ -63,46 +63,43 @@ export const getAllProducts = async (
       },
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
+    return res.status(500).json({ error: 'Failed to fetch products' });
   }
 };
 
 export const getProductById = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const product: IProduct | null = await Product.findById(req.params.id);
     if (!product) {
-      res.status(404).json({ error: 'Product not found' });
-      return;
+      return res.status(404).json({ error: 'Product not found' });
     }
-    res.status(200).json(product);
+    return res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch product' });
+    return res.status(500).json({ error: 'Failed to fetch product' });
   }
 };
 
 export const createProduct = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   console.log('req.files', req.files);
   try {
     if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
-      res.status(400).json({ error: 'At least one image is required' });
-      return;
+      return res.status(400).json({ error: 'At least one image is required' });
     }
 
     const imagePaths = (req.files as Express.Multer.File[]).map(
       (file) => file.path
     );
     if (imagePaths.length === 0) {
-      res.status(400).json({ error: 'Images are required' });
-      return;
+      return res.status(400).json({ error: 'Images are required' });
     }
 
-    if (req.body?.imageUrls && req.body?.imageUrls!==undefined) {
+    if (req.body?.imageUrls && req.body?.imageUrls !== undefined) {
       const str = req.body.imageUrls;
       const result = str.match(/\[(.*?)\]/)[1];
       req.body.imageUrls = result;
@@ -115,10 +112,10 @@ export const createProduct = async (
     });
 
     const savedProduct = await newProduct.save();
-    res.status(201).json(savedProduct);
+    return res.status(201).json(savedProduct);
   } catch (error) {
     console.log('Error', error);
-    res
+    return res
       .status(500)
       .json({ error: 'Failed to create product', details: error.message });
   }
@@ -127,7 +124,7 @@ export const createProduct = async (
 export const updateProduct = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -137,25 +134,23 @@ export const updateProduct = async (
       }
     );
     if (!updatedProduct) {
-      res.status(404).json({ error: 'Product not found' });
-      return;
+      return res.status(404).json({ error: 'Product not found' });
     }
-    res.status(200).json(updatedProduct);
+    return res.status(200).json(updatedProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update product' });
+    return res.status(500).json({ error: 'Failed to update product' });
   }
 };
 
 export const deleteProduct = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
     if (!deletedProduct) {
-      res.status(404).json({ error: 'Product not found' });
-      return;
+      return res.status(404).json({ error: 'Product not found' });
     }
 
     // Remove the deleted product from all orders
@@ -164,26 +159,25 @@ export const deleteProduct = async (
       { $pull: { products: { product: req.params.id } } }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Product deleted successfully and removed from all orders',
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete product' });
+    return res.status(500).json({ error: 'Failed to delete product' });
   }
 };
 
 export const getProductsByCategoryAndSubCategory = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   const { categoryId, subCategoryId } = req.query;
 
   try {
     if (!categoryId || !subCategoryId) {
-      res
+      return res
         .status(400)
         .json({ message: 'Category ID and SubCategory ID are required' });
-      return;
     }
 
     const products = await Product.find(
@@ -197,38 +191,36 @@ export const getProductsByCategoryAndSubCategory = async (
     );
 
     if (products.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         message: 'No products found for this category and subcategory',
       });
-      return;
     }
 
-    res.status(200).json(products);
+    return res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch products', error });
+    return res.status(500).json({ message: 'Failed to fetch products', error });
   }
 };
 
 export const getProductsByCategoryAndSubCategoryDetails = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   const { productId } = req.query;
 
   try {
     if (!productId) {
-      res
+      return res
         .status(400)
         .json({ message: 'Category ID and SubCategory ID are required' });
-      return;
     }
 
     const product = await Product.find({
       _id: productId,
     });
 
-    res.status(200).json(product);
+    return res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch product', error });
+    return res.status(500).json({ message: 'Failed to fetch product', error });
   }
 };

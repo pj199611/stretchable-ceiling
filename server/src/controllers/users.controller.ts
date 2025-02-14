@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 export const getDropdownData = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const result = [];
     const categories = await Category.find();
@@ -27,17 +27,17 @@ export const getDropdownData = async (
       };
       result.push(categoryData);
     }
-    res.json(result);
+    return res.json(result);
   } catch (error) {
     console.log(error);
-    res.json({ error: 'An error occurred' });
+    return res.json({ error: 'An error occurred' });
   }
 };
 
 export const requestCallback = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { mail, name, phoneNumber, comment } = req.body;
     const requestCallback = new RequestCallback({
@@ -47,19 +47,19 @@ export const requestCallback = async (
       mail,
     });
 
-    const requestedCallbacksEmails=(await RequestCallback.find()).map((d)=>d.mail);
-
+    const requestedCallbacksEmails = (await RequestCallback.find()).map(
+      (d) => d.mail
+    );
 
     if (requestedCallbacksEmails.includes(mail)) {
-      res.json({ message: 'callback already arranged!' });
-      return;
+      return res.json({ message: 'callback already arranged!' });
     } else {
       await requestCallback.save();
-      res.json({ message: 'callback is arranged' });
+      return res.json({ message: 'callback is arranged' });
     }
   } catch (error) {
     console.log(error);
-    res.json({ error: 'An error occurred' });
+    return res.json({ error: 'An error occurred' });
   }
 };
 
@@ -68,20 +68,20 @@ export const requestCallback = async (
 export const getWishList = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     // Fetch the user by their ID
     const user = await User.findById(req.user?._id).populate('wishlist');
 
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Return the populated wishlist with product details
-    res.json({ wishlist: user.wishlist });
+    return res.json({ wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
@@ -89,7 +89,7 @@ export const getWishList = async (
 export const addToWishlist = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { productId } = req.body;
     const user = await User.findById(req.user._id);
@@ -101,10 +101,10 @@ export const addToWishlist = async (
       await user.save();
     }
 
-    res.json({ message: 'Product added to wishlist' });
+    return res.json({ message: 'Product added to wishlist' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
@@ -138,31 +138,28 @@ export const removeFromWishlist = async (
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 export const clearWishlist = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const user = await User.findById(req.user._id);
     user.wishlist = [];
     await user.save();
 
-    res.json({ message: 'wishlist cleared', wishlist: user.wishlist });
+    return res.json({ message: 'wishlist cleared', wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 // Add product to cart
-export const addToCart = async (
-  req: IRequest,
-  res: Response
-): Promise<void> => {
+export const addToCart = async (req: IRequest, res: Response): Promise<any> => {
   const session = await mongoose.startSession();
 
   try {
@@ -172,13 +169,13 @@ export const addToCart = async (
     const product = await Product.findById(productId).session(session);
     if (!product) {
       await session.abortTransaction();
-      res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: 'Product not found' });
     }
 
     const user = await User.findById(req.user._id).session(session);
     if (!user) {
       await session.abortTransaction();
-      res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Find cart item with the same composite key (productId, length, width)
@@ -198,7 +195,7 @@ export const addToCart = async (
         .session(session);
       if (!subCategory) {
         await session.abortTransaction();
-        res.status(404).json({ error: 'Subcategory not found' });
+        return res.status(404).json({ error: 'Subcategory not found' });
       }
       price = subCategory.price;
     }
@@ -224,19 +221,19 @@ export const addToCart = async (
     await session.commitTransaction();
     session.endSession();
 
-    res.json({ message: 'Product added to cart', cart: user.cart });
+    return res.json({ message: 'Product added to cart', cart: user.cart });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 export const removeFromCart = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { productId, length, width } = req.body;
     const user = await User.findById(req.user._id);
@@ -251,23 +248,23 @@ export const removeFromCart = async (
 
     await user.save();
 
-    res.json({ message: 'Product removed from cart' });
+    return res.json({ message: 'Product removed from cart' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 export const getAllCartItems = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     // Fetch the user by their ID
     const user = await User.findById(req.user._id);
 
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     const populatedUser = await user.populate({
@@ -275,38 +272,37 @@ export const getAllCartItems = async (
       model: 'Product',
     });
 
-    res.json({ cart: populatedUser.cart });
+    return res.json({ cart: populatedUser.cart });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 // Clear cart
-export const clearCart = async (
-  req: IRequest,
-  res: Response
-): Promise<void> => {
+export const clearCart = async (req: IRequest, res: Response): Promise<any> => {
   try {
     const user = await User.findById(req.user._id);
     user.cart = [];
     await user.save();
 
-    res.json({ message: 'Cart cleared', cart: user.cart });
+    return res.json({ message: 'Cart cleared', cart: user.cart });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
 
 export const calculateEstimatedAmount = async (
   req: IRequest,
   res: Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { products, locationName } = req.body;
     let totalAmount = 0;
-    const location = await Location.findOne({ name: locationName.toLowerCase() });
+    const location = await Location.findOne({
+      name: locationName.toLowerCase(),
+    });
 
     for (const item of products) {
       let productPrice;
@@ -331,9 +327,9 @@ export const calculateEstimatedAmount = async (
       totalAmount += itemTotal;
     }
 
-    res.json({ estimatedCost: totalAmount });
+    return res.json({ estimatedCost: totalAmount });
   } catch (error) {
     console.log('error', error);
-    res.status(500).json({ error: 'Failed to create order' });
+    return res.status(500).json({ error: 'Failed to create order' });
   }
 };
