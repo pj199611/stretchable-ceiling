@@ -33,7 +33,7 @@ export const SOCIAL_ICON_LINKS = [
 
 export default function SocialLinks() {
   return (
-    <FlexBox className="flex" mx={-0.625}>
+    <FlexBox className="flex mb-1" mx={-0.625}>
       {SOCIAL_ICON_LINKS.map(({ Icon, url }, ind) => (
         <a href={url} target="_blank" rel="noreferrer noopenner" key={ind}>
           <div style={{ padding: "0px 9px 10px 0px" }}>
