@@ -7,6 +7,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Home from "@/icons/Home";
 import User2 from "@/icons/User2";
 import CategoryOutlined from "@/icons/CategoryOutline";
+import WorkIcon from "@mui/icons-material/Work";
 import ShoppingBagOutlined from "@/icons/ShoppingBagOutlined";
 // GLOBAL CUSTOM HOOK
 import useCart from "@/hooks/useCart";
@@ -43,6 +44,7 @@ export default function MobileNavigationBar() {
 const list = [
   { title: "Home", Icon: Home, href: "/" },
   { title: "Category", Icon: CategoryOutlined, href: "/category" },
-  { title: "Cart", Icon: ShoppingBagOutlined, href: "/cart" },
+  { title: "Our Projetcs", Icon: WorkIcon, href: "/our-projects" },
+  // { title: "Cart", Icon: ShoppingBagOutlined, href: "/cart" },
   // { title: "Account", Icon: User2, href: "/profile" },
 ];
