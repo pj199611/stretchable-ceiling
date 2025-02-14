@@ -15,37 +15,40 @@ import SingleToaster from "@/comp/Toaster/singleToaster";
 import { UploadImageBox, StyledClear } from "./style";
 import AdminLayout from "@/comp/AdminLayout";
 import { FlexRowCenter } from "@/components/flex-box";
-import { getCategoryList } from "@/utils/api/guestUser";
+import {
+  getCategoryList,
+  getSubCategoryList,
+  addProduct,
+} from "@/services/adminAuthApi";
 
 const VALIDATION_SCHEMA = yup.object().shape({
   name: yup.string().required("Name is required!"),
   category: yup
     .array(yup.string())
-    .min(1, "Select a Category")
+    .min(1, "Select one Category")
+    .max(1, "Select one Category")
     .required("Category is required!"),
-  subcategory: yup
+  subCategory: yup
     .array(yup.string())
-    .min(1, "Sub-Category must have at least 1 items")
+    .min(1, "Sub-Category must have 1 item")
+    .max(1, "Sub-Category must have 1 item")
     .required("Sub-Category is required!"),
   description: yup.string().required("Description is required!"),
   price: yup.number().required("Price is required!"),
-  classes: yup.string().required("Classes is required!"),
+  class: yup.string().required("Classes is required!"),
 });
 
-// ================================================================
-interface Props {}
-// ================================================================
-
 const INITIAL_VALUES = {
-  name: "sdf",
-  classes: "dsf",
-  price: "12",
-  category: ["sdf"],
-  subcategory: ["df"],
-  description: "df",
+  name: "",
+  class: "",
+  price: "",
+  category: [],
+  subCategory: [],
+  description: "",
+  // imageUrls: [],
 };
 
-export default function ProductForm(props: Props) {
+export default function ProductForm() {
   const [toaster, setToaster] = useState({
     open: false,
     msg: "Welcome!",
@@ -54,11 +57,17 @@ export default function ProductForm(props: Props) {
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   useEffect(() => {
     getCategoryList()
       .then((res: any) => {
         if (res?.categories) setCategories(res.categories);
+      })
+      .catch((err) => setCategories([]));
+    getSubCategoryList()
+      .then((res: any) => {
+        if (res?.subCategories) setSubCategories(res.subCategories);
       })
       .catch((err) => setCategories([]));
   }, []);
@@ -72,34 +81,55 @@ export default function ProductForm(props: Props) {
     }
   }, [toaster]);
 
-  const handleFormSubmit = (values: typeof INITIAL_VALUES) => {
+  const handleFormSubmit = async (values: typeof INITIAL_VALUES) => {
     const formData = new FormData();
     // Append each image to FormData
     if (uploadedImage.length)
       Array.from(uploadedImage).forEach((image) => {
         formData.append("images", image); // 'images' is the key sent to the server
       });
-    formData.append("category", JSON.stringify(values.category));
-    formData.append("subcategory", JSON.stringify(values.subcategory));
+    // console.log(values);
+    // formData.append("category", JSON.stringify(values.category[0]));
+    // formData.append("subCategory", JSON.stringify(values.subCategory[0]));
+    formData.append("category", values.category[0]);
+    formData.append("subCategory", values.subCategory[0]);
     formData.append("name", values.name);
     formData.append("description", values.description);
-    formData.append("classes", values.classes);
-    formData.append("price", values.price);
+    formData.append("class", values.class);
+    formData.append("product_price", values.price);
+    // if (values?.imageUrls) formData.append("imageUrls", values.imageUrls);
 
-    console.log(values);
-    // Display the key/value pairs
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    // RUN API
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
+
+    setLoading(true);
+    await addProduct(formData)
+      .then((res) => {
+        setToaster({
+          open: true,
+          msg: `Product Created! ID: ${res?._id}`,
+          severity: "success",
+        });
+      })
+      .catch((err) => {
+        setToaster({
+          open: true,
+          msg: err?.response?.data?.error || "Something went wrong. Try Again!",
+          severity: "error",
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
-  const handleChangeDropZone = (uploadedImage: File[]) => {
-    uploadedImage.forEach((file) =>
+  const handleChangeDropZone = (files: File[]) => {
+    files.forEach((file) =>
       Object.assign(file, { preview: URL.createObjectURL(file) })
     );
-    setUploadedImage(uploadedImage);
+    setUploadedImage((uploadedImage) => uploadedImage.concat(files));
   };
 
   // HANDLE DELETE UPLOAD IMAGE
@@ -167,20 +197,23 @@ export default function ProductForm(props: Props) {
                       fullWidth
                       color="info"
                       size="medium"
-                      name="subcategory"
+                      name="subCategory"
                       onBlur={handleBlur}
                       placeholder="Sub-Category"
                       onChange={handleChange}
-                      value={values.subcategory}
+                      value={values.subCategory}
                       label="Select Sub-Category"
                       SelectProps={{ multiple: true }}
-                      error={Boolean(touched.subcategory && errors.subcategory)}
+                      error={Boolean(touched.subCategory && errors.subCategory)}
                       helperText={
-                        (touched.subcategory && errors.subcategory) as string
+                        (touched.subCategory && errors.subCategory) as string
                       }
                     >
-                      <MenuItem value="electronics">Electronics</MenuItem>
-                      <MenuItem value="fashion">Fashion</MenuItem>
+                      {subCategories?.map((val: any, i) => (
+                        <MenuItem key={`subCategory-${i}`} value={val._id}>
+                          {val.name}
+                        </MenuItem>
+                      ))}
                     </TextField>
                   </Grid>
 
@@ -248,16 +281,16 @@ export default function ProductForm(props: Props) {
                   <Grid item sm={6} xs={12}>
                     <TextField
                       fullWidth
-                      name="classes"
+                      name="class"
                       label="Classes"
                       color="info"
                       size="medium"
                       placeholder="Classes"
                       onBlur={handleBlur}
-                      value={values.classes}
+                      value={values.class}
                       onChange={handleChange}
-                      helperText={touched.classes && errors.classes}
-                      error={Boolean(touched.classes && errors.classes)}
+                      helperText={touched.class && errors.class}
+                      error={Boolean(touched.class && errors.class)}
                     />
                   </Grid>
 

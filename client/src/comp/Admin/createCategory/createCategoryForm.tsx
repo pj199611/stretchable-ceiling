@@ -11,13 +11,20 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { getCategoryList } from "@/utils/api/guestUser";
+import {
+  getCategoryList,
+  addCategory,
+  addSubCategory,
+} from "@/services/adminAuthApi";
+import SingleToaster from "@/comp/Toaster/singleToaster";
 
 const INITIAL_VALUES = {
   category: "",
   subcategory: "",
   parent: [],
   createsubcategory: false,
+  description: "",
+  price: 0,
 };
 
 const VALIDATION_SCHEMA = yup.object().shape({
@@ -26,10 +33,13 @@ const VALIDATION_SCHEMA = yup.object().shape({
     .array()
     .min(1, "Select at least one Category")
     .required("Parent Category is required"),
+  description: yup.string().required("Description is required!"),
+  price: yup.number().required("Price is required").positive().moreThan(0),
 });
 
 const VALIDATION_SCHEMA2 = yup.object().shape({
   category: yup.string().required("Category is required!"),
+  description: yup.string().required("Description is required!"),
 });
 
 // ================================================================
@@ -39,6 +49,12 @@ interface Props {}
 const CategoryForm = (props: Props) => {
   const [categories, setCategories] = useState([]);
   const [isSubCategory, setIsSubCategory] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [toaster, setToaster] = useState({
+    open: false,
+    msg: "Welcome!",
+    severity: "success",
+  });
 
   useEffect(() => {
     const fetchCategoryList = async () => {
@@ -52,8 +68,66 @@ const CategoryForm = (props: Props) => {
     fetchCategoryList();
   }, []);
 
-  const handleFormSubmit = (values) => {
-    console.log(values, categories);
+  useEffect(() => {
+    if (toaster.open) {
+      const timer = setTimeout(() => {
+        setToaster({ open: false, msg: "", severity: "success" });
+      }, 3000);
+      return () => clearTimeout(timer); // Cleanup on component unmount or toaster change
+    }
+  }, [toaster]);
+
+  const handleFormSubmit = async (values) => {
+    setLoading(true);
+    if (isSubCategory) {
+      await addSubCategory({
+        name: values.subcategory,
+        description: values.description,
+        categoryIds: values.parent,
+        price: values.price,
+      })
+        .then((res) => {
+          setToaster({
+            open: true,
+            msg: `Sub-Category Created! Name: ${res?.subCategory?.name}`,
+            severity: "success",
+          });
+        })
+        .catch((err) => {
+          setToaster({
+            open: true,
+            msg:
+              err?.response?.data?.error || "Something went wrong. Try Again!",
+            severity: "error",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      await addCategory({
+        name: values.category,
+        description: values.description,
+      })
+        .then((res) => {
+          setToaster({
+            open: true,
+            msg: `Category Created! Name: ${res?.category?.name}`,
+            severity: "success",
+          });
+        })
+        .catch((err) => {
+          setToaster({
+            open: true,
+            msg:
+              err?.response?.data?.error || "Something went wrong. Try Again!",
+            severity: "error",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
   return (
     <Card className="p-3">
@@ -137,6 +211,43 @@ const CategoryForm = (props: Props) => {
               )}
 
               <Grid item xs={12}>
+                <TextField
+                  rows={6}
+                  multiline
+                  fullWidth
+                  color="info"
+                  size="medium"
+                  name="description"
+                  label="Description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  placeholder="Description"
+                  value={values.description}
+                  helperText={touched.description && errors.description}
+                  error={Boolean(touched.description && errors.description)}
+                />
+              </Grid>
+
+              {isSubCategory && (
+                <Grid item sm={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    name="price"
+                    color="info"
+                    size="medium"
+                    type="number"
+                    onBlur={handleBlur}
+                    value={values.price}
+                    label="Price"
+                    onChange={handleChange}
+                    placeholder="Price"
+                    helperText={touched.price && errors.price}
+                    error={Boolean(touched.price && errors.price)}
+                  />
+                </Grid>
+              )}
+
+              <Grid item xs={12}>
                 <FormControlLabel
                   label="Create SubCategory"
                   control={
@@ -154,7 +265,12 @@ const CategoryForm = (props: Props) => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button variant="contained" color="info" type="submit">
+                <Button
+                  disabled={loading}
+                  variant="contained"
+                  color="info"
+                  type="submit"
+                >
                   {isSubCategory ? "Save Sub-Category" : "Save Category"}
                 </Button>
               </Grid>
@@ -162,6 +278,14 @@ const CategoryForm = (props: Props) => {
           </form>
         )}
       </Formik>
+      {toaster.open && (
+        <SingleToaster
+          key={Date.now()}
+          openNow={toaster.open}
+          msg={toaster.msg}
+          severity={toaster.severity}
+        />
+      )}
     </Card>
   );
 };
