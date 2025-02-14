@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import CreateCategory from "@/comp/Admin/createCategory/createCategory";
 
 export const metadata: Metadata = {
-  title: "Create Product - Nest and Nook",
-  keywords: ["e-commerce", "create product"],
+  title: "Create Category - Nest and Nook",
+  keywords: ["e-commerce", "create Category"],
 };
 
-export default function ProductCreate() {
+export default function CategoryCreate() {
   return <CreateCategory />;
 }

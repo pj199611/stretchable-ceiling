@@ -31,7 +31,7 @@ interface Props {
 const HeaderLinks = [
   { url: "/", name: "Home" },
   { url: "/category", name: "Category" },
-  { url: "/our_projects", name: "Our Projects" },
+  { url: "/our-projects", name: "Our Projects" },
 ];
 
 export default function Header({ isFixed, className, midSlot }: Props) {
