@@ -88,33 +88,30 @@ export const createProduct = async (
 ): Promise<any> => {
   console.log('req.files', req.files);
   try {
-    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
-      return res.status(400).json({ error: 'At least one image is required' });
-    }
+    let imagePaths: string[] = [];
 
-    const imagePaths = (req.files as Express.Multer.File[]).map(
-      (file) => file.path
-    );
-    if (imagePaths.length === 0) {
-      return res.status(400).json({ error: 'Images are required' });
+    if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+      imagePaths = (req.files as Express.Multer.File[]).map(
+        (file) => file.path
+      );
     }
 
     if (req.body?.imageUrls && req.body?.imageUrls !== undefined) {
-      const str = req.body.imageUrls;
+      const str = req.body?.imageUrls;
       const result = str.match(/\[(.*?)\]/)[1];
       req.body.imageUrls = result;
     }
 
     const newProduct: IProduct = new Product({
       ...req.body,
-      images: imagePaths,
-      thumbnail: imagePaths[0],
+      images: imagePaths || [],
+      thumbnail: imagePaths.length > 0 ? imagePaths[0] : req.body?.imageUrls[0],
     });
 
     const savedProduct = await newProduct.save();
     return res.status(201).json(savedProduct);
   } catch (error) {
-    console.log('Error', error);
+    console.error('Error creating product:', error);
     return res
       .status(500)
       .json({ error: 'Failed to create product', details: error.message });
