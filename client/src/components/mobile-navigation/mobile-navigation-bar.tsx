@@ -44,7 +44,7 @@ export default function MobileNavigationBar() {
 const list = [
   { title: "Home", Icon: Home, href: "/" },
   { title: "Category", Icon: CategoryOutlined, href: "/category" },
-  { title: "Our Projetcs", Icon: WorkIcon, href: "/our-projects" },
-  // { title: "Cart", Icon: ShoppingBagOutlined, href: "/cart" },
+  { title: "Projetcs", Icon: WorkIcon, href: "/our-projects" },
+  { title: "Cart", Icon: ShoppingBagOutlined, href: "/cart" },
   // { title: "Account", Icon: User2, href: "/profile" },
 ];

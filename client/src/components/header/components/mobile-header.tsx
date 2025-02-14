@@ -16,6 +16,8 @@ import DialogDrawer from "./dialog-drawer";
 // GLOBAL CUSTOM COMPONENTS
 // import Image from "@/components/BazaarImage";
 import { Paragraph } from "@/components/Typography";
+import LoginCartButtons from "./login-cart-buttons";
+import WishlistBtn from "@/comp/wishlist/wishlistBtn";
 // import { SearchInput } from "@/components/search-box";
 import { MobileMenu } from "@/components/navbar/mobile-menu";
 import { FlexBetween, FlexBox } from "@/components/flex-box";
@@ -29,9 +31,9 @@ export default function MobileHeader() {
   const {
     dialogOpen,
     sidenavOpen,
-    searchBarOpen,
+    // searchBarOpen,
     toggleDialog,
-    toggleSearchBar,
+    // toggleSearchBar,
     toggleSidenav,
   } = useHeader();
 
@@ -41,9 +43,9 @@ export default function MobileHeader() {
     <Fragment>
       <FlexBetween width="100%">
         {/* LEFT CONTENT - NAVIGATION ICON BUTTON */}
-        {/* <Box flex={1}>
+        <FlexBox justifyContent="start">
           <MobileMenu />
-        </Box> */}
+        </FlexBox>
 
         {/* MIDDLE CONTENT - LOGO */}
         <FlexBox justifyContent="center" flex={2}>
@@ -52,26 +54,18 @@ export default function MobileHeader() {
           </Link>
         </FlexBox>
 
-        {/* RIGHT CONTENT - LOGIN, CART, SEARCH BUTTON */}
-        {/* <FlexBox justifyContent="end" flex={1}>
-          <IconButton onClick={toggleSearchBar}>
-            <Icon.Search sx={ICON_STYLE} />
-          </IconButton>
-
-          <IconButton onClick={toggleDialog}>
-            <Icon.User sx={ICON_STYLE} />
-          </IconButton>
-
-          <Badge badgeContent={state.cart?.length} color="primary">
-            <IconButton onClick={toggleSidenav}>
-              <Icon.CartBag sx={ICON_STYLE} />
-            </IconButton>
-          </Badge>
-        </FlexBox> */}
+        {/* RIGHT CONTENT - Wishlist, LOGIN, CART */}
+        <FlexBox justifyContent="end" flex={1}>
+          <WishlistBtn />
+          <LoginCartButtons
+            toggleDialog={toggleDialog}
+            toggleSidenav={toggleSidenav}
+          />
+        </FlexBox>
       </FlexBetween>
 
       {/* SEARCH FORM DRAWER */}
-      <Drawer
+      {/* <Drawer
         open={searchBarOpen}
         anchor="top"
         onClose={toggleSearchBar}
@@ -86,10 +80,10 @@ export default function MobileHeader() {
             </IconButton>
           </FlexBetween>
 
-          {/* CATEGORY BASED SEARCH FORM */}
-          {/* <SearchInput /> */}
+        //  CATEGORY BASED SEARCH FORM 
+          <SearchInput /> 
         </Box>
-      </Drawer>
+      </Drawer> */}
 
       {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}
       <DialogDrawer

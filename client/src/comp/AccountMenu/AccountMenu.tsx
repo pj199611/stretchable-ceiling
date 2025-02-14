@@ -24,6 +24,25 @@ import Link from "next/link";
 import AdminLayout from "@/comp/AdminLayout";
 import useUser from "@/hooks/useUser";
 
+const AdminMenu = [
+  {
+    title: "Create Product",
+    url: "/admin/create-product",
+    Icon: AddCircleIcon,
+  },
+  {
+    title: "Callback Requests",
+    url: "/admin/callback-requests",
+    Icon: PhoneCallbackIcon,
+  },
+  {
+    title: "Create Category",
+    url: "/admin/create-category",
+    Icon: PlaylistAddIcon,
+  },
+  { title: "User List", url: "/admin/user-list", Icon: PeopleIcon },
+];
+
 export default function AccountMenu() {
   const { updateToken } = useRole();
   const [toaster, setToaster] = React.useState({
@@ -154,30 +173,14 @@ export default function AccountMenu() {
         </Link>
 
         <AdminLayout>
-          <Link href="/admin/create-product">
-            <MenuItem>
-              <AddCircleIcon style={{ marginRight: 8, color: "grey" }} />
-              Create Product
-            </MenuItem>
-          </Link>
-          <Link href="/admin/callback-requests">
-            <MenuItem>
-              <PhoneCallbackIcon style={{ marginRight: 8, color: "grey" }} />
-              Callback Requests
-            </MenuItem>
-          </Link>
-          <Link href="/admin/create-category">
-            <MenuItem>
-              <PlaylistAddIcon style={{ marginRight: 8, color: "grey" }} />
-              Create Category
-            </MenuItem>
-          </Link>
-          <Link href="/admin/user-list">
-            <MenuItem>
-              <PeopleIcon style={{ marginRight: 8, color: "grey" }} />
-              User List
-            </MenuItem>
-          </Link>
+          {AdminMenu.map((val, i) => (
+            <Link href={val.url} key={`adminLinks-${i}`}>
+              <MenuItem>
+                <val.Icon style={{ marginRight: 8, color: "grey" }} />
+                {val.title}
+              </MenuItem>
+            </Link>
+          ))}
         </AdminLayout>
 
         <Link href="/">
