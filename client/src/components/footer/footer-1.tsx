@@ -22,17 +22,17 @@ export default function Footer1() {
         my={{ xs: 2, sm: 0 }}
       >
         <Grid container spacing={3}>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <LogoSection />
           </Grid>
 
           {/* ABOUT US LINKS */}
-          <Grid item lg={4} md={4} sm={6} xs={12}>
-            <AboutLinks />
-            <div style={{ height: 16 }} />
-            {/* SOCIAL LINKS WITH ICON */}
-            <SocialLinks />
-          </Grid>
+          {/* <Grid item lg={6} md={6} sm={6} xs={12}> */}
+          {/* <AboutLinks /> */}
+          {/* <div style={{ height: 16 }} /> */}
+          {/* SOCIAL LINKS WITH ICON */}
+          {/* <SocialLinks /> */}
+          {/* </Grid> */}
 
           {/* CUSTOMER CARE LINKS */}
           {/* <Grid item lg={3} md={6} sm={6} xs={12}>
@@ -40,7 +40,7 @@ export default function Footer1() {
           </Grid> */}
 
           {/* CONTACT & SOCIAL LINKS */}
-          <Grid item lg={4} md={4} sm={6} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             {/* CONTACT INFORMATION */}
             <Heading>Contact Us</Heading>
 
@@ -57,6 +57,7 @@ export default function Footer1() {
             <Paragraph py={0.6} mb={2} color="grey.500">
               <a href="tel:844-704-1309"> Phone: 844-704-1309</a>
             </Paragraph>
+            <SocialLinks />
 
             <Grid />
           </Grid>
