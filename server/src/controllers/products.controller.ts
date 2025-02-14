@@ -103,7 +103,12 @@ export const createProduct = async (
     }
 
     console.log('imagePaths', imagePaths);
+    console.log("--------->",typeof req.body.imageUrls)
+    console.log("dqdqdwq",extractArray(req.body.imageUrls))
+    if(req.body.imageUrls.length){
+      req.body.imageUrls=extractArray(req.body.imageUrls)
 
+    }
     const newProduct: IProduct = new Product({
       ...req.body,
       images: imagePaths,
@@ -228,3 +233,19 @@ export const getProductsByCategoryAndSubCategoryDetails = async (
     res.status(500).json({ message: 'Failed to fetch product', error });
   }
 };
+
+
+function extractArray(str) {
+  try {
+
+    console.log("==========str",str)
+    const result = JSON.parse(str);
+    if (Array.isArray(result)) {
+      return result;
+    }
+    return [];
+  } catch (error) {
+    console.log("======>",error)
+    return [];
+  }
+}

@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema<IProduct>(
       ref: 'Category',
       required: true,
     },
+    imageUrls: {
+      type: [String], 
+      required: true,
+    },
     product_price:{
       type:Number,
       required:false
