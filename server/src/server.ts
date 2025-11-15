@@ -39,14 +39,13 @@ app.use('/api', limiter);
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      callback(null, true); // Allow all origins
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
-    credentials: true, // Allow credentials
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+    credentials: false, // MUST be false
   })
 );
+
 
 setupSwagger(app);
 
